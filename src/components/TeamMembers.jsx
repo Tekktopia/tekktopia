@@ -53,7 +53,7 @@ export default function TeamMembers() {
       name: 'OREOLUWA LEO-DADA',
       imageUrl: '/ore-dada.png',
       role: 'Digital Marketing Executive',
-      linkedIn: 'https://www.linkedin.com/in/ireoluwa-adesanya-8b5b9b1b4/',
+      linkedIn: 'https://www.linkedin.com/in/oreoluwa-leo-dada-73b156248',
     },
   ];
 

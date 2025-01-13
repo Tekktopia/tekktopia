@@ -38,6 +38,8 @@ const ServiceCategories = {
       comment:
         'Tekktopia didn’t just provide us with solutions, they empowered our team to harness the full potential of technology. We’re truly grateful for their expertise and dedication.',
     },
+    description:
+      "At Tekktopia, we deliver comprehensive cloud computing solutions designed to empower businesses with agility, scalability, and innovation. Our expertise spans across public, private, hybrid, and community cloud environments, leveraging leading cloud platforms like AWS, Azure, and Google Cloud to meet your unique needs. Whether you're looking to migrate, optimize, or scale your cloud infrastructure, Tekktopia has the expertise to make it happen.",
   },
   'mobile-web-dev': {
     titleTop: 'Mobile &',
@@ -71,6 +73,8 @@ const ServiceCategories = {
       comment:
         'Tekktopia didn’t just provide us with solutions, they empowered our team to harness the full potential of technology. We’re truly grateful for their expertise and dedication.',
     },
+    description:
+      'At Tekktopia, we specialize in crafting high performing, user centric mobile and web applications tailored to your business needs. From ideation to deployment, our team delivers seamless, scalable, and secure solutions to help you thrive in the digital age',
   },
   'product-design': {
     titleTop: 'Product Design and',
@@ -104,6 +108,8 @@ const ServiceCategories = {
       comment:
         'When we partnered with Tekktopia, we knew we needed a tech overhaul, but we didn’t expect the transformation to be this seamless.  They truly understand what businesses need to thrive in today’s market.',
     },
+    description:
+      "At Tekktopia, we bring your ideas to life with our Product Design and Envisioning services. Whether you're starting from scratch or imagining an existing product, we collaborate with you to create user centered solutions that align with your vision and goals.From ideation and prototyping to user experience (UX) and interface (UI) design, we ensure every detail is crafted with care.",
   },
   'data-analytics': {
     titleTop: 'Data Analytics and',
@@ -137,6 +143,8 @@ const ServiceCategories = {
       comment:
         'Tekktopia didn’t just provide us with solutions, they empowered our team to harness the full potential of technology. We’re truly grateful for their expertise and dedication.',
     },
+    description:
+      'At Tekktopia, we empower businesses to make data driven decisions with precision and confidence. Our Data Analytics and Business Intelligence (BI) services help you unlock the full potential of your data by transforming raw information into actionable insights. Whether it’s optimizing operations, enhancing customer experience, or identifying growth opportunities, Tekktopia equips you with the tools and expertise to stay ahead in a competitive market.',
   },
   'it-consulting': {
     titleTop: 'IT Consulting',
@@ -170,6 +178,8 @@ const ServiceCategories = {
       comment:
         'When we partnered with Tekktopia, we knew we needed a tech overhaul, but we didn’t expect the transformation to be this seamless.  They truly understand what businesses need to thrive in today’s market.',
     },
+    description:
+      'At Tekktopia, we offer expert IT consultation services to help businesses align technology with their strategic goals. From digital transformation to optimizing IT infrastructure, our solutions empower organizations to thrive in today’s dynamic digital landscape.',
   },
   'cyber-security': {
     titleTop: 'Cybersecurity',
@@ -203,6 +213,8 @@ const ServiceCategories = {
       comment:
         'When we partnered with Tekktopia, we knew we needed a tech overhaul, but we didn’t expect the transformation to be this seamless.  They truly understand what businesses need to thrive in today’s market.',
     },
+    description:
+      'In today’s digitally interconnected world, safeguarding your data, systems, and operations is paramount. At Tekktopia, we provide cutting edge cybersecurity solutions designed to protect your business from ever evolving threats. Our services are built on  strong security principles, leveraging the CIA triad (Confidentiality, Integrity, Availability) to ensure your data is protected at every stage.',
   },
 };
 
@@ -230,6 +242,7 @@ const ServicePage = () => {
     testimonials,
     image,
     reviews,
+    description,
   } = service;
 
   return (
@@ -239,14 +252,14 @@ const ServicePage = () => {
         topText={titleTop}
         bottomText={titleBottom}
         subtitle={subtitle}
+        description={description}
       />
       <div className="container mx-auto">
         <Features features={features} />
 
         <Testimonials testimonials={testimonials} />
-</div>
-        <Reviews reviews={reviews} />
-      
+      </div>
+      <Reviews reviews={reviews} />
     </div>
   );
 };

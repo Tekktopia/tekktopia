@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 
-const Hero = ({ imageUrl, topText, bottomText, subtitle }) => {
+const Hero = ({ imageUrl, topText, bottomText, subtitle, description }) => {
   return (
     <div className="relative w-full h-[850px]  flex flex-col justify-center items-center text-white -mt-8 md:mt-10 lg:mt-24">
       <img
@@ -22,13 +22,7 @@ const Hero = ({ imageUrl, topText, bottomText, subtitle }) => {
           <img src="/arrow-right.png" />
         </button>
         <p className="sm:mt-64 mt-48 text-center sm:text-[20px] text-[14px] font-light sm:px-16">
-          At Tekktopia, we deliver comprehensive cloud computing solutions
-          designed to empower businesses with agility, scalability, and
-          innovation. Our expertise spans across public, private, hybrid, and
-          community cloud environments, leveraging leading cloud platforms like
-          AWS, Azure, and Google Cloud to meet your unique needs. Whether you
-          {"'"}re looking to migrate, optimize, or scale your cloud
-          infrastructure, Tekktopia has the expertise to make it happen.
+          {description}
         </p>
       </section>
     </div>
@@ -41,6 +35,7 @@ Hero.propTypes = {
   topText: PropTypes.string.isRequired,
   bottomText: PropTypes.string.isRequired,
   subtitle: PropTypes.string.isRequired,
+  description: PropTypes.string.isRequired,
 };
 
 export default Hero;
