@@ -5,12 +5,12 @@ import Member from '../components/Member';
 export default function TeamMembers() {
   // Array of team member objects with their details
   const teamMembers = [
-    {
-      name: 'AKINOLA DANIEL OSHINUBI',
-      imageUrl: '/daniel-oshinubi.png',
-      role: 'Founder & MD/CEO',
-      linkedIn: 'https://www.linkedin.com/in/akinolaoshinubi/',
-    },
+    // {
+    //   name: 'AKINOLA DANIEL OSHINUBI',
+    //   imageUrl: '/daniel-oshinubi.png',
+    //   role: 'Founder & MD/CEO',
+    //   linkedIn: 'https://www.linkedin.com/in/akinolaoshinubi/',
+    // },
     {
       name: 'BOLUWATIFE ONI',
       imageUrl: '/tife-oni.png',

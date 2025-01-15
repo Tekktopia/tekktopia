@@ -67,9 +67,13 @@ const HomeHero = ({ setIsModalOpen }) => {
               className="w-[50px] h-[53px]"
             />
             <div className="ml-[12px]">
-              <div className="text-[14px]">Akinola Daniel Oshinubi</div>
+              {/* <div className="text-[14px]">Akinola Daniel Oshinubi</div>
               <div className="text-[12px] text-[#697D95B2] mt-[4px]">
                 Chief Executive Officer
+              </div> */}
+              <div className="text-[14px]">Ireoluwa Adeoluwa</div>
+              <div className="text-[12px] text-[#697D95B2] mt-[4px]">
+                Chief Technical Officer
               </div>
             </div>
           </div>
