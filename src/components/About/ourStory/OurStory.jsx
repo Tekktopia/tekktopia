@@ -52,8 +52,17 @@ const OurStory = () => {
               How We Started Till Date
             </h2>
             <p className="text-[#697D95B2] text-[14px] w-full sm:w-[600px]">
-            Tekktopia began as a collaboration between young curious minds, driven by a shared passion for innovation and problem-solving. We wanted to create a space where ideas could flow freely, a place where we could push boundaries while still refining existing technologies to help businesses run smoother and smarter.
-Our mission is simple but bold,  to make a meaningful impact on the world. In a constantly shifting technology landscape, we aim to be a steady force bringing clarity, innovation, and calm amidst the chaos of change.
+              Tekktopia began as a collaboration between young curious minds,
+              driven by a shared passion for innovation and problem-solving. We
+              wanted to create a space where ideas could flow freely, a place
+              where we could push boundaries while still refining existing
+              technologies to help businesses run smoother and smarter. 
+              <br/>
+              <br/>
+              Our mission is simple but bold, to make a meaningful impact on the
+              world. In a constantly shifting technology landscape, we aim to be
+              a steady force bringing clarity, innovation, and calm amidst the
+              chaos of change.
             </p>
           </div>
 
@@ -83,7 +92,7 @@ Our mission is simple but bold,  to make a meaningful impact on the world. In a 
                         {year.year}
                       </h1>
                       <div className="text-white text-[14px] ">
-                        <p className='text-[16px] font-medium'>{year.title}</p>
+                        <p className="text-[16px] font-medium">{year.title}</p>
                         {year.description}
                       </div>
                     </div>
