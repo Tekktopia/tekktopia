@@ -52,12 +52,7 @@ const OurStory = () => {
               How We Started Till Date
             </h2>
             <p className="text-[#697D95B2] text-[14px] w-full sm:w-[600px]">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut in
-              ligula aliquam, faucibus erat a, dictum erat. Aliquam rutrum eget
-              odio et mattis. Sed laoreet porta condimentum. Phasellus
-              sollicitudin lobortis porta. Donec a eros quis nunc pretium
-              egestas. Ut ultrices sed leo non vestibulum. Nullam ac nulla
-              suscipit.
+            Tekktopia began as a collaboration between young curious minds, driven by a shared passion for innovation and problem-solving. We wanted to create a space where ideas could flow freely, a place where we could push boundaries while still refining existing technologies to help businesses run smoother and smarter. 
             </p>
           </div>
 
