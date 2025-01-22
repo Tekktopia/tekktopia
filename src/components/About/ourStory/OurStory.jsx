@@ -25,7 +25,7 @@ const OurStory = () => {
       image: '/about-2025.png',
       title: 'Present',
       description:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut in ligula aliquam, faucibus erat a, dictum erat.',
+        'Lorem ipsum dolor sit amet, conssectetur adipiscing elit. Ut in ligula aliquam, faucibus erat a, dictum erat.',
     },
   ];
 
