@@ -56,9 +56,9 @@ const OurStory = () => {
               driven by a shared passion for innovation and problem-solving. We
               wanted to create a space where ideas could flow freely, a place
               where we could push boundaries while still refining existing
-              technologies to help businesses run smoother and smarter. 
-              <br/>
-              <br/>
+              technologies to help businesses run smoother and smarter.
+              <br />
+              <br />
               Our mission is simple but bold, to make a meaningful impact on the
               world. In a constantly shifting technology landscape, we aim to be
               a steady force bringing clarity, innovation, and calm amidst the
