@@ -23,7 +23,7 @@ export default function Footer() {
     { text: '+234 815 433 2992', href:"tel:" },
     { text: '+234 909 330 9638',href:"tel:"  },
     { text: '+234  810 596 3769',href:"tel:"  },
-    { text: 'message@tekktopia.com',href:"mailto:"  },
+    { text: 'info@tekktopia.com',href:"mailto:"  },
   ];
 
   return (
@@ -114,7 +114,7 @@ export default function Footer() {
         {/* Bottom Section: Copyright and Legal Links */}
         <div className="mt-12 text-center lg:text-left flex justify-between items-center flex-col lg:flex-row">
           <div className="text-[16px] font-extralight tracking-wider lg:text-[14px]">
-            © 2024 All Rights Reserved
+            © 2025 All Rights Reserved
           </div>
           <div className="flex gap-6 lg:text-[14px] text-[16px] font-extralight tracking-wider">
             <div>Terms & Condition</div>

@@ -30,8 +30,7 @@ const HomeHero = ({ setIsModalOpen }) => {
 
       <p className="text-[#697D95B2] text-[12px] sm:text-[14px] md:text-[16px] mt-4 max-w-[865px] text-center">
         Imagine a world where your technology works seamlessly in the background
-        while you focus on growing your business. That’s what we do at Tekktopia
-        , helping you navigate the complex world of IT with ease
+        while you focus on growing your business. That’s what we do at Tekktopia, helping you navigate the complex world of IT with ease
       </p>
 
       <div className="mt-8 flex flex-col md:flex-row gap-4 items-center justify-center">
@@ -73,7 +72,7 @@ const HomeHero = ({ setIsModalOpen }) => {
               </div> */}
               <div className="text-[14px]">Ireoluwa Adeoluwa</div>
               <div className="text-[12px] text-[#697D95B2] mt-[4px]">
-                Chief Technical Officer
+                Chief Technology Officer
               </div>
             </div>
           </div>

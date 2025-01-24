@@ -27,14 +27,14 @@ export default function TeamMembers() {
     {
       name: 'AKERELE DAVID',
       imageUrl: teamMember,
-      role: 'Head. Software Development',
+      role: 'Head, Software Development',
       linkedIn: 'https://www.linkedin.com/in/ireoluwa-adesanya-8b5b9b1b4/',
     },
 
     {
       name: 'IREOLUWA ADEOLUWA',
       imageUrl: teamMember,
-      role: 'CTO',
+      role: 'Chief Technology Officer',
       linkedIn: 'https://www.linkedin.com/in/ireoluwa-adesanya-8b5b9b1b4/',
     },
     {
