@@ -15,20 +15,20 @@ export default function TeamMembers() {
       name: 'BOLUWATIFE ONI',
       imageUrl: '/tife-oni.png',
       role: 'Head, Sales & Business Development',
-      linkedIn: 'https://www.linkedin.com/in/ireoluwa-adesanya-8b5b9b1b4/',
+      linkedIn: 'https://www.linkedin.com/in/boluwatife-oni-connect/',
     },
     {
       name: 'OLUWADAMILARE ADEKOYA',
       imageUrl: '/dami-adekoya.png',
       role: 'Product Manager',
-      linkedIn: 'https://www.linkedin.com/in/ireoluwa-adesanya-8b5b9b1b4/',
+      linkedIn: 'https://www.linkedin.com/in/oluwadamilare-adekoya-370610266/',
     },
 
     {
       name: 'AKERELE DAVID',
       imageUrl: teamMember,
       role: 'Head, Software Development',
-      linkedIn: 'https://www.linkedin.com/in/ireoluwa-adesanya-8b5b9b1b4/',
+      linkedIn: 'https://www.linkedin.com/in/david-akerele-38837623a/',
     },
 
     {
@@ -37,18 +37,18 @@ export default function TeamMembers() {
       role: 'Chief Technology Officer',
       linkedIn: 'https://www.linkedin.com/in/ireoluwa-adesanya-8b5b9b1b4/',
     },
-    {
-      name: 'SAMUEL OLAWUMI',
-      imageUrl: '/samuel-olawumi.jpg',
-      role: 'Software Engineer',
-      linkedIn: 'https://www.linkedin.com/in/WumiCodes',
-    },
-    {
-      name: 'JOLAOLUWA OLUSANYA',
-      imageUrl: '/samuel-olawumi.jpg',
-      role: 'Software Engineer',
-      linkedIn: 'https://www.linkedin.com/in/ireoluwa-adesanya-8b5b9b1b4/',
-    },
+    // {
+    //   name: 'SAMUEL OLAWUMI',
+    //   imageUrl: '/samuel-olawumi.jpg',
+    //   role: 'Software Engineer',
+    //   linkedIn: 'https://www.linkedin.com/in/WumiCodes',
+    // },
+    // {
+    //   name: 'JOLAOLUWA OLUSANYA',
+    //   imageUrl: '/samuel-olawumi.jpg',
+    //   role: 'Software Engineer',
+    //   linkedIn: 'https://www.linkedin.com/in/ireoluwa-adesanya-8b5b9b1b4/',
+    // },
     {
       name: 'OREOLUWA LEO-DADA',
       imageUrl: '/ore-dada.png',
