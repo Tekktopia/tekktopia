@@ -32,11 +32,11 @@ export default function Footer() {
         <div className="flex flex-col lg:flex-row justify-between gap-12 lg:gap-[120px]">
           {/* Left Section: Logo and Address */}
           <div className="flex flex-col text-center lg:max-w-[264px] lg:text-left">
-            <div className="flex items-center justify-center lg:justify-start text-[30px] mb-4">
+            <div className="flex items-center justify-center lg:justify-start  font-semibold text-[30px] mb-4">
               <div className="w-[44px] h-[44px]">
                 <img src={tekktopia} alt="Tekktopia Logo" />
               </div>
-              <span className="text-[#f5901f] ml-[10px]">t</span>eKK
+              <span className="text-[#f5901f] ml-[10px]">t</span>ekk
               <span className="text-[#137cc6]">t</span>opia
             </div>
             <div className="text-[15px] text-[#CBCBCB] lg:text-[14px]">

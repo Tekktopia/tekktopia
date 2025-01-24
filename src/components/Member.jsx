@@ -6,7 +6,7 @@ export default function Member({ member }) {
   return (
     <div className="flex flex-col items-center mx-auto p-2">
       {/* Team member image */}
-      <img src={member.imageUrl} alt="team" className=" rounded-[11px] h-100 object-cover" />
+      <img src={member.imageUrl} alt="team" className=" rounded-[11px] h-100 object-cover w-[306px] h-[320px]" />
 
       <div className="-mt-8 w-full p-2">
         <div className="flex flex-row bg-white rounded-lg items-center shadow-lg p-2">

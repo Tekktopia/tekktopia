@@ -63,7 +63,7 @@ const Navbar = () => {
     <nav className="bg-[#FCFDFF] border-b fixed top-0 p-4 py-1 w-full z-20 flex flex-col box-border lg:flex-row justify-center">
       <div className="px-2 sm:px-6 lg:px-8 flex items-center justify-between w-full h-16 lg:container mx-auto">
         {/* Logo Section */}
-        <div className="flex-shrink-0 flex items-center ml-0">
+        <div className="flex-shrink-0 flex items-center ml-0 font-medium ">
           <a href="/" className="flex items-center">
             <img src="/logo.png" alt="tekktopia" className="w-8 h-8" />
             <p className="text-[24px] ml-2 sm:text-[30px]">

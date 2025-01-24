@@ -1,9 +1,14 @@
+@import url('./font.css');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
   font-family: 'DM_Sans';
+}
+
+.logo {
+  font-family: 'GT Walsheim Pro';
 }
 
 @font-face {
@@ -133,6 +138,24 @@
   font-weight: 900;
   font-style: italic;
 }
+@font-face {
+  font-family: 'GT Walsheim Pro';
+  src: url('./GT-Walsheim-Pro-Regular.woff2') format('woff2'),
+       url('./GT-Walsheim-Pro-Regular.woff') format('woff'),
+       url('./GT-Walsheim-Pro-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'GT Walsheim Pro';
+  src: url('./GT-Walsheim-Pro-Bold.woff2') format('woff2'),
+       url('./GT-Walsheim-Pro-Bold.woff') format('woff'),
+       url('./GT-Walsheim-Pro-Bold.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+}
+
 
 .footer > * {
   font-size: clamp(10px, 1vw, 2rem);
@@ -153,3 +176,4 @@
 .hero {
   font-size: clamp(20px, 3vw, 50px);
 }
+
