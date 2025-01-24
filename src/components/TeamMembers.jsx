@@ -35,7 +35,7 @@ export default function TeamMembers() {
       name: 'IREOLUWA ADEOLUWA',
       imageUrl: teamMember,
       role: 'Chief Technology Officer',
-      linkedIn: 'https://www.linkedin.com/in/ireoluwa-adesanya-8b5b9b1b4/',
+      linkedIn: 'https://www.linkedin.com/in/ire-adeoluwa-2068361b5/',
     },
     // {
     //   name: 'SAMUEL OLAWUMI',
