@@ -70,7 +70,7 @@ const BridgingExcellence = () => {
             <p className="w-full text-[#FFFFFFB2] leading-[24px] text-[14px] lg:text-[16px]"></p>
           </div>
 
-          <div className="grid lg:grid-cols-2 gap-[30px] mb-24 w-full lg:justify-center">
+          <div className="grid lg:grid-cols-2 gap-[30px] mb-24 w-full max-w-[1280px] lg:justify-center">
             {[
               {
                 title: 'Scalability',
@@ -95,7 +95,7 @@ const BridgingExcellence = () => {
                   'Access help anytime with our round the clock service.',
               },
             ].map((_, index) => (
-              <div key={index} className="flex-grow h-full max-w0px]">
+              <div key={index} className="flex-grow h-full ">
                 <div className="text-[20px] sm:text-[24px] lg:text-[32px] leading-[46px] mb-2 font-bold text-[#C2813B]">
                   {_.title}
                 </div>

@@ -35,9 +35,9 @@ const GetStarted = () => {
           to providing personalized tech solutions that fit your specific needs,
           ensuring you always have the tools to succeed.
         </div>
-        <div className="mt-6 sm:mt-16 text-[#0056b3] font-semibold cursor-pointer">
+        {/* <div className="mt-6 sm:mt-16 text-[#0056b3] font-semibold cursor-pointer">
           Get started {">"}
-        </div>
+        </div> */}
       </div>
 
       <div className="flex flex-col sm:flex-row items-center justify-between mt-[112px] gap-8 sm:gap-16">

@@ -4,7 +4,7 @@ const LatestArticles = () => {
   const articles = [
     { id: 1, img: 'article1.png', title: 'AI content detection in the emerging information ecosystem' },
     { id: 2, img: 'article3.png', title: 'How to deal with Big Tech power? The “ Big Tech Rah”, a new form of biopower in the digital age' },
-    { id: 3, img: 'article2.png', title: 'The urban-texh feedback loop: A surveillance and development data-walk in South Lake Union' },
+    { id: 3, img: 'article8.png', title: 'The urban-tech feedback loop: A surveillance and development data-walk in South Lake Union' },
   ];
 
   return (

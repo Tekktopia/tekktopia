@@ -4,6 +4,7 @@ import { useRef, useState } from 'react';
 
 const RequestDemoModal = ({ isOpen, onClose }) => {
   const form = useRef();
+  const modalRef = useRef(); // To track modal content
   const [emailSent, setEmailSent] = useState('');
 
   const sendEmail = (e) => {
@@ -24,10 +25,24 @@ const RequestDemoModal = ({ isOpen, onClose }) => {
       );
   };
 
+  // Close modal if clicking outside the modal content
+  const handleBackdropClick = (e) => {
+    if (modalRef.current && !modalRef.current.contains(e.target)) {
+      onClose();
+    }
+  };
+
   if (!isOpen) return null;
+
   return (
-    <div className="fixed inset-0 bg-[#241D31] bg-opacity-80 flex justify-center items-center z-50">
-      <div className="bg-white rounded-lg shadow-lg w-[90%] sm:w-[80%] lg:w-[650px] p-6">
+    <div
+      className="fixed inset-0 bg-[#241D31] bg-opacity-80 flex justify-center items-center z-50"
+      onClick={handleBackdropClick} // Attach click listener to backdrop
+    >
+      <div
+        ref={modalRef} // Ref to track modal content
+        className="bg-white rounded-lg shadow-lg w-[90%] sm:w-[80%] lg:w-[650px] p-6"
+      >
         <div className="flex justify-between items-center">
           <h2 className="text-xl font-semibold">Request a Quote</h2>
           <button

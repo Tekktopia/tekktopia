@@ -3,8 +3,8 @@ import { useEffect, useState, useRef } from 'react';
 const TrustOurProcess = () => {
   const progressBarData = [
     { text: '24/7 Support', barPercent: 94 },
-    { text: 'Technical Assistance', barPercent: 85 },
-    { text: 'Bug Fixing', barPercent: 78 },
+    { text: 'Technical Assistance', barPercent: 89 },
+    { text: 'Bug Fixing', barPercent: 87 },
     { text: 'Customer Service', barPercent: 92 },
   ];
 

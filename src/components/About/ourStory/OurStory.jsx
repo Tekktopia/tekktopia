@@ -148,6 +148,18 @@ const OurStory = () => {
                 Web and Mobile App Development
               </div>
             </li>
+            <li className="flex items-center mt-[16px]">
+              <TriangleIcon />
+              <div className="ml-[8px] text-[14px] sm:text-[16px] text-[#697D95B2]">
+                IT Consulting
+              </div>
+            </li>
+            <li className="flex items-center mt-[16px]">
+              <TriangleIcon />
+              <div className="ml-[8px] text-[14px] sm:text-[16px] text-[#697D95B2]">
+                Brand Identity & Design
+              </div>
+            </li>
           </ul>
         </div>
       </section>

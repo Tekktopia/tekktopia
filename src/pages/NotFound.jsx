@@ -1,20 +1,19 @@
 import HeroImage from '../assets/images/contactUsImage.png';
 import Hero from '../components/Hero';
-
-export default function Career() {
+export default function NotFound() {
   return (
-    <div className="w-full flex flex-col min-h-screen mx-auto">
+    <div className="w-full  mx-auto">
       {/* Hero Section */}
       <Hero
         imageUrl={HeroImage}
         topText="Creating Prosperity,"
         bottomText="Ensuring Tomorrow's Success"
       />
-
-      {/* Image Section */}
-      <div className="w-full flex-1 flex items-center justify-center">
-        <img src="/400-Error.png" className="mx-auto" />
-      </div>
+      <section className="relative w-full p-10">
+        <div className="w-full flex">
+          <img src="/400-Error.png" className="mx-auto" />
+        </div>
+      </section>
     </div>
   );
 }

@@ -40,6 +40,8 @@ const ServiceCategories = {
     },
     description:
       "At Tekktopia, we deliver comprehensive cloud computing solutions designed to empower businesses with agility, scalability, and innovation. Our expertise spans across public, private, hybrid, and community cloud environments, leveraging leading cloud platforms like AWS, Azure, and Google Cloud to meet your unique needs. Whether you're looking to migrate, optimize, or scale your cloud infrastructure, Tekktopia has the expertise to make it happen.",
+      isCloudComputing: true, 
+
   },
   'mobile-web-dev': {
     titleTop: 'Mobile &',
@@ -243,6 +245,7 @@ const ServicePage = () => {
     image,
     reviews,
     description,
+    isCloudComputing,
   } = service;
 
   return (
@@ -253,13 +256,14 @@ const ServicePage = () => {
         bottomText={titleBottom}
         subtitle={subtitle}
         description={description}
+        isCloudComputing={isCloudComputing}
       />
       <div className="container mx-auto">
         <Features features={features} />
 
         <Testimonials testimonials={testimonials} />
       </div>
-      <Reviews reviews={reviews} />
+      {/* <Reviews reviews={reviews} /> */}
     </div>
   );
 };

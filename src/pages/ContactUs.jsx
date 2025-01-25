@@ -42,7 +42,7 @@ export default function ContactUs() {
       />
 
       {/* Contact Info Section */}
-      <section className="relative w-full p-10">
+      <section className="relative w-full p-10 max-w-[1280px] mx-auto">
         <div className="w-full flex flex-col  lg:w-1/2 items-start">
           <h2 className="text-2xl sm:text-3xl mb-2 font-medium">
             Contact Information
@@ -55,7 +55,7 @@ export default function ContactUs() {
             you.
           </p>
         </div>
-        <div className="grid lg:grid-cols-3 mt-8 w-full">
+        <div className="grid lg:grid-cols-3 mt-8 ">
           {contactLinks.map((contactLink, index) => (
             // Contact link item
             <div key={index} className="flex gap-2 lg:gap-8 items-center">

@@ -3,9 +3,9 @@ import { FiChevronRight } from 'react-icons/fi';
 
 export default function Reviews({reviews}) {
   return (
-    <section className="bg-white text-black px-6 lg:px-[80px] w-full gap-12 flex flex-col items-center justify-center pt-16 pb-10">
+    <section className="bg-white text-black px-6 lg:px-[80px] w-full gap-12  flex flex-col items-center justify-center pt-16 pb-10">
         <h1 className="text-[32px]">What Our Customers Say</h1>
-        <div className="grid sm:grid-cols-2 gap-6 mt-10 w-full">
+        <div className="grid sm:grid-cols-2 gap-6 mt-10 w-full max-w-[1280px]">
           <img
             src={reviews.image}
             alt="Review Guy"

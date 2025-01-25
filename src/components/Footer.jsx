@@ -1,4 +1,4 @@
-import tekktopia from '../assets/images/tekktopia.png'
+import tekktopia from '../assets/images/tekktopia.png';
 
 export default function Footer() {
   // Array of links and contact info
@@ -14,20 +14,29 @@ export default function Footer() {
 
   const socialLinks = [
     { text: 'LinkedIn', href: 'https://www.linkedin.com/company/tekktopia/' },
-    { text: 'Thread', href: 'https://www.threads.net/@tekktopia?igshid=NTc4MTIwNjQ2YQ==' },
-    { text: 'Instagram', href: 'https://www.instagram.com/tekktopia?igsh=MXJramZicW80eDV0eQ==' },
-    { text: 'Twitter', href: 'https://x.com/tekktopia30385?s=21&t=fcOLORW_YEXpNc1TDIRvEA' },
+    {
+      text: 'Thread',
+      href: 'https://www.threads.net/@tekktopia?igshid=NTc4MTIwNjQ2YQ==',
+    },
+    {
+      text: 'Instagram',
+      href: 'https://www.instagram.com/tekktopia?igsh=MXJramZicW80eDV0eQ==',
+    },
+    {
+      text: 'Twitter',
+      href: 'https://x.com/tekktopia30385?s=21&t=fcOLORW_YEXpNc1TDIRvEA',
+    },
   ];
 
   const contactInfo = [
-    { text: '+234 815 433 2992', href:"tel:" },
-    { text: '+234 909 330 9638',href:"tel:"  },
-    { text: '+234  810 596 3769',href:"tel:"  },
-    { text: 'info@tekktopia.com',href:"mailto:"  },
+    { text: '+234 815 433 2992', href: 'tel:' },
+    { text: '+234 909 330 9638', href: 'tel:' },
+    { text: '+234  810 596 3769', href: 'tel:' },
+    { text: 'info@tekktopia.com', href: 'mailto:' },
   ];
 
   return (
-    <footer className="w-full bg-[#081527] py-[60px] md:py-[100px] lg:py-[171px] text-white box-border">
+    <footer className="w-full bg-[#081527] py-[60px] md:py-[100px] lg:pb-[171px] text-white box-border">
       <div className="container mx-auto px-6 lg:px-12">
         <div className="flex flex-col lg:flex-row justify-between gap-12 lg:gap-[120px]">
           {/* Left Section: Logo and Address */}
@@ -49,7 +58,9 @@ export default function Footer() {
           {/* Right Section: Links */}
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 text-center lg:text-left lg:grid-cols-4 lg:gap-12">
             <div>
-              <div className="text-[18px] mb-4 text-center lg:text-left">Company</div>
+              <div className="text-[18px] mb-4 text-center lg:text-left">
+                Company
+              </div>
               <div>
                 {companyLinks.map((link, index) => (
                   <div key={index} className="mb-[16px]">
@@ -64,12 +75,15 @@ export default function Footer() {
               </div>
             </div>
             <div>
-              <div className="text-[18px] mb-4 text-center lg:text-left">Products</div>
+              <div className="text-[18px] mb-4 text-center lg:text-left">
+                Products
+              </div>
               <div>
                 {productLinks.map((link, index) => (
                   <div key={index}>
                     <a
                       href={link.href}
+                      target="_blank"
                       className="text-[16px] font-extralight hover:text-[#f5901f] lg:text-[14px]"
                     >
                       {link.text}
@@ -79,12 +93,15 @@ export default function Footer() {
               </div>
             </div>
             <div>
-              <div className="text-[18px] mb-4 text-center lg:text-left">Stay Connected</div>
+              <div className="text-[18px] mb-4 text-center lg:text-left">
+                Stay Connected
+              </div>
               <div>
                 {socialLinks.map((link, index) => (
                   <div key={index} className="mb-[16px]">
                     <a
                       href={link.href}
+                      target="_blank"
                       className="text-[16px] font-extralight hover:text-[#f5901f] lg:text-[14px]"
                     >
                       {link.text}
@@ -94,12 +111,14 @@ export default function Footer() {
               </div>
             </div>
             <div>
-              <div className="text-[18px] mb-4 text-center lg:text-left">Reach Us</div>
+              <div className="text-[18px] mb-4 text-center lg:text-left">
+                Reach Us
+              </div>
               <div>
                 {contactInfo.map((link, index) => (
                   <div key={index} className="mb-[16px]">
                     <a
-                      href={link.href+link.text}
+                      href={link.href + link.text}
                       className="text-[16px] font-extralight hover:text-[#f5901f] lg:text-[14px]"
                     >
                       {link.text}
