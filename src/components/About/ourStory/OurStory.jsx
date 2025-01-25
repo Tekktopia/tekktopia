@@ -11,21 +11,21 @@ const OurStory = () => {
       image: '/about-2023.png',
       title: 'The Beginning',
       description:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut in ligula aliquam, faucibus erat a, dictum erat.',
+        'Tekktopia was born from a vision shared by a group of passionate innovators. In 2023, we laid the foundation of our mission to simplify technology and empower businesses with cutting-edge solutions. It was a year of bold ideas and endless possibilities.',
     },
     {
       year: '2024',
       image: '/about-2024.png',
       title: 'Growth',
       description:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut in ligula aliquam, faucibus erat a, dictum erat aliquam, faucibus erat a, dictum erat.',
+        'In 2024, Tekktopia experienced remarkable growth. We expanded our services, collaborated with diverse clients, and pushed the boundaries of innovation. This was the year we transformed challenges into opportunities and made a lasting impact on the industries we serve.',
     },
     {
       year: '2025',
       image: '/about-2025.png',
       title: 'Present',
       description:
-        'Lorem ipsum dolor sit amet, conssectetur adipiscing elit. Ut in ligula aliquam, faucibus erat a, dictum erat.',
+        'As of 2025, Tekktopia stands as a leader in technological innovation. With a growing team and an ever-expanding portfolio, we continue to deliver tailored solutions that simplify complex operations and empower businesses to thrive in a dynamic world.',
     },
   ];
 
