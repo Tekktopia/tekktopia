@@ -24,6 +24,8 @@ function App() {
         return 'Blog - Tekktopia';
       case '/career':
         return 'Career - Tekktopia';
+      case '/*':
+        return 'Error - Tekktopia';
       // Add more cases as needed
       default:
         return 'Tekktopia';
