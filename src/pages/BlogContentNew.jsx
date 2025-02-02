@@ -1,11 +1,86 @@
-import {
-  FaFacebook,
-  FaInstagram,
-  FaLinkedin,
-  FaTwitter,
-  FaWhatsapp,
-} from 'react-icons/fa6';
+import { FaFacebook, FaLinkedin, FaTwitter, FaWhatsapp } from 'react-icons/fa6';
 import { useParams } from 'react-router-dom';
+
+const BlogContent = () => {
+  const { id } = useParams();
+  const blog = blogData[parseInt(id) - 1];
+  const url = 'https://tekktopia.com';
+
+  return (
+    <div className="mt-36 lg:px-16 sm:px-8 px-6 flex flex-col gap-16 w-full max-w-7xl">
+      {/* Breadcrumb */}
+      <h5 className="text-[14px]">
+        <a href="/blog">
+          <span className="text-[#28252480]">Blog &gt;</span>
+        </a>{' '}
+        {blog.title}
+      </h5>
+
+      {/* Blog Header */}
+      <div className="mx-auto flex flex-col w-full lg:px-12 gap-4">
+        <h5 className="font-medium text-[24px] sm:text-[32px] lg:text-[50px]">
+          {blog.title}
+        </h5>
+        <p>
+          <span className="text-[#2D5283] text-[14px] italic">
+            By {blog.author}
+          </span>{' '}
+          - {blog.date}
+        </p>
+        <p className="text-[#697D95]">Share this publication</p>
+        <div className="flex gap-4 text-xl">
+          <a
+            href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(`${url}/blog/${id}`)}&text=${encodeURIComponent(blog.title)}`}
+            target="_blank"
+            rel="noreferrer"
+          >
+            <FaTwitter />
+          </a>
+          <a
+            href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(`${url}/blog/${id}`)}&text=${encodeURIComponent(blog.title)}`}
+            target="_blank"
+            rel="noreferrer"
+          >
+            <FaLinkedin />
+          </a>
+          <a
+            href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(`${url}/blog/${id}`)}&text=${encodeURIComponent(blog.title)}`}
+            target="_blank"
+            rel="noreferrer"
+          >
+            <FaFacebook />
+          </a>
+          {/* <a href={blog.socialLinks.instagram} target="_blank" rel="noreferrer">
+            <FaInstagram />
+          </a> */}
+          <a
+            href={`https://api.whatsapp.com/send?text=${encodeURIComponent(blog.title + ' ' + `${url}/blog/${id}`)}`}
+            target="_blank"
+            rel="noreferrer"
+          >
+            <FaWhatsapp />
+          </a>
+        </div>
+      </div>
+      <div>
+        <img src={blog.image} alt="blog visual" className="w-full" />
+      </div>
+      {/* Blog Sections */}
+      <div className="flex flex-col gap-24 lg:px-12">
+        {blog.sections.map((section, index) => (
+          <div key={index} className="space-y-4">
+            <h3 className="font-medium text-[16px]">{section.heading}</h3>
+            <p className="text-[14px] leading-[24px] text-[#697D95]">
+              {section.content}
+            </p>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+export default BlogContent;
 
 const blogData = [
   {
@@ -16,13 +91,6 @@ const blogData = [
     image: '/ai-blog.png', // Adjust the path to your asset location
     description:
       'This article builds on more than 20 years of research in the field of educational technology...',
-    socialLinks: {
-      twitter: 'https://twitter.com/share-link',
-      linkedin: 'https://linkedin.com/share-link',
-      facebook: 'https://facebook.com/share-link',
-      instagram: 'https://instagram.com/share-link',
-      whatsapp: 'https://whatsapp.com/share-link',
-    },
     sections: [
       {
         content: `The world is about to be swamped by an unprecedented wave of AI-generated content. We need reliable ways of identifying such content, to supplement the many existing social institutions that enable trust between people and organisations and ensure social resilience. In this paper, we begin by highlighting an important new development: providers of AI content generators have new obligations to support the creation of reliable detectors for the content they generate. These new obligations arise mainly from the EU's newly fnalised AI Act, but they are enhanced by the US President's recent Executive Order on AI, and by several considerations of self-interest. These new steps towards reliable detection mechanisms are by no means a panacea—but we argue they will usher in a new adversarial landscape, in which reliable methods for identifying AI-generated content are commonly available. In this landscape, many new questions arise for policymakers. Firstly, if reliable AI-content detection mechanisms are available, who should be required to use them? And how should they be used? We argue that new duties arise for media and Web search companies arise for media companies, and for Web search companies, in the deployment of AI-content detectors. Secondly, what broader regulation of the tech ecosystem will maximise the likelihood of reliable AI-content detectors? We argue for a range of new duties, relating to provenance-authentication protocols, open-source AI generators, and support for research and enforcement.`,
@@ -45,13 +113,6 @@ const blogData = [
     image: '/tech-rah-blog.png', // Adjust the path to your asset location
     description:
       'This article builds on more than 20 years of research in the field of educational technology...',
-    socialLinks: {
-      twitter: 'https://twitter.com/share-link',
-      linkedin: 'https://linkedin.com/share-link',
-      facebook: 'https://facebook.com/share-link',
-      instagram: 'https://instagram.com/share-link',
-      whatsapp: 'https://whatsapp.com/share-link',
-    },
     sections: [
       {
         content: `In this research article, we employed an autoethnographic data-walk methodology to explore the complex relationship between urban spaces and digital data collection, using the South Lake Union neighborhood as a case study. We examined how major technology companies like Amazon, Microsoft, and various property developers leverage the dual forces of urbanization and data gathering to shape urban environments in ways that serve their interests. Our key contribution lies in uncovering the power dynamics at play, where tech companies exert significant influence over urban planning and governance, reshaping cities into spaces designed for surveillance and commodification. In areas like South Lake Union, the redevelopment into numerous small storefronts enables the granular tracking of consumer behavior, turning everyday activities into data that fuels targeted advertising and capital accumulation.`,
@@ -77,13 +138,6 @@ How do mundane activities get traced, and how are the resulting data used? How d
     image: '/urban-blog.png', // Adjust the path to your asset location
     description:
       'This article builds on more than 20 years of research in the field of educational technology...',
-    socialLinks: {
-      twitter: 'https://twitter.com/share-link',
-      linkedin: 'https://linkedin.com/share-link',
-      facebook: 'https://facebook.com/share-link',
-      instagram: 'https://instagram.com/share-link',
-      whatsapp: 'https://whatsapp.com/share-link',
-    },
     sections: [
       {
         content: `In this research article, we employed an autoethnographic data-walk methodology to explore the complex relationship between urban spaces and digital data collection, using the South Lake Union neighborhood as a case study. We examined how major technology companies like Amazon, Microsoft, and various property de velopers leverage the dual forces of urbanization and data gathering to shape urban environments in ways that serve their interests. Our key contribution lies in uncovering the power dynamics at play, where tech companies exert significant influence over urban planning and governance, reshaping cities into spaces designed for sur veillance and commodification. In areas like South Lake Union, the redevelopment into numerous small store fronts enables the granular tracking of consumer behavior, turning everyday activities into data that fuels targeted advertising and capital accumulation. We identify two central insights. First, data-walks offer a way to “story” the influence of tech corporations on urban spaces from the perspective of everyday experiences. While digital data collection is integral to capital accumulation, the process is uneven and must be viewed from various angles—including from the perspective of everyday life—to fully understand the emerging inequalities. Second, we argue that the transformation of urban environments under tech capitalism exacerbates existing social and spatial inequalities while generating new ones. The commodified surveillance of daily activities and consumption not only drives data accumulation but also reshapes the physical and social fabric of the city.`,
@@ -108,13 +162,6 @@ Critiques of platform capitalism and its exploitative systems are wellsupported.
     image: '/equity-blog.png', // Adjust the path to your asset location
     description:
       'This article builds on more than 20 years of research in the field of educational technology...',
-    socialLinks: {
-      twitter: 'https://twitter.com/share-link',
-      linkedin: 'https://linkedin.com/share-link',
-      facebook: 'https://facebook.com/share-link',
-      instagram: 'https://instagram.com/share-link',
-      whatsapp: 'https://whatsapp.com/share-link',
-    },
     sections: [
       {
         content: ` In the era of globalization and technological innovation, enhancing business innovation performance is pivotal for driving economic growth and maintaining competitive edge. Among the various aspects of corporate governance, equity structure stands out for its influence on firms' innovative activities. This study explores the impact of equity structure on the innovation performance of high-tech listed companies, as well as the mediating role of R&D investment and the moderating effect of market competition. A review of the literature identifies gaps in current research, such as the lack of attention to the multifaceted influence of equity structure and the limited focus on how external environmental factors affect innovation performance. The research employs a bidirectional fixed-effects regression model, analyzing unbalanced panel data from high-tech listed companies between 2012 and 2021. Findings suggest an inverted U-shaped relationship between equity ownership concentration and innovation performance, indicating that both low and excessive concentration can be detrimental. Additionally, equity checks and balances positively influence innovation performance. R&D investment acts as a mediator between equity structure and innovation performance, while market competition moderates the relationship between ownership concentration and innovation performance. However, the moderating role of equity checks and balances on innovation performance is not significant.`,
@@ -141,13 +188,7 @@ Motivated by these research gaps, this study aims to provide empirical insights 
     image: '/revolution-blog.png', // Adjust the path to your asset location
     description:
       'This article builds on more than 20 years of research in the field of educational technology...',
-    socialLinks: {
-      twitter: 'https://twitter.com/share-link',
-      linkedin: 'https://linkedin.com/share-link',
-      facebook: 'https://facebook.com/share-link',
-      instagram: 'https://instagram.com/share-link',
-      whatsapp: 'https://whatsapp.com/share-link',
-    },
+
     sections: [
       {
         content: `Building on the dynamic capability perspective, this study investigates effective digitalization and digital transformation strategies in the tech industry by highlighting the relevance of the digital divide among developed and developing economies. Further, the study identifies the key challenges, opportunities, and strategies for digitalization and digital transformation. The study embraced a qualitative approach for indepth exploration of the phenomenon through a comparative study of two countries, i.e., Hong Kong and Pakistan. Data was collected using interviews and analyzed using content analysis to identify recurring patterns and critical insights for meaningful interpretations to address the study objective. We proposed a framework for effective digitalization and digital transformation in the tech industry from the perspective of developed and developing economies. The strategies identified in this research are categorized in technopreneurship and improved human resource practices to address the challenges faced by both developed and developing countries. The study findings contribute to a deeper understanding of the digital transformation phenomenon in the wake of changing workforce dynamics and technological disruptions, as well as the digital divide between developed and developing countries. Further, the study will help policymakers devise and implement resilient strategies in the tech industry, to help reduce the digital divide.`,
@@ -171,13 +212,7 @@ Motivated by these research gaps, this study aims to provide empirical insights 
     image: '/rise-fall-blog.png', // Adjust the path to your asset location
     description:
       'This article builds on more than 20 years of research in the field of educational technology...',
-    socialLinks: {
-      twitter: 'https://twitter.com/share-link',
-      linkedin: 'https://linkedin.com/share-link',
-      facebook: 'https://facebook.com/share-link',
-      instagram: 'https://instagram.com/share-link',
-      whatsapp: 'https://whatsapp.com/share-link',
-    },
+
     sections: [
       {
         content: `Tech clusters play a growing role in knowledge-based economies by accommodating high-tech firms and providing an environment that fosters location-dependent knowledge spillovers and promote R&D investments by firms. Yet, not much is known about the economic conditions under which such entities may form in equilibrium without government interventions. This paper develops a spatial equilibrium model with a competitive final sector and a monopolistically competitive intermediate sector, which allows us to determine necessary and sufficient conditions for a tech cluster to emerge as an equilibrium outcome. We show that strongly localized knowledge spillovers, skilled labor abundance, and low commuting costs are key drivers for a tech cluster to form. With continual improvements in infrastructure and communication technology that lowers distance decay in knowledge spillover or coordination costs, tech clusters will eventually be fragmented.`,
@@ -204,13 +239,7 @@ Motivated by these research gaps, this study aims to provide empirical insights 
     image: '/ai-blog2.png', // Adjust the path to your asset location
     description:
       'This article builds on more than 20 years of research in the field of educational technology...',
-    socialLinks: {
-      twitter: 'https://twitter.com/share-link',
-      linkedin: 'https://linkedin.com/share-link',
-      facebook: 'https://facebook.com/share-link',
-      instagram: 'https://instagram.com/share-link',
-      whatsapp: 'https://whatsapp.com/share-link',
-    },
+
     sections: [
       {
         content: `Sustainability is at the top of the agenda of most tech companies. Specifically, tech companies increasingly utilize artificial intelligence (AI) to meet their sustainability goals. However, little is known about how tech companies can leverage AI to accelerate sustainability by formulating and implementing appropriate strategies. To better understand the intertwined nature of AI and sustainability from a strategy perspective, this research conceptually develops a novel AI x Sustainability framework by drawing from the nested sustainability model and integrating insights from different literature streams. It then applies this framework to six leading Big Tech companies (i.e., Amazon, Google, IBM, Meta, Microsoft, and SAP) by conducting a comprehensive document analysis of 69 documents describing 244 individual AI x Sustainability initiatives to reveal whether and how these companies appear to follow specific AI x Sustainability strategies. Lastly, an exploratory survey with potential tech com panies’ clients (N = 192) sheds light on how clients perceive tech companies’ communicated strategic posi tioning based on the framework. The research provides new theoretical insights, serves as a blueprint for other tech companies, including implications for their AI x Sustainability positioning, and offers a variety of future research directions.`,
@@ -236,13 +265,6 @@ Against this background, practitioners and researchers stress the need to unders
     image: '/blog-1.png', // Adjust the path to your asset location
     description:
       'This article builds on more than 20 years of research in the field of educational technology...',
-    socialLinks: {
-      twitter: 'https://twitter.com/share-link',
-      linkedin: 'https://linkedin.com/share-link',
-      facebook: 'https://facebook.com/share-link',
-      instagram: 'https://instagram.com/share-link',
-      whatsapp: 'https://whatsapp.com/share-link',
-    },
     sections: [
       {
         content: `This article builds on more than 30 years of research in the field of educational technology. It stretches back to the early 1980s where one of us participated in the first governmental initiative to introduce computers in education in Spain (Bertrán and Sancho 1985; Sancho Gil 1995). This work was followed throughout the years by a suite of studies and investigations carried out by our research group ESBRINA (http://esbrina.eu). In particular, the implementation of a series of local, national, European and international projects (Bosco, Sánchez-Valero, and Sancho-Gil 2016; Domingo, Sánchez, and Sancho 2014; Hernández-Hernández and Sancho-Gil 2017; MiñoPuigcercós, Domingo-Coscollola, and Sancho-Gil 2019; Miño and Sancho 2015; Sancho Gil and Padilla Petry 2016; Sancho-Gil and Rivera-Vargas 2016) alongside the organisation of international conferences, gives us a basis from which to now reflect on the complexities and limitations of digital technology-based reforms in education.`,
@@ -310,7 +332,7 @@ const BlogContent = () => {
         <img src={blog.image} alt="blog visual" className="w-full" />
       </div>
       {/* Blog Sections */}
-      <div className="flex flex-col gap-24 lg:px-12 mb-10">
+      <div className="flex flex-col gap-24 lg:px-12">
         {blog.sections.map((section, index) => (
           <div key={index} className="space-y-4">
             <h3 className="font-medium text-[16px]">{section.heading}</h3>
