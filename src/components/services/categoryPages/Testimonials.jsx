@@ -3,7 +3,7 @@ export default function Testimonials({ testimonials }) {
   return (
     <div>
       {testimonials && testimonials.length > 0 && (
-        <section className="mb-12 py-12 grid lg:grid-cols-2 gap-6 px-6 lg:px-[80px]">
+        <section className=" py-12 grid lg:grid-cols-2 gap-6 px-6 lg:px-[80px]">
           <div>
             {' '}
             <h1 className="text-[32px] font-medium">

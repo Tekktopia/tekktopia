@@ -60,7 +60,7 @@ const RequestDemoModal = ({ isOpen, onClose }) => {
             <input
               type="text"
               placeholder="Your Name"
-              className="w-full border border-gray-300 outline-0 rounded-lg p-2 mt-1 focus:ring-blue-500 focus:border-blue-500"
+              className="w-full border border-gray-300 outline-0 rounded-lg p-2 mt-1 focus:ring-blue-500 focus:border-blue-500  text-black"
               name="full_name"
               required
             />
@@ -72,7 +72,7 @@ const RequestDemoModal = ({ isOpen, onClose }) => {
             <input
               type="email"
               placeholder="Your Email"
-              className="w-full border border-gray-300 outline-0 rounded-lg p-2 mt-1 focus:ring-blue-500 focus:border-blue-500"
+              className="w-full border border-gray-300 outline-0 rounded-lg p-2 mt-1 focus:ring-blue-500 focus:border-blue-500 text-black"
               name="user_email"
               required
             />
@@ -82,7 +82,7 @@ const RequestDemoModal = ({ isOpen, onClose }) => {
               Service Needed
             </label>
             <select
-              className="w-full border border-gray-300 outline-0 rounded-lg p-2 mt-1 focus:ring-blue-500 focus:border-blue-500"
+              className="w-full border border-gray-300 outline-0 rounded-lg p-2 mt-1 focus:ring-blue-500 focus:border-blue-500 text-black"
               name="service_needed"
               required
             >
@@ -105,7 +105,7 @@ const RequestDemoModal = ({ isOpen, onClose }) => {
             </label>
             <input
               type="date"
-              className="w-full border border-gray-300 outline-0 rounded-lg p-2 mt-1 focus:ring-blue-500 focus:border-blue-500"
+              className="w-full border border-gray-300 outline-0 rounded-lg p-2 mt-1 focus:ring-blue-500 focus:border-blue-500 text-black"
               name="date"
               required
             />
@@ -116,7 +116,7 @@ const RequestDemoModal = ({ isOpen, onClose }) => {
             </label>
             <input
               type="time"
-              className="w-full border border-gray-300 outline-0 rounded-lg p-2 mt-1 focus:ring-blue-500 focus:border-blue-500"
+              className="w-full border border-gray-300 outline-0 rounded-lg p-2 mt-1 focus:ring-blue-500 focus:border-blue-500 text-black"
               name="time"
               required
             />
@@ -127,7 +127,7 @@ const RequestDemoModal = ({ isOpen, onClose }) => {
             </label>
             <textarea
               placeholder="Your Note"
-              className="w-full border border-gray-300 outline-0 rounded-lg p-2 mt-1 focus:ring-blue-500 focus:border-blue-500"
+              className="w-full border border-gray-300 outline-0 rounded-lg p-2 mt-1 focus:ring-blue-500 focus:border-blue-500 text-black"
               name="message"
               required
             ></textarea>

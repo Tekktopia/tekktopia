@@ -3,6 +3,7 @@ import {
   FaInstagram,
   FaLinkedin,
   FaTwitter,
+  FaWhatsapp,
 } from 'react-icons/fa6';
 import { useParams } from 'react-router-dom';
 
@@ -19,6 +20,8 @@ const blogData = [
       twitter: 'https://twitter.com/share-link',
       linkedin: 'https://linkedin.com/share-link',
       facebook: 'https://facebook.com/share-link',
+      instagram: 'https://instagram.com/share-link',
+      whatsapp: 'https://whatsapp.com/share-link',
     },
     sections: [
       {
@@ -46,6 +49,8 @@ const blogData = [
       twitter: 'https://twitter.com/share-link',
       linkedin: 'https://linkedin.com/share-link',
       facebook: 'https://facebook.com/share-link',
+      instagram: 'https://instagram.com/share-link',
+      whatsapp: 'https://whatsapp.com/share-link',
     },
     sections: [
       {
@@ -76,6 +81,8 @@ How do mundane activities get traced, and how are the resulting data used? How d
       twitter: 'https://twitter.com/share-link',
       linkedin: 'https://linkedin.com/share-link',
       facebook: 'https://facebook.com/share-link',
+      instagram: 'https://instagram.com/share-link',
+      whatsapp: 'https://whatsapp.com/share-link',
     },
     sections: [
       {
@@ -105,6 +112,8 @@ Critiques of platform capitalism and its exploitative systems are wellsupported.
       twitter: 'https://twitter.com/share-link',
       linkedin: 'https://linkedin.com/share-link',
       facebook: 'https://facebook.com/share-link',
+      instagram: 'https://instagram.com/share-link',
+      whatsapp: 'https://whatsapp.com/share-link',
     },
     sections: [
       {
@@ -136,6 +145,8 @@ Motivated by these research gaps, this study aims to provide empirical insights 
       twitter: 'https://twitter.com/share-link',
       linkedin: 'https://linkedin.com/share-link',
       facebook: 'https://facebook.com/share-link',
+      instagram: 'https://instagram.com/share-link',
+      whatsapp: 'https://whatsapp.com/share-link',
     },
     sections: [
       {
@@ -164,6 +175,8 @@ Motivated by these research gaps, this study aims to provide empirical insights 
       twitter: 'https://twitter.com/share-link',
       linkedin: 'https://linkedin.com/share-link',
       facebook: 'https://facebook.com/share-link',
+      instagram: 'https://instagram.com/share-link',
+      whatsapp: 'https://whatsapp.com/share-link',
     },
     sections: [
       {
@@ -195,6 +208,8 @@ Motivated by these research gaps, this study aims to provide empirical insights 
       twitter: 'https://twitter.com/share-link',
       linkedin: 'https://linkedin.com/share-link',
       facebook: 'https://facebook.com/share-link',
+      instagram: 'https://instagram.com/share-link',
+      whatsapp: 'https://whatsapp.com/share-link',
     },
     sections: [
       {
@@ -225,6 +240,8 @@ Against this background, practitioners and researchers stress the need to unders
       twitter: 'https://twitter.com/share-link',
       linkedin: 'https://linkedin.com/share-link',
       facebook: 'https://facebook.com/share-link',
+      instagram: 'https://instagram.com/share-link',
+      whatsapp: 'https://whatsapp.com/share-link',
     },
     sections: [
       {
@@ -252,7 +269,7 @@ const BlogContent = () => {
     <div className="mt-36 lg:px-16 sm:px-8 px-6 flex flex-col gap-16 w-full max-w-7xl">
       {/* Breadcrumb */}
       <h5 className="text-[14px]">
-        <a href='/blog'>
+        <a href="/blog">
           <span className="text-[#28252480]">Blog &gt;</span>
         </a>{' '}
         {blog.title}
@@ -279,8 +296,14 @@ const BlogContent = () => {
           </a>
           <a href={blog.socialLinks.facebook} target="_blank" rel="noreferrer">
             <FaFacebook />
+          </a>{' '}
+          <a href={blog.socialLinks.instagram} target="_blank" rel="noreferrer">
+            <FaInstagram />
+          </a>{' '}
+          <a href={blog.socialLinks.whatsapp} target="_blank" rel="noreferrer">
+            <FaWhatsapp />
           </a>
-          <FaInstagram />
+          {/* <FaInstagram /> */}
         </div>
       </div>
       <div>

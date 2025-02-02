@@ -3,7 +3,7 @@ export default function Features({ features }) {
   return (
     <div>
       {features && features.length > 0 && (
-        <section className="lg:my-12 px-6 mt-32 lg:px-[80px]">
+        <section className="lg:py-12 px-6 mt-32 lg:px-[80px]">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {features.map((feature, index) => (
               <div
@@ -16,7 +16,7 @@ export default function Features({ features }) {
                   className="w-full h-[285px]"
                 />
                 <div
-                  className={`${index === 1 ? 'bg-[#C3C1DA]' : `${index == 2 ? 'bg-[#EEDAC4]' : 'bg-[#fff]'}`} p-6 py-8 min-h-[250px] font-medium shadow-md text-black`}
+                  className={`${index === 1 ? 'bg-[#C3C1DA]' : `${index == 2 ? 'bg-[#EEDAC4]' : 'bg-[#fff]'}`} p-6  py-8 min-h-[250px] font-medium shadow-md text-black`}
                 >
                   <h3 className="text-[16px] mb-2">{feature.title}</h3>
                   <p className="text-[14px] text-[#13131397]">

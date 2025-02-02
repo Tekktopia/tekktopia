@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 export default function SignupTrigger({ signUpRounded }) {
   return (
     <div
-      className={`relative w-full mt-[80px] flex flex-col rounded-lg ${signUpRounded ? 'lg:rounded-lg' : ''}`}
+      className={`relative w-full flex flex-col rounded-lg ${signUpRounded ? 'lg:rounded-lg' : ''}`}
     >
       <img
         src="/footer.png"
