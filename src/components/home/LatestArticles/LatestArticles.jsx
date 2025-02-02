@@ -8,7 +8,7 @@ const LatestArticles = () => {
   ];
 
   return (
-    <section className="mt-24 px-4 md:px-8 lg:px-16">
+    <section className="mt-24 px-4 md:px-8 lg:px-16 mb-10">
       <h2 className="text-left text-[24px] sm:text-[28px] md:text-[32px] mb-12">
         Explore our <br/>Latest Articles
       </h2>
@@ -23,7 +23,7 @@ const LatestArticles = () => {
             <p className="text-[18px] leading-[24px]">{title}</p>
             <a href={`/blog/${id}`} className="inline-block ">
               <button className="mt-2 flex items-center gap-4 py-2 rounded transition">
-                Read More{' '}
+                {'Read More'}
                 <RightArrowIcon className="ml-2 transition-transform  group-hover:translate-x-1" />
               </button>
             </a>

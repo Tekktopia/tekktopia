@@ -8,8 +8,8 @@ const BridgingExcellence = () => {
         {/* Heading Section */}
         <div className="mt-16 md:mt-[115px] text-center">
           <div className="text-[#FFFFFF] text-[22px] sm:text-[24px] md:text-[32px] font-[DM Sans] font-medium leading-[28px] sm:leading-[30px] md:leading-[45px] mb-2">
-            Bridging excellence and <br />
-            innovation across diverse sectors.
+            {' Bridging excellence and'} <br />
+            {' innovation across diverse sectors.'}
           </div>
           <div className="text-[#FFFFFFB2] text-center text-[14px] leading-[24px]">
             Empowering businesses to thrive with tailored solutions and
@@ -29,12 +29,13 @@ const BridgingExcellence = () => {
             />
             <div className="absolute top-0 flex items-center w-full h-full bg-gradient-to-r from-[#231506]/90 via-[#372511]/90 to-[#554c3b]/0 text-white py-[80px] px-[40px]">
               <div className="max-w-[300px] lg:my-auto">
-                <p className="text-[20px] font-medium">Businesses trying to grow</p>
+                <p className="text-[20px] font-medium">
+                  Businesses trying to grow
+                </p>
                 <p className="mt-[8px] text-[14px]">
-                  Running a business is challenging enough without worrying
-                  about technology. That’s why we deliver customized solutions
-                  designed to meet your specific needs, because one size never
-                  fits all
+                  {
+                    'Running a business is challenging enough without worrying about technology. That’s why we deliver customized solutions designed to meet your specific needs, because one size never fits all'
+                  }
                 </p>
               </div>
             </div>
@@ -49,12 +50,10 @@ const BridgingExcellence = () => {
             <div className="absolute top-0 w-full flex items-center h-full bg-gradient-to-r from-[#231506]/90 via-[#372511]/90 to-[#554c3b]/0 text-white py-[80px] px-[40px]">
               <div className="max-w-[300px] lg:my-auto ">
                 <p className="text-[20px] font-medium">
-                  Innovative Solutions That <br/> Work for You
+                  Innovative Solutions That <br /> Work for You
                 </p>
                 <p className="mt-[8px] text-[14px]">
-                  At Tekktopia, creativity meets precision. We design, build,
-                  and implement technology solutions that transform challenges
-                  into opportunities. Let’s build a smarter future together
+                  {"At Tekktopia, creativity meets precision. We design, build, and implement technology solutions that transform challenges into opportunities. Let’s build a smarter future together"}
                 </p>
               </div>
             </div>
@@ -65,7 +64,7 @@ const BridgingExcellence = () => {
         <div className="flex flex-col lg:flex-row gap-8 lg:gap-0 mt-16 w-full justify-center">
           <div className="max-w-[600px] w-full">
             <div className="text-[32px] text-[#FFFFFF] font-[400]">
-              Why should you choose Tekktopia?
+             {" Why should you choose Tekktopia?"}
             </div>
             <p className="w-full text-[#FFFFFFB2] leading-[24px] text-[14px] lg:text-[16px]"></p>
           </div>

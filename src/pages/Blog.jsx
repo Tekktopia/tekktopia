@@ -13,7 +13,7 @@ function Blog() {
         bottomText="Solutions that deliver"
       />
 
-      <h2 className="text-center text-[32px] font-normal">Latest Articles</h2>
+      <h2 className="text-center text-[32px] font-normal">{"Latest Articles"}</h2>
 
       <div className="w-full max-w-screen-2xl mx-auto flex flex-col items-center space-y-16 px-8">
         {/* First Article Section */}
@@ -77,7 +77,7 @@ function Blog() {
                 className="w-full h-auto object-cover"
               />
               <p className="w-full leading-6 text-[18px]">{article.title}</p>
-              <span className="cursor-pointer mt-auto text-[16px] leading-6 flex gap-2 items-center">Read More <MdArrowForward className='w-[18px]'/> </span>
+              <span className="cursor-pointer mt-auto text-[16px] leading-6 flex gap-2 items-center">{"Read More"} <MdArrowForward className='w-[18px]'/> </span>
             </Link>
           ))}
         </section>

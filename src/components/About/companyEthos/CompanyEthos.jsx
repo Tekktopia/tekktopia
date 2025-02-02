@@ -22,7 +22,7 @@ const CompanyEthos = () => {
   ];
 
   return (
-    <section className="mt-[176px] max-w-[1280px] mx-auto ">
+    <section className="mt-[176px] max-w-[1280px] mx-auto mb-10">
       <div className="flex flex-col lg:flex-row justify-between">
         {/* Left Image Section */}
         <div className="relative w-full lg:w-[700px] h-[750px] mb-8 lg:mb-0">

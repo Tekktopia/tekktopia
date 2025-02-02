@@ -310,7 +310,7 @@ const BlogContent = () => {
         <img src={blog.image} alt="blog visual" className="w-full" />
       </div>
       {/* Blog Sections */}
-      <div className="flex flex-col gap-24 lg:px-12">
+      <div className="flex flex-col gap-24 lg:px-12 mb-10">
         {blog.sections.map((section, index) => (
           <div key={index} className="space-y-4">
             <h3 className="font-medium text-[16px]">{section.heading}</h3>

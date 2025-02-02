@@ -24,8 +24,8 @@ const About = () => {
           />
           <p className="mt-4 text-sm sm:text-base text-white">ABOUT US</p>
           <div className="text-3xl lg:text-[60px] font-medium lg:leading-[70px] text-center text-white mt-3">
-            Crafting <br />
-            Customized Wealth Solutions
+            {'Crafting'} <br />
+            {'Customized Wealth Solutions'}
           </div>
         </div>
       </div>
