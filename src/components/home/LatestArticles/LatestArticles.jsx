@@ -8,7 +8,7 @@ const LatestArticles = () => {
   ];
 
   return (
-    <section className="mt-24 px-4 md:px-8 lg:px-16 mb-10">
+    <section className="mt-24 px-4 md:px-8 lg:px-16 ">
       <h2 className="text-left text-[24px] sm:text-[28px] md:text-[32px] mb-12">
         Explore our <br/>Latest Articles
       </h2>

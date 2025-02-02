@@ -16,8 +16,9 @@ const AboutBanner = () => {
       {/* Content Section */}
       <div className="relative z-10 text-white w-full flex flex-col items-center justify-center text-center px-4">
         <div className="text-[24px] lg:text-[32px] font-medium">
-          Empowering your vision with innovative solutions, because your success
-          is our mission
+          {
+            'Empowering your vision with innovative solutions, because your success is our mission'
+          }
         </div>
 
         <div className="w-full sm:w-[700px] h-[450px] mt-[52px] z-2">
@@ -29,11 +30,13 @@ const AboutBanner = () => {
         </div>
 
         <div className="max-w-[800px] mt-[52px] px-4">
-          <div className="text-lg sm:text-[16px] font-semibold">Why Choose Us?</div>
+          <div className="text-lg sm:text-[16px] font-semibold">
+            Why Choose Us?
+          </div>
           <div className="lg:mt-[12px] text-[14px] font-extralight tracking-wider">
-            We combine industry expertise with a client-centered approach,
-            making tech easy, efficient, and perfectly tailored to you. Trust us
-            to be your partner in innovation
+            {
+              'We combine industry expertise with a client-centered approach, making tech easy, efficient, and perfectly tailored to you. Trust us to be your partner in innovation'
+            }
           </div>
         </div>
       </div>

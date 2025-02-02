@@ -229,7 +229,7 @@ const ServicePage = () => {
     return (
       <div className="min-h-screen w-full flex justify-center items-center">
         <h1 className="text-3xl font-bold">
-          Service Not Found. Please check the URL.
+          {"Service Not Found. Please check the URL."}
         </h1>
       </div>
     );
@@ -249,7 +249,7 @@ const ServicePage = () => {
   } = service;
 
   return (
-    <div className="bg-[#081527] text-white w-full items-center flex flex-col justify-center  mx-auto">
+    <div className="bg-[#081527] text-white w-full items-center flex flex-col justify-center  mx-auto -mb-10">
       <Hero
         imageUrl={image}
         topText={titleTop}

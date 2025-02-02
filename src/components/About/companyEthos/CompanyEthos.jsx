@@ -1,6 +1,6 @@
 import ShadedTriangleIcon from '../../../icons/ShadedTriangleIcon';
 
-import About4 from '../../../assets/images/about/About4.png'
+import About4 from '../../../assets/images/about/About4.png';
 
 const CompanyEthos = () => {
   const cards = [
@@ -22,7 +22,7 @@ const CompanyEthos = () => {
   ];
 
   return (
-    <section className="mt-[176px] max-w-[1280px] mx-auto mb-10">
+    <section className="mt-[176px] max-w-[1280px] mx-auto ">
       <div className="flex flex-col lg:flex-row justify-between">
         {/* Left Image Section */}
         <div className="relative w-full lg:w-[700px] h-[750px] mb-8 lg:mb-0">
