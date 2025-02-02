@@ -17,12 +17,13 @@ const blogData = [
     description:
       'This article builds on more than 20 years of research in the field of educational technology...',
     socialLinks: {
-      twitter: 'https://twitter.com/share-link',
+      twitter: 'https://tekktopia.com/',
       linkedin: 'https://linkedin.com/share-link',
       facebook: 'https://facebook.com/share-link',
       instagram: 'https://instagram.com/share-link',
       whatsapp: 'https://whatsapp.com/share-link',
     },
+
     sections: [
       {
         content: `The world is about to be swamped by an unprecedented wave of AI-generated content. We need reliable ways of identifying such content, to supplement the many existing social institutions that enable trust between people and organisations and ensure social resilience. In this paper, we begin by highlighting an important new development: providers of AI content generators have new obligations to support the creation of reliable detectors for the content they generate. These new obligations arise mainly from the EU's newly fnalised AI Act, but they are enhanced by the US President's recent Executive Order on AI, and by several considerations of self-interest. These new steps towards reliable detection mechanisms are by no means a panacea—but we argue they will usher in a new adversarial landscape, in which reliable methods for identifying AI-generated content are commonly available. In this landscape, many new questions arise for policymakers. Firstly, if reliable AI-content detection mechanisms are available, who should be required to use them? And how should they be used? We argue that new duties arise for media and Web search companies arise for media companies, and for Web search companies, in the deployment of AI-content detectors. Secondly, what broader regulation of the tech ecosystem will maximise the likelihood of reliable AI-content detectors? We argue for a range of new duties, relating to provenance-authentication protocols, open-source AI generators, and support for research and enforcement.`,
@@ -288,7 +289,11 @@ const BlogContent = () => {
         </p>
         <p className="text-[#697D95]">Share this publication</p>
         <div className="flex gap-4 text-xl">
-          <a href={blog.socialLinks.twitter} target="_blank" rel="noreferrer">
+          <a
+            href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(`${blog.socialLinks.twitter}/blog/${id}`)}&text=${encodeURIComponent(blog.title)}`}
+            target="_blank"
+            rel="noreferrer"
+          >
             <FaTwitter />
           </a>
           <a href={blog.socialLinks.linkedin} target="_blank" rel="noreferrer">
