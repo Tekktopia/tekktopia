@@ -36,7 +36,7 @@ export default function TeamMembers() {
       imageUrl: '/No-Avatar.jpeg',
       role: 'Chief Technology Officer',
       linkedIn: 'https://www.linkedin.com/in/ire-adeoluwa-2068361b5/',
-    },
+    }, 
     // {
     //   name: 'SAMUEL OLAWUMI',
     //   imageUrl: '/samuel-olawumi.jpg',
@@ -55,6 +55,12 @@ export default function TeamMembers() {
       role: 'Digital Marketing Executive',
       linkedIn: 'https://www.linkedin.com/in/oreoluwa-leo-dada-73b156248',
     },
+    {
+        name: 'ADETAYO ADENIYI - L.L.B, B.L, MCIARB [UK]',
+        imageUrl: '/No-Avatar.jpeg',
+        role: 'PRINCIPAL PARTNER, ALMOND & GAVEL [LEGAL ADVISER].',
+        linkedIn: 'https://www.linkedin.com/in/adetayo-adeniyi-b7930a163/',
+      },
   ];
 
   return (
