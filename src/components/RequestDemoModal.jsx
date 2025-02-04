@@ -11,7 +11,7 @@ const RequestDemoModal = ({ isOpen, onClose }) => {
     e.preventDefault();
 
     emailjs
-      .sendForm('service_mrk3ohv', 'template_n3bfm7c', form.current, {
+      .sendForm('service_mrk3ohv', 'template_yc0v3nl', form.current, {
         publicKey: 'FRzkYgrpiHA_BogGH',
       })
       .then(
