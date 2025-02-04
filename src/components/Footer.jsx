@@ -15,7 +15,7 @@ export default function Footer() {
   const socialLinks = [
     { text: 'LinkedIn', href: 'https://www.linkedin.com/company/tekktopia/' },
     {
-      text: 'Thread',
+      text: 'Threads',
       href: 'https://www.threads.net/@tekktopia?igshid=NTc4MTIwNjQ2YQ==',
     },
     {
