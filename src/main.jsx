@@ -15,6 +15,9 @@ import About from './pages/About';
 import BlogContent from './pages/BlogContentNew';
 import ServicePage from './pages/ServicePage';
 import NotFound from './pages/NotFound';
+import FaqPage from './pages/FaqPage';
+import Terms from './pages/Terms';
+import Policy from './pages/Policy';
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
@@ -30,6 +33,9 @@ createRoot(document.getElementById('root')).render(
           <Route path="/blog/:id" element={<BlogContent />} />
           <Route path="/our-team" element={<OurTeam />} />
           <Route path="/contact-us" element={<ContactUs />} />
+          <Route path="/faq" element={<FaqPage />} />
+          <Route path="/policy" element={<Policy />} />
+          <Route path="/terms" element={<Terms />} />
           <Route path="/services/:name" element={<ServicePage />} />
           <Route path="*" element={<NotFound />} />
         </Route>

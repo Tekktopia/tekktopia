@@ -10,6 +10,13 @@ export default function Footer() {
     { text: 'Careers', href: '/Career' },
   ];
 
+  // Additional Links
+  const additionalLinks = [
+    { text: 'FAQs', href: '/faq' },
+    { text: 'Terms & Conditions', href: '/terms' },
+    { text: 'Privacy Policy', href: '/policy' },
+  ];
+
   const productLinks = [{ text: "Let's Gidi", href: '#' }];
 
   const socialLinks = [
@@ -136,9 +143,15 @@ export default function Footer() {
             © 2025 All Rights Reserved
           </div>
           <div className="flex gap-6 lg:text-[14px] text-[16px] font-extralight tracking-wider">
-            <div>Terms & Condition</div>
-            <div>Privacy Policy</div>
-            <div>FAQs</div>
+            {additionalLinks.map((link, index) => (
+              <a
+                key={index}
+                href={link.href}
+                className="hover:text-[#f5901f] lg:text-[14px]"
+              >
+                {link.text}
+              </a>
+            ))}
           </div>
         </div>
       </div>
