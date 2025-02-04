@@ -26,14 +26,14 @@ export default function TeamMembers() {
 
     {
       name: 'AKERELE DAVID',
-      imageUrl: '/No-Avatar.jpeg',
+      imageUrl: '/unknown2.png',
       role: 'Head, Software Development',
       linkedIn: 'https://www.linkedin.com/in/david-akerele-38837623a/',
     },
 
     {
       name: 'IREOLUWA ADEOLUWA',
-      imageUrl: '/No-Avatar.jpeg',
+      imageUrl: '/unknown2.png',
       role: 'Chief Technology Officer',
       linkedIn: 'https://www.linkedin.com/in/ire-adeoluwa-2068361b5/',
     }, 
@@ -57,7 +57,7 @@ export default function TeamMembers() {
     },
     {
         name: 'ADETAYO ADENIYI - L.L.B, B.L, MCIARB [UK]',
-        imageUrl: '/No-Avatar.jpeg',
+        imageUrl: '/unknown2.png',
         role: 'PRINCIPAL PARTNER, ALMOND & GAVEL [LEGAL ADVISER].',
         linkedIn: 'https://www.linkedin.com/in/adetayo-adeniyi-b7930a163/',
       },
