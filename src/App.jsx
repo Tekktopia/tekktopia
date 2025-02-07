@@ -6,7 +6,6 @@ import Navbar from './components/Navbar';
 import 'leaflet/dist/leaflet.css';
 import SignupTrigger from './components/SignupTrigger';
 import ScrollToTop from './components/ScrollToTop';
-import Faq from './components/Faq';
 
 function App() {
   const location = useLocation();
@@ -27,6 +26,10 @@ function App() {
         return 'Career - Tekktopia';
       case '/faq':
         return 'Faq - Tekktopia';
+      case '/policy':
+        return 'Private Policy - Tekktopia';
+      case '/terms':
+        return 'Terms & Conditions - Tekktopia';
       case '/*':
         return 'Error - Tekktopia';
       // Add more cases as needed
@@ -47,7 +50,6 @@ function App() {
           <Outlet />
         </main>
         <SignupTrigger />
-        {location.pathname !== '/faq' && <Faq />}
         <Footer />
       </div>
     </HelmetProvider>
