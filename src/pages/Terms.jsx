@@ -1,13 +1,10 @@
-import { Link } from 'react-router-dom';
+import LegalRedirect from '../components/LegalRedirect';
 import LegalTerms from '../components/LegalTerms';
-import arrowleft from '../assets/icons/arrowleft.svg';
 
 const Terms = () => {
   return (
-    <section className="mt-20 w-full h-screen px-6 py-4 relative mb-36">
-      <Link to="/" className="">
-        <img src={arrowleft} alt="" className="mb-2" />
-      </Link>
+    <section className="mt-20 w-full h-full px-[40px] sm:px-[80px] py-4 mb-36 bg-[#FCFDFF]">
+      <LegalRedirect />
       <LegalTerms />
     </section>
   );
