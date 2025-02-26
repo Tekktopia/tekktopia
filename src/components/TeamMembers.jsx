@@ -12,6 +12,12 @@ export default function TeamMembers() {
     //   linkedIn: 'https://www.linkedin.com/in/akinolaoshinubi/',
     // },
     {
+        name: 'IREOLUWA ADEOLUWA',
+        imageUrl: '/unknown2.png',
+        role: 'Co-Founder & CTO',
+        linkedIn: 'https://www.linkedin.com/in/ire-adeoluwa-2068361b5/',
+      }, 
+    {
       name: 'BOLUWATIFE ONI',
       imageUrl: '/tife-oni.png',
       role: 'Head, Sales & Business Development',
@@ -25,18 +31,18 @@ export default function TeamMembers() {
     },
 
     {
-      name: 'AKERELE DAVID',
+      name: 'DAVID AKERELE',
       imageUrl: '/unknown2.png',
       role: 'Head, Software Development',
       linkedIn: 'https://www.linkedin.com/in/david-akerele-38837623a/',
-    },
+    },  {
+        name: 'ADEMAKINWA AMORI',
+        imageUrl: '/unknown2.png',
+        role: 'Head, Product Design',
+        linkedIn: 'https://www.linkedin.com/in/ademakinwaa/',
+      },
 
-    {
-      name: 'IREOLUWA ADEOLUWA',
-      imageUrl: '/unknown2.png',
-      role: 'Chief Technology Officer',
-      linkedIn: 'https://www.linkedin.com/in/ire-adeoluwa-2068361b5/',
-    }, 
+    
     // {
     //   name: 'SAMUEL OLAWUMI',
     //   imageUrl: '/samuel-olawumi.jpg',
