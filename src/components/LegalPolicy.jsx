@@ -1,10 +1,10 @@
 const LegalPolicy = () => {
   const policy1 = [
     {
-      list: 'When ordering or registering on our site, as appropriate, you may be asked to enter your full name, gender, age, e-mail address, mailing address, phone number, date of birth, bank account',
+      list: 'When ordering or registering on our site, as appropriate, you may be asked to enter your full name, gender, age, e-mail address, mailing address, phone number, date of birth, bank account number, and credit or debit card information. This is required information to process your transaction and to help you with your experience.',
     },
     {
-      list: "To facilitate our Service, we request certain third-party personal information from you, or your mobile devices address book, such as your recipient's full name, physical address, email addresss,number, and credit or debit card information. This is required information to process your transaction and to help you with your experience, and telephone number. We may also collect from you the recipient's sensitive financial information including bank account numbers",
+      list: "To facilitate our Service, we request certain third-party personal information from you, or your mobile devices address book, such as your recipient's full name, physical address, email address, and telephone number. We may also collect from you the recipient's sensitive financial information including bank account numbers.",
     },
     {
       list: ' Information that we indirectly obtain from you, such as information about the device, hardware, and software you use when accessing the Service, your IP address, the pages you access on this website, and other websites that you visit prior to accessing the Service.',
@@ -32,34 +32,30 @@ const LegalPolicy = () => {
     <section className="gap-6 flex flex-col">
       <div className="gap-4 flex flex-col">
         <h1 className="text-5xl sm:text-[60px]/7 mb-4 text-[#1B0000]">
-          Privacy Policy
+          {'Privacy Policy'}
         </h1>
         <h3 className="pb-2 text-[#1A1717] ">
-          Your privacy is important to us. Heres how we use and protect your
-          data.
+          {
+            'Your privacy is important to us. Heres how we use and protect your data.'
+          }
         </h3>
         <p className="text-[#4F5E71]/70 pb-5 font-[400px] text-sm">
-          Last updated on July 18, 2024
+          {'Last updated on March 1, 2025'}
         </p>
       </div>
       <div className="mb-4">
         <p className="text-[#4F5E71]/70 text-sm">
-          quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur,
-          adipisci velit, sed quia non numquat dicta sunt explicabo. Nemo enim
-          ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed
-          quia consequuntur magni dolores eos qui ratione voluptatem sequi
-          nesciunt. Neque porro squam est, qui dolorem ipsum quia dolor sit amet
-          consect perspielatis unde omnis iste hatus erfor sit voluptatem
-          accusantium doloremque laudantium, tota luptatem accusantium
-          doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo
-          inventore veritatis et quasi architecto beatae vitae I minima veniam,
-          quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi
-          ut ricevelit sed quia non numquam eius modi tempora incidunt ut labore
-          et dolore magnam aliquam quaerat voluptatem. Ut oriosam, nisi ut
-          aliquid ex ea commodi consequatur? Quis autem vel eum iure
-          reprehenderit qui in ea voluptate velit lore magnam aliquam quaerat
-          voluptatem. Ut sse quam nihil molestiae consequatur, vel illum qui
-          dolorem eum fugiat quo voluptas nulla pariatur?
+          Welcome to Tekktopia. Your privacy is important to us, and we are
+          committed to protecting your personal data. This Privacy Policy
+          explains how we collect, use, disclose, and protect your information
+          when you visit our website, and interact with our services. By
+          accessing our website or using our services, you agree to the
+          practices described in this policy. We strive to be transparent about
+          our data practices and ensure that your personal information is
+          handled securely and in compliance with applicable data protection
+          laws. Please take a moment to read this Privacy Policy carefully. If
+          you have any questions or concerns about how we handle your data, feel
+          free to contact us.
         </p>
       </div>
       <div className="text-sm">
@@ -79,6 +75,11 @@ const LegalPolicy = () => {
             </li>
           ))}
         </ul>
+        <p className="text-[#1B0000] pb-5">
+        You may provide us with personal information about others, such as Recipients’ name and identifiers, address, phone number, bank account details or email address. If so, you confirm that you have appropriate authority to do so and to allow us to use that information and we will only use it for the specific reason for which it was provided to us.
+        
+        </p>
+        <p>If you believe that one of your contacts has provided us with your personal information and you would like to request that it be removed from our database, please contact us here: <b>info@tekktopia.com</b></p>
       </div>
       <div className="mb-4">
         <h3 className="text-xl sm:text-2xl pb-4 w-full text-[#1B0000]  ">
