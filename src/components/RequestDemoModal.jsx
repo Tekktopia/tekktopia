@@ -1,11 +1,15 @@
 import PropTypes from 'prop-types';
 import emailjs from '@emailjs/browser';
 import { useRef, useState } from 'react';
+import x from '../assets/icons/x.svg';
+import check from '../assets/icons/check.svg';
 
 const RequestDemoModal = ({ isOpen, onClose }) => {
   const form = useRef();
   const modalRef = useRef(); // To track modal content
+  const popupRef = useRef(null);
   const [emailSent, setEmailSent] = useState('');
+  const [showPopup, setShowPopup] = useState(false);
 
   const sendEmail = (e) => {
     e.preventDefault();
@@ -17,6 +21,7 @@ const RequestDemoModal = ({ isOpen, onClose }) => {
       .then(
         () => {
           setEmailSent('Email sent successfully!');
+          setShowPopup(true);
         },
         (error) => {
           console.log('FAILED...', error.text);
@@ -29,6 +34,12 @@ const RequestDemoModal = ({ isOpen, onClose }) => {
   const handleBackdropClick = (e) => {
     if (modalRef.current && !modalRef.current.contains(e.target)) {
       onClose();
+    }
+  };
+
+  const handleClickOutside = (e) => {
+    if (popupRef.current && !popupRef.current.contains(e.target)) {
+      setShowPopup(false);
     }
   };
 
@@ -138,7 +149,31 @@ const RequestDemoModal = ({ isOpen, onClose }) => {
           >
             Complete Reservation &gt;
           </button>
-          <p className="ml-auto text-sm sm:text-base">{emailSent}</p>
+
+          {showPopup && (
+            <div
+              className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50"
+              onClick={handleClickOutside}
+            >
+              <div
+                ref={popupRef}
+                className="bg-white p-6 rounded-xl shadow-md text-center w-[250px] sm:w-[350px] flex flex-col "
+              >
+                <button
+                  onClick={() => setShowPopup(false)}
+                  className="mb-4  self-end"
+                >
+                  <img src={x} alt="close" className="size-7" />
+                </button>
+                <div className="flex flex-col items-center justify-center p-4 gap-3">
+                  <img src={check} alt="check" />
+                  <h3 className="text-xl font-bold text-gray-800 sm:text-2xl">
+                    {emailSent}
+                  </h3>
+                </div>
+              </div>
+            </div>
+          )}
         </form>
       </div>
     </div>
