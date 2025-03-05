@@ -13,7 +13,7 @@ export default {
         blueGradient:
           'linear-gradient(175.05deg, #2B64F8 3.98%, #193B92 91.68%)',
         brownGradient:
-          'linear-gradient(313.11deg, #3B2C1B 0.84%, #A1784A 82.76%)'
+          'linear-gradient(313.11deg, #3B2C1B 0.84%, #A1784A 82.76%)',
         // 'qualityAssuranceBg': 'url("./src/assets/images/qualityAssuranceBg.png")'
       },
     },
