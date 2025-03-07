@@ -18,7 +18,7 @@ export default function Career() {
         <div className="absolute left-20 -bottom-8 w-72 h-72 bg-purple-300 rounded-full mix-blend-multiply filter blur-lg opacity-70 animate-blob animation-delay-4"></div>
         <div className="mt-24 p-10 bg-neutral-200 inline-flex w-[400px] items-center justify-center flex-col  rounded-full    ">
           <FaExclamationTriangle className="text-blue-400 text-6xl mb-4" />
-          <h1 className="text-2xl text-neutral-700">Page Coming Soon</h1>
+          <h1 className="text-2xl text-neutral-700">{"No Available Jobs"}</h1>
         </div>
       </div>
 
