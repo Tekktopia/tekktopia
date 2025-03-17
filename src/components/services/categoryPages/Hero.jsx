@@ -26,7 +26,7 @@ const Hero = ({ imageUrl, topText, bottomText, subtitle, description, isCloudCom
 
   return (
     <div
-      className={`relative w-full h-[850px] mt-0 flex flex-col justify-center items-center text-white  ${isCloudComputing ? 'lg:pt-56' : 'lg:pt-40'}`}
+      className={`relative w-full h-[850px] mt-0 flex flex-col justify-center items-center text-white  ${isCloudComputing ? 'lg:pt-32' : 'lg:pt-30'}`}
     >
       <img
         src={imageUrl}
