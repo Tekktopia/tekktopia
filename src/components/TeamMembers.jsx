@@ -1,16 +1,16 @@
-import teamMember from '../assets/images/teamMember.png';
+// import teamMember from '../assets/images/teamMember.png';
 import Member from '../components/Member';
 
 // TeamMembers component to display a grid of team members
 export default function TeamMembers() {
   // Array of team member objects with their details
   const teamMembers = [
-    // {
-    //   name: 'AKINOLA DANIEL OSHINUBI',
-    //   imageUrl: '/daniel-oshinubi.png',
-    //   role: 'Founder & MD/CEO',
-    //   linkedIn: 'https://www.linkedin.com/in/akinolaoshinubi/',
-    // },
+    {
+      name: 'AKINOLA DANIEL OSHINUBI',
+      imageUrl: '/daniel-oshinubi.png',
+      role: 'Founder & MD/CEO',
+      linkedIn: 'https://www.linkedin.com/in/akinolaoshinubi/',
+    },
     {
         name: 'IREOLUWA ADEOLUWA',
         imageUrl: '/unknown2.png',
