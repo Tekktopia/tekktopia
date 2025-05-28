@@ -5,18 +5,19 @@ import Member from '../components/Member';
 export default function TeamMembers() {
   // Array of team member objects with their details
   const teamMembers = [
+    // {
+    //   name: 'AKINOLA DANIEL OSHINUBI',
+    //   imageUrl: '/daniel-oshinubi.png',
+    //   role: 'Founder & MD/CEO',
+    //   linkedIn: 'https://www.linkedin.com/in/akinolaoshinubi/',
+    // },
     {
-      name: 'AKINOLA DANIEL OSHINUBI',
-      imageUrl: '/daniel-oshinubi.png',
-      role: 'Founder & MD/CEO',
-      linkedIn: 'https://www.linkedin.com/in/akinolaoshinubi/',
+      name: 'IREOLUWA ADEOLUWA',
+      imageUrl: '/ire_adeoluwa.jpg',
+      // role: 'Co-Founder & CTO',
+      role: 'Founder & CEO',
+      linkedIn: 'https://www.linkedin.com/in/ire-adeoluwa-2068361b5/',
     },
-    {
-        name: 'IREOLUWA ADEOLUWA',
-        imageUrl: '/unknown2.png',
-        role: 'Co-Founder & CTO',
-        linkedIn: 'https://www.linkedin.com/in/ire-adeoluwa-2068361b5/',
-      }, 
     {
       name: 'BOLUWATIFE ONI',
       imageUrl: '/tife-oni.png',
@@ -30,19 +31,19 @@ export default function TeamMembers() {
       linkedIn: 'https://www.linkedin.com/in/oluwadamilare-adekoya-370610266/',
     },
 
+    // {
+    //   name: 'DAVID AKERELE',
+    //   imageUrl: '/unknown2.png',
+    //   role: 'Head, Software Development',
+    //   linkedIn: 'https://www.linkedin.com/in/david-akerele-38837623a/',
+    // },
     {
-      name: 'DAVID AKERELE',
+      name: 'ADEMAKINWA AMORI',
       imageUrl: '/unknown2.png',
-      role: 'Head, Software Development',
-      linkedIn: 'https://www.linkedin.com/in/david-akerele-38837623a/',
-    },  {
-        name: 'ADEMAKINWA AMORI',
-        imageUrl: '/unknown2.png',
-        role: 'Head, Product Design',
-        linkedIn: 'https://www.linkedin.com/in/ademakinwaa/',
-      },
+      role: 'Head, Product Design',
+      linkedIn: 'https://www.linkedin.com/in/ademakinwaa/',
+    },
 
-    
     // {
     //   name: 'SAMUEL OLAWUMI',
     //   imageUrl: '/samuel-olawumi.jpg',
@@ -62,11 +63,11 @@ export default function TeamMembers() {
       linkedIn: 'https://www.linkedin.com/in/oreoluwa-leo-dada-73b156248',
     },
     {
-        name: 'ADETAYO ADENIYI - L.L.B, B.L, MCIARB [UK]',
-        imageUrl: '/unknown2.png',
-        role: 'PRINCIPAL PARTNER, ALMOND & GAVEL [LEGAL ADVISER].',
-        linkedIn: 'https://www.linkedin.com/in/adetayo-adeniyi-b7930a163/',
-      },
+      name: 'ADETAYO ADENIYI - L.L.B, B.L, MCIARB [UK]',
+      imageUrl: '/unknown2.png',
+      role: 'PRINCIPAL PARTNER, ALMOND & GAVEL [LEGAL ADVISER].',
+      linkedIn: 'https://www.linkedin.com/in/adetayo-adeniyi-b7930a163/',
+    },
   ];
 
   return (
