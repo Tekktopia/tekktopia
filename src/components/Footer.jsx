@@ -31,7 +31,7 @@ export default function Footer() {
     },
     {
       text: 'Twitter',
-      href: 'https://x.com/tekktopia30385?s=21&t=fcOLORW_YEXpNc1TDIRvEA',
+      href: 'https://x.com/tekktopialtd',
     },
   ];
 
