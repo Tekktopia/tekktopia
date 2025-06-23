@@ -24,6 +24,12 @@ export default function TeamMembers() {
       role: 'Head, Sales & Business Development',
       linkedIn: 'https://www.linkedin.com/in/boluwatife-oni-connect/',
     },
+      {
+      name: 'ABIMBOLA SHOSAN',
+      imageUrl: '/bimbo-shosan.jpg',
+      role: 'Product Manager',
+      linkedIn: 'https://www.linkedin.com/in/shosan-abimbola/',
+    },
     {
       name: 'OLUWADAMILARE ADEKOYA',
       imageUrl: '/dami-adekoya.png',

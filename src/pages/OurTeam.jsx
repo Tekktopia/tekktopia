@@ -46,16 +46,13 @@ export default function OurTeam() {
           {/* Right Side: Text */}
           <div className="flex flex-col lg:absolute lg:right-12 w-full lg:w-[600px] lg:top-20">
             <h2 className="text-2xl sm:text-3xl mb-2 font-medium">
-              {"Our Team Members"}
+              {'Our Team Members'}
             </h2>
             <img src={yellowLine} alt="yellow line" className="w-1/5 h-[3px]" />
             <p className="text-left text-[14px] text-gray-500 mt-2">
-              At Tekktopia, we believe that great work starts with a great team.
-              Our people are the heart of what we do, and together, we bring a
-              mix of creativity, expertise, and passion to every project. We’re
-              not just tech enthusiasts,we’re problem solvers, innovators, and
-              partners who care about making a difference for your business. Get
-              to know the amazing individuals behind the magic.
+              {
+                'At Tekktopia, we believe that great work starts with a great team. Our people are the heart of what we do, and together, we bring a mix of creativity, expertise, and passion to every project. We’re not just tech enthusiasts,we’re problem solvers, innovators, and partners who care about making a difference for your business. Get to know the amazing individuals behind the magic.'
+              }
             </p>
           </div>
         </div>
@@ -64,7 +61,7 @@ export default function OurTeam() {
       {/* Team Members Section */}
       <section className="container mx-auto p-8 sm:p-16 flex flex-col items-center">
         <h2 className="text-2xl sm:text-3xl font-medium text-center">
-          {"Driving Innovation, Building Prosperity"}
+          {'Driving Innovation, Building Prosperity'}
         </h2>
         <img
           src={yellowLine}
