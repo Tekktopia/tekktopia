@@ -114,8 +114,7 @@ const OurStory = () => {
         </div>
         <div className="max-w-[620px] flex flex-col justify-center px-[40px] box-border">
           <h2 className="text-[24px] sm:text-[32px] mb-4">
-            We offer diverse tech-related solutions to our diverse range of
-            clients
+           {"At Tekktopia, we offer diverse tech-related solutions to our diverse range of clients"}
           </h2>
           <p className="text-[#697D95B2] text-[14px] sm:text-[16px] w-full">
             We deliver a range of tech solutions designed to meet the unique

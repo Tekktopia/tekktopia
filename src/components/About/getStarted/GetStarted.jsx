@@ -31,7 +31,7 @@ const GetStarted = () => {
         </div>
         <div className="max-w-[484px] text-[14px] text-[#697D95B2] text-center sm:text-left mt-4 sm:mt-0">
           {
-            'Every client is unique, and so are their challenges. We’re committed to providing personalized tech solutions that fit your specific needs, ensuring you always have the tools to succeed.'
+            'To us at Tekktopia, every client is unique, and so are their challenges. We’re committed to providing personalized tech solutions that fit your specific needs, ensuring you always have the tools to succeed.'
           }
         </div>
         {/* <div className="mt-6 sm:mt-16 text-[#0056b3] font-semibold cursor-pointer">

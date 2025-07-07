@@ -5,17 +5,17 @@ import Member from '../components/Member';
 export default function TeamMembers() {
   // Array of team member objects with their details
   const teamMembers = [
-    // {
-    //   name: 'AKINOLA DANIEL OSHINUBI',
-    //   imageUrl: '/daniel-oshinubi.png',
-    //   role: 'Founder & MD/CEO',
-    //   linkedIn: 'https://www.linkedin.com/in/akinolaoshinubi/',
-    // },
+    {
+      name: 'AKINOLA DANIEL OSHINUBI',
+      imageUrl: '/daniel-oshinubi.png',
+      role: 'Founder & MD/CEO',
+      linkedIn: 'https://www.linkedin.com/in/akinolaoshinubi/',
+    },
     {
       name: 'IREOLUWA ADEOLUWA',
       imageUrl: '/ire_adeoluwa.jpg',
-      // role: 'Co-Founder & CTO',
-      role: 'Founder & CEO',
+      role: 'Co-Founder & CTO',
+    //   role: 'Founder & CEO',
       linkedIn: 'https://www.linkedin.com/in/ire-adeoluwa-2068361b5/',
     },
     {
@@ -37,18 +37,18 @@ export default function TeamMembers() {
       linkedIn: 'https://www.linkedin.com/in/oluwadamilare-adekoya-370610266/',
     },
 
-    // {
-    //   name: 'DAVID AKERELE',
-    //   imageUrl: '/unknown2.png',
-    //   role: 'Head, Software Development',
-    //   linkedIn: 'https://www.linkedin.com/in/david-akerele-38837623a/',
-    // },
     {
-      name: 'ADEMAKINWA AMORI',
+      name: 'DAVID AKERELE',
       imageUrl: '/unknown2.png',
-      role: 'Head, Product Design',
-      linkedIn: 'https://www.linkedin.com/in/ademakinwaa/',
+      role: 'Head, Software Development',
+      linkedIn: 'https://www.linkedin.com/in/david-akerele-38837623a/',
     },
+    // {
+    //   name: 'ADEMAKINWA AMORI',
+    //   imageUrl: '/unknown2.png',
+    //   role: 'Head, Product Design',
+    //   linkedIn: 'https://www.linkedin.com/in/ademakinwaa/',
+    // },
 
     // {
     //   name: 'SAMUEL OLAWUMI',

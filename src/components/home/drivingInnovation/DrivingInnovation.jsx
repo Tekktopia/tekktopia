@@ -11,16 +11,17 @@ const DrivingInnovation = () => {
       {/* Heading Section */}
       <div className="relative text-center">
         <span className="inline-block pb-4 text-[24px] sm:text-[28px] md:text-[32px] font-[400] relative">
-          Driving Innovation, Building Prosperity
+          {"Tekktopia"}
           <span className="absolute left-1/2 -translate-x-1/2 bottom-[-2px] w-[120px] sm:w-[150px] md:w-[200px] border-b-[3px] border-[#F8901F80]"></span>
         </span>
       </div>
 
       {/* Description Text */}
       <div className="text-center text-[14px] leading-[24px] mx-auto text-[#697D95B2] mt-6 max-w-[700px]">
-        Whether you{"'"}re scaling your business, optimizing operations, or
-        exploring new markets, our technology solutions are designed to make
-        growth seamless.
+        <p>{'Driving Innovation, Building Prosperity.'}</p>
+        {
+          "Whether you're scaling your business, optimizing operations, or exploring new markets, our technology solutions are designed to make growth seamless."
+        }
       </div>
 
       {/* Innovation Sections */}

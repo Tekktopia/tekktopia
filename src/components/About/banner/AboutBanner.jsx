@@ -31,7 +31,7 @@ const AboutBanner = () => {
 
         <div className="max-w-[800px] mt-[52px] px-4">
           <div className="text-lg sm:text-[16px] font-semibold">
-            Why Choose Us?
+            {"Why Choose Tekktopia?"}
           </div>
           <div className="lg:mt-[12px] text-[14px] font-extralight tracking-wider">
             {

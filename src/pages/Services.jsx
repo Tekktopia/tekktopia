@@ -9,8 +9,8 @@ export default function Services() {
       {/* Hero Section */}
       <Hero
         imageUrl={HeroImage}
-        topText="On the other hand,"
-        bottomText="we denounce with."
+        topText="We offer practical solutions that help you"
+        bottomText=" grow and stand out in the digital world."
       />
 
       {/* Our Services Section */}

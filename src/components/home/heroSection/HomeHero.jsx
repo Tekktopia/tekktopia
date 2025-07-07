@@ -7,7 +7,7 @@ const HomeHero = ({ setIsModalOpen }) => {
     <div className=" px-4 sm:px-6 lg:px-8 flex flex-col items-center">
       <div className="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-6 text-center md:text-left">
         <h1 className="text-[24px] sm:text-[28px] md:text-[60px] font-medium text-[#0B0B0B] leading-[80px]">
-          {'Simplifying Technology,'}
+          {'Tekktopia, Simplifying Technology,'}
         </h1>
         <div className="flex mt-4 md:mt-0 relative">
           <img src="/Ellipse23.png" alt="ellipse23" className="relative" />

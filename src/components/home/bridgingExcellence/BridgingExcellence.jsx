@@ -30,11 +30,11 @@ const BridgingExcellence = () => {
             <div className="absolute top-0 flex items-center w-full h-full bg-gradient-to-r from-[#231506]/90 via-[#372511]/90 to-[#554c3b]/0 text-white py-[80px] px-[40px]">
               <div className="max-w-[300px] lg:my-auto">
                 <p className="text-[20px] font-medium">
-                  Businesses trying to grow
+                  {"Businesses trying to grow"}
                 </p>
                 <p className="mt-[8px] text-[14px]">
                   {
-                    'Running a business is challenging enough without worrying about technology. That’s why we deliver customized solutions designed to meet your specific needs, because one size never fits all'
+                    'At Tekktopia, we understand that running a business is challenging enough without worrying about technology. That’s why we deliver customized solutions designed to meet your specific needs, because one size never fits all'
                   }
                 </p>
               </div>
