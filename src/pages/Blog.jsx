@@ -13,7 +13,7 @@ function Blog() {
     const fetchBlogPosts = async () => {
       try {
         setLoading(true);
-        const posts = await getAllBlogPosts({ limit: 8 });
+        const posts = await getAllBlogPosts({});
         setBlogPosts(posts);
       } catch (err) {
         console.error('Error fetching blog posts:', err);
