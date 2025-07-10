@@ -122,7 +122,7 @@ const OurStory = () => {
             businesses, we’re here to simplify technology and empower you to
             achieve your goals with confidence.
           </p>
-          <ul className="list-none mt-[16px]">
+          <ul className="list-none mt-[16px] grid lg:grid-cols-2">
             <li className="flex items-center mt-[16px]">
               <TriangleIcon />
               <div className="ml-[8px] text-[14px] sm:text-[16px] text-[#697D95B2]">
