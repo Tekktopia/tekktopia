@@ -110,7 +110,7 @@ const BlogContent = () => {
         <img
           src={blog.imageUrl || '/blog-1.png'}
           alt={blog.imageAlt || blog.title}
-          className="w-full"
+          className="w-full max-h-[350px] rounded-2xl"
         />
       </div>
       {/* Blog Sections */}

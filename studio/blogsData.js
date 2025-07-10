@@ -1,5 +1,4 @@
 import { client } from "./sanity";
-import { console } from "console";
 
 /**
  * Get all blog posts from Sanity
