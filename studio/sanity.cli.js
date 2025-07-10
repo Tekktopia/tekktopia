@@ -1,13 +1,11 @@
-import {defineCliConfig} from 'sanity/cli'
-
-export default defineCliConfig({
+/**
+ * @type {import('sanity/cli').SanityCliConfig}
+ */
+export default {
+  studioHost: 'tekktopia-site',
   api: {
     projectId: 'mudkd6qn',
-    dataset: 'production'
+    dataset: 'production',
   },
-  /**
-   * Enable auto-updates for studios.
-   * Learn more at https://www.sanity.io/docs/cli#auto-updates
-   */
   autoUpdates: true,
-})
+}
