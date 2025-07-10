@@ -1,4 +1,5 @@
 import { client } from "./sanity";
+import { console } from "console";
 
 /**
  * Get all blog posts from Sanity
@@ -12,17 +13,9 @@ export const getAllBlogPosts = async (options = {}) => {
   const {
     limit = null,
     offset = 0,
-    publishedOnly = true
   } = options;
 
-  let query = `*[_type == "blog"`;
-  
-  // Filter for published posts only
-  if (publishedOnly) {
-    query += ` && published == true`;
-  }
-  
-  query += `] | order(date desc)`;
+  let query = `*[_type == "blog" && published == true] | order(date desc)`;
 
   // Add pagination
   if (limit) {
@@ -66,7 +59,7 @@ export const getAllBlogPosts = async (options = {}) => {
  * @returns {Promise<Object|null>} Blog post object or null
  */
 export const getBlogPostBySlug = async (slug) => {
-  const query = `*[_type == "blog" && slug.current == $slug][0]{
+  const query = `*[_type == "blog" && slug.current == $slug && published == true][0]{
     _id,
     title,
     slug,
