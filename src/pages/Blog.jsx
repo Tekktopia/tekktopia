@@ -8,6 +8,8 @@ function Blog() {
   const [blogPosts, setBlogPosts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [visiblePosts, setVisiblePosts] = useState(6);
+  const postsPerLoad = 3;
 
   useEffect(() => {
     const fetchBlogPosts = async () => {
@@ -25,6 +27,10 @@ function Blog() {
 
     fetchBlogPosts();
   }, []);
+
+  const handleLoadMore = () => {
+    setVisiblePosts((prev) => prev + postsPerLoad);
+  };
 
   if (loading) {
     return (
@@ -71,7 +77,7 @@ function Blog() {
       <div className="w-full max-w-screen-2xl mx-auto flex flex-col items-center space-y-16 px-8">
         {/* Blog Posts Section */}
         <section className="grid grid-cols-1 md:grid-cols-3 gap-8 w-full">
-          {blogPosts.map((post) => (
+          {blogPosts.slice(0, visiblePosts).map((post) => (
             <Link
               to={`/blog/${post.slug.current}`}
               key={post._id}
@@ -83,15 +89,22 @@ function Blog() {
                 className="w-full h-[200px] object-cover"
               />
               <p className="w-full leading-6 text-[18px]">{post.title}</p>
-              {/* <p className="text-[16px] leading-5 text-gray-600">
-                {post.excerpt || post.description}
-              </p> */}
               <span className="cursor-pointer mt-auto text-[16px] leading-6 flex gap-2 items-center">
                 {'Read More'} <MdArrowForward className="w-[18px]" />
               </span>
             </Link>
           ))}
         </section>
+
+        {/* Load More Button */}
+        {visiblePosts < blogPosts.length && (
+          <button
+            onClick={handleLoadMore}
+            className="bg-blue-600 text-white px-6 py-2 rounded-md hover:bg-blue-700 transition-colors"
+          >
+            Load More
+          </button>
+        )}
       </div>
     </div>
   );
