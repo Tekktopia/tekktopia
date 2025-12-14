@@ -30,19 +30,19 @@ export default function TeamMembers() {
       role: 'Product Manager',
       linkedIn: 'https://www.linkedin.com/in/shosan-abimbola/',
     },
-    {
-      name: 'OLUWADAMILARE ADEKOYA',
-      imageUrl: '/dami-adekoya.png',
-      role: 'Product Manager',
-      linkedIn: 'https://www.linkedin.com/in/oluwadamilare-adekoya-370610266/',
-    },
+    // {
+    //   name: 'OLUWADAMILARE ADEKOYA',
+    //   imageUrl: '/dami-adekoya.png',
+    //   role: 'Product Manager',
+    //   linkedIn: 'https://www.linkedin.com/in/oluwadamilare-adekoya-370610266/',
+    // },
 
-    {
-      name: 'DAVID AKERELE',
-      imageUrl: '/unknown2.png',
-      role: 'Head, Software Development',
-      linkedIn: 'https://www.linkedin.com/in/david-akerele-38837623a/',
-    },
+    // {
+    //   name: 'DAVID AKERELE',
+    //   imageUrl: '/unknown2.png',
+    //   role: 'Head, Software Development',
+    //   linkedIn: 'https://www.linkedin.com/in/david-akerele-38837623a/',
+    // },
     // {
     //   name: 'ADEMAKINWA AMORI',
     //   imageUrl: '/unknown2.png',
