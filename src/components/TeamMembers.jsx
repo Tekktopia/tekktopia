@@ -24,12 +24,12 @@ export default function TeamMembers() {
       role: 'Head, Sales & Business Development',
       linkedIn: 'https://www.linkedin.com/in/boluwatife-oni-connect/',
     },
-      {
-      name: 'ABIMBOLA SHOSAN',
-      imageUrl: '/bimbo-shosan.jpg',
-      role: 'Product Manager',
-      linkedIn: 'https://www.linkedin.com/in/shosan-abimbola/',
-    },
+    //   {
+    //   name: 'ABIMBOLA SHOSAN',
+    //   imageUrl: '/bimbo-shosan.jpg',
+    //   role: 'Product Manager',
+    //   linkedIn: 'https://www.linkedin.com/in/shosan-abimbola/',
+    // },
     // {
     //   name: 'OLUWADAMILARE ADEKOYA',
     //   imageUrl: '/dami-adekoya.png',
@@ -62,12 +62,12 @@ export default function TeamMembers() {
     //   role: 'Software Engineer',
     //   linkedIn: 'https://www.linkedin.com/in/ireoluwa-adesanya-8b5b9b1b4/',
     // },
-    {
-      name: 'OREOLUWA LEO-DADA',
-      imageUrl: '/ore-dada.png',
-      role: 'Digital Marketing Executive',
-      linkedIn: 'https://www.linkedin.com/in/oreoluwa-leo-dada-73b156248',
-    },
+    // {
+    //   name: 'OREOLUWA LEO-DADA',
+    //   imageUrl: '/ore-dada.png',
+    //   role: 'Digital Marketing Executive',
+    //   linkedIn: 'https://www.linkedin.com/in/oreoluwa-leo-dada-73b156248',
+    // },
     {
       name: 'ADETAYO ADENIYI - L.L.B, B.L, MCIARB [UK]',
       imageUrl: '/unknown2.png',
