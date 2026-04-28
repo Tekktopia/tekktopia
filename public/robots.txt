@@ -1,0 +1,10 @@
+User-agent: *
+Allow: /
+
+# Block private/admin routes
+Disallow: /api/
+Disallow: /_next/
+Disallow: /admin/
+
+# Sitemap
+Sitemap: https://tekktopialtd.com/sitemap.xml

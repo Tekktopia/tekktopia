@@ -1,0 +1,119 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background:   var(--background);
+  --color-foreground:   var(--foreground);
+
+  /* Font mapping */
+  --font-sans:    var(--font-inter);
+  --font-display: var(--font-space-grotesk);
+  --font-mono:    var(--font-jetbrains-mono);
+
+  /* Brand colour tokens */
+  --color-navy:         var(--navy);
+  --color-navy-mid:     var(--navy-mid);
+  --color-navy-light:   var(--navy-light);
+  --color-blue:         var(--blue);
+  --color-blue-light:   var(--blue-light);
+  --color-orange:       var(--orange);
+  --color-orange-light: var(--orange-light);
+  --color-slate:        var(--slate);
+  --color-off-white:    var(--off-white);
+
+  --color-card:                var(--card);
+  --color-card-foreground:     var(--card-foreground);
+  --color-primary:             var(--primary);
+  --color-primary-foreground:  var(--primary-foreground);
+  --color-secondary:           var(--secondary);
+  --color-secondary-foreground:var(--secondary-foreground);
+  --color-muted:               var(--muted);
+  --color-muted-foreground:    var(--muted-foreground);
+  --color-accent:              var(--accent);
+  --color-accent-foreground:   var(--accent-foreground);
+  --color-border:              var(--border);
+  --color-input:               var(--input);
+  --color-ring:                var(--ring);
+
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.5);
+}
+
+:root {
+  /* ── Tekktopia Brand Tokens ─────────────────── */
+  --navy:         #0F172A;   /* deep navy — dark sections, footer */
+  --navy-mid:     #1E293B;   /* slightly lighter navy */
+  --navy-light:   #334155;   /* muted navy — borders on dark sections */
+
+  --blue:         #2563EB;   /* primary brand blue */
+  --blue-light:   #3B82F6;   /* hover state */
+
+  --orange:       #F97316;   /* brand orange — logo, active states, accents */
+  --orange-light: #FB923C;   /* orange hover */
+
+  --slate:        #64748B;   /* body text secondary */
+  --off-white:    #F8FAFC;   /* light section bg */
+
+  /* ── Semantic Tokens ──────────────── */
+  --background:   #FFFFFF;
+  --foreground:   #0F172A;
+
+  --card:              #FFFFFF;
+  --card-foreground:   #0F172A;
+
+  --primary:             #2563EB;
+  --primary-foreground:  #FFFFFF;
+
+  --secondary:             #F8FAFC;
+  --secondary-foreground:  #0F172A;
+
+  --muted:             #F1F5F9;
+  --muted-foreground:  #64748B;
+
+  --accent:             #F97316;
+  --accent-foreground:  #FFFFFF;
+
+  --border: #E2E8F0;
+  --input:  #E2E8F0;
+  --ring:   #2563EB;
+
+  --radius: 0.75rem;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  html {
+    @apply scroll-smooth;
+  }
+  body {
+    @apply bg-background text-foreground antialiased font-sans selection:bg-blue selection:text-white;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-display text-navy;
+  }
+}
+
+/* ── Marquee ticker ───────────────────────────────────────────────────────── */
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+/* ── Subtle grid pattern used in hero ────────────────────────────────────── */
+.bg-grid-slate {
+  background-image:
+    linear-gradient(to right, #E2E8F040 1px, transparent 1px),
+    linear-gradient(to bottom, #E2E8F040 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+
+/* ── Subtle dot grid for dark sections ───────────────────────────────────── */
+.bg-dot-navy {
+  background-image: radial-gradient(#FFFFFF0A 1px, transparent 1px);
+  background-size: 24px 24px;
+}
