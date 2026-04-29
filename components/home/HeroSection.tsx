@@ -4,7 +4,7 @@ import { useRef, useEffect, CSSProperties } from "react";
 import Link from "next/link";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
-import { ArrowUpRight, Shield, TrendingUp, Zap, Code2, CheckCircle2 } from "lucide-react";
+import { ArrowUpRight, Shield, TrendingUp, Zap, Code2, CheckCircle2, FolderOpen, Users, CalendarDays, Headphones } from "lucide-react";
 
 // ─── Data ─────────────────────────────────────────────────────────────────────
 const TICKER = [
@@ -12,10 +12,10 @@ const TICKER = [
   "AI & Emerging Tech","Product Design","IT Consulting","Mobile & Web Dev","IT Support",
 ];
 const STATS = [
-  { end:50,  suf:"+",    label:"Projects"  },
-  { end:98,  suf:"%",    label:"Retention" },
-  { end:8,   suf:" yrs", label:"In Market" },
-  { end:24,  suf:"/7",   label:"Support"   },
+  { end:50,  suf:"+",    label:"Projects Delivered", icon:FolderOpen  },
+  { end:98,  suf:"%",    label:"Client Retention",   icon:Users       },
+  { end:8,   suf:"+",    label:"Years in Market",    icon:CalendarDays },
+  { end:24,  suf:"/7",   label:"Expert Support",     icon:Headphones  },
 ];
 const TERMINAL_LINES = [
   { t:"cmd",     text:"$ git push origin production"  },
@@ -227,13 +227,14 @@ function MetricsCard() {
 
 // ════════════════════════════════════════════════════════════════════════════════
 export default function HeroSection() {
-  const sectionRef = useRef<HTMLElement>(null);
-  const canvasRef  = useRef<HTMLCanvasElement>(null);
+  const sectionRef  = useRef<HTMLElement>(null);
+  const canvasRef   = useRef<HTMLCanvasElement>(null);
   const b1 = useRef<HTMLDivElement>(null);
   const b2 = useRef<HTMLDivElement>(null);
   const b3 = useRef<HTMLDivElement>(null);
   const b4 = useRef<HTMLDivElement>(null);
-  const mouseRef = useRef({ x:0, y:0 });
+  const mouseRef    = useRef({ x:0, y:0 });
+  const badgeRefs   = useRef<(HTMLDivElement|null)[]>([]);
 
   // ── Particle canvas ─────────────────────────────────────────────────────────
   useEffect(() => {
@@ -310,6 +311,24 @@ export default function HeroSection() {
     gsap.to(b2.current, { y:"-=35", x:"-=25", duration:11,  ease:"sine.inOut", yoyo:true, repeat:-1, delay:1.2 });
     gsap.to(b3.current, { y:"+=28", x:"+=15", duration:9.5, ease:"sine.inOut", yoyo:true, repeat:-1, delay:2.1 });
     gsap.to(b4.current, { y:"-=20", x:"-=18", duration:13,  ease:"sine.inOut", yoyo:true, repeat:-1, delay:0.5 });
+  }, []);
+
+  // ── Badge random float (starts after entrance animation) ────────────────────
+  useEffect(() => {
+    const configs = [
+      { y: 14, x:  7, rot:  1.2, dy: 3.8, dx: 5.1, dr: 6.4, delay: 0.0 },
+      { y: 11, x: -9, rot: -0.9, dy: 4.6, dx: 3.7, dr: 7.2, delay: 0.4 },
+      { y: 16, x:  6, rot:  1.5, dy: 3.2, dx: 6.3, dr: 5.8, delay: 0.2 },
+      { y: 10, x: -7, rot: -1.1, dy: 5.4, dx: 4.2, dr: 8.1, delay: 0.6 },
+    ];
+    configs.forEach(({ y, x, rot, dy, dx, dr, delay }, i) => {
+      const el = badgeRefs.current[i];
+      if (!el) return;
+      const d = 2.6 + delay;
+      gsap.to(el, { y: `+=${y}`,  duration: dy, ease:"sine.inOut", yoyo:true, repeat:-1, delay: d });
+      gsap.to(el, { x: `+=${x}`,  duration: dx, ease:"sine.inOut", yoyo:true, repeat:-1, delay: d + 0.5 });
+      gsap.to(el, { rotation: rot, duration: dr, ease:"sine.inOut", yoyo:true, repeat:-1, delay: d + 1.0 });
+    });
   }, []);
 
   // ── Entrance ────────────────────────────────────────────────────────────────
@@ -421,6 +440,7 @@ export default function HeroSection() {
       {/* Floating badges */}
       {BADGES.map(({ icon:Icon, text, sub, side, top }, i) => (
         <div key={i}
+          ref={el => { badgeRefs.current[i] = el; }}
           className={`h-badge hidden lg:flex items-center gap-3 absolute z-20 px-4 py-3 cursor-default ${side==="left"?"left-[18%]":"right-[18%]"}`}
           style={{ top,
             background:"rgba(255,255,255,0.038)",
@@ -428,12 +448,13 @@ export default function HeroSection() {
             border:"1px solid rgba(255,255,255,0.08)",
             borderRadius:16,
             boxShadow:"0 8px 32px rgba(0,0,0,0.4), 0 0 0 0.5px rgba(255,255,255,0.03) inset",
+            willChange:"transform",
           }}
           onMouseEnter={(e) => gsap.to(e.currentTarget, { scale:1.06, y:-3, duration:0.4, ease:"power2.out" })}
           onMouseLeave={(e) => gsap.to(e.currentTarget, { scale:1,    y:0,  duration:0.8, ease:"elastic.out(1,0.35)" })}>
           <div style={{ width:34, height:34, borderRadius:10, display:"flex", alignItems:"center", justifyContent:"center",
-            background:"rgba(37,99,235,0.16)", border:"1px solid rgba(37,99,235,0.26)", flexShrink:0 }}>
-            <Icon style={{ width:16, height:16, color:"#60A5FA" }} strokeWidth={1.5} />
+            background:"rgba(249,115,22,0.14)", border:"1px solid rgba(249,115,22,0.28)", flexShrink:0 }}>
+            <Icon style={{ width:16, height:16, color:"#F97316" }} strokeWidth={1.5} />
           </div>
           <div>
             <p style={{ fontSize:12, fontWeight:600, color:"rgba(255,255,255,0.88)", lineHeight:1, marginBottom:4 }}>{text}</p>
@@ -493,37 +514,59 @@ export default function HeroSection() {
           <Mag>
             <Link href="/services"
               className="group inline-flex items-center gap-2 font-medium text-sm px-9 py-4 rounded-2xl cursor-pointer"
-              style={{ color:"rgba(255,255,255,0.55)", border:"1px solid rgba(255,255,255,0.09)", background:"rgba(255,255,255,0.03)", backdropFilter:"blur(12px)", transition:"all 0.4s ease" }}
-              onMouseEnter={e => { e.currentTarget.style.color="#fff"; e.currentTarget.style.borderColor="rgba(255,255,255,0.18)"; e.currentTarget.style.background="rgba(255,255,255,0.07)"; }}
-              onMouseLeave={e => { e.currentTarget.style.color="rgba(255,255,255,0.55)"; e.currentTarget.style.borderColor="rgba(255,255,255,0.09)"; e.currentTarget.style.background="rgba(255,255,255,0.03)"; }}>
+              style={{ color:"#fff", background:"#F97316", boxShadow:"0 0 0 1px rgba(249,115,22,0.4), 0 4px 28px rgba(249,115,22,0.32)", transition:"box-shadow 0.4s ease, transform 0.4s ease" }}
+              onMouseEnter={e => { e.currentTarget.style.boxShadow="0 0 80px rgba(249,115,22,0.65), 0 0 0 1px rgba(249,115,22,0.6)"; e.currentTarget.style.transform="translateY(-2px)"; }}
+              onMouseLeave={e => { e.currentTarget.style.boxShadow="0 0 0 1px rgba(249,115,22,0.4), 0 4px 28px rgba(249,115,22,0.32)"; e.currentTarget.style.transform="none"; }}>
               Explore Services
               <ArrowUpRight className="w-3.5 h-3.5 transition-transform duration-400 group-hover:rotate-45" />
             </Link>
           </Mag>
         </div>
 
-        {/* Divider */}
-        <div className="h-rule w-full max-w-md h-px mb-12"
-          style={{ background:"linear-gradient(to right,transparent,rgba(255,255,255,0.09),transparent)" }} />
-
-        {/* Stats */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-10 w-full max-w-lg">
-          {STATS.map(({ end, suf, label }) => (
-            <div key={label} className="h-stat flex flex-col items-center gap-2 cursor-default group"
-              onMouseEnter={e => gsap.to(e.currentTarget, { y:-5, duration:0.4, ease:"power2.out" })}
-              onMouseLeave={e => gsap.to(e.currentTarget, { y:0,  duration:0.8, ease:"elastic.out(1,0.35)" })}>
-              <span className="h-num font-display font-bold text-white"
-                style={{ fontSize:"clamp(26px,3.5vw,38px)", transition:"color 0.4s ease" }}
-                data-end={end} data-suf={suf}
-                onMouseEnter={e => (e.currentTarget.style.color = "#60A5FA")}
-                onMouseLeave={e => (e.currentTarget.style.color = "#ffffff")}>
-                0{suf}
-              </span>
-              <span style={{ fontFamily:"monospace", fontSize:9, textTransform:"uppercase", letterSpacing:"0.22em", color:"rgba(255,255,255,0.28)", textAlign:"center" }}>
-                {label}
-              </span>
-            </div>
-          ))}
+        {/* Stats bar */}
+        <div className="h-stat w-full max-w-2xl"
+          style={{
+            background: "rgba(255,255,255,0.03)",
+            border: "1px solid rgba(255,255,255,0.08)",
+            borderRadius: 20,
+            backdropFilter: "blur(20px)",
+            overflow: "hidden",
+          }}>
+          {/* Orange top accent line */}
+          <div style={{ height: 2, background: "linear-gradient(to right, transparent, #F97316, transparent)" }} />
+          <div className="grid grid-cols-2 sm:grid-cols-4">
+            {STATS.map(({ end, suf, label, icon: Icon }, i) => (
+              <div key={label}
+                className="group flex flex-col items-center gap-3 px-6 py-7 cursor-default relative"
+                style={{
+                  borderRight: i < 3 ? "1px solid rgba(255,255,255,0.06)" : "none",
+                  transition: "background 0.3s ease",
+                }}
+                onMouseEnter={e => (e.currentTarget as HTMLElement).style.background = "rgba(249,115,22,0.05)"}
+                onMouseLeave={e => (e.currentTarget as HTMLElement).style.background = "transparent"}>
+                {/* Icon */}
+                <div style={{
+                  width: 36, height: 36, borderRadius: 10, display: "flex", alignItems: "center", justifyContent: "center",
+                  background: "rgba(249,115,22,0.1)", border: "1px solid rgba(249,115,22,0.2)",
+                }}>
+                  <Icon style={{ width: 16, height: 16, color: "#F97316" }} strokeWidth={1.5} />
+                </div>
+                {/* Number */}
+                <span className="h-num font-display font-bold"
+                  style={{ fontSize: "clamp(28px,3vw,40px)", color: "#ffffff", lineHeight: 1, transition: "color 0.3s ease" }}
+                  data-end={end} data-suf={suf}>
+                  0{suf}
+                </span>
+                {/* Label */}
+                <span style={{
+                  fontFamily: "monospace", fontSize: 9, textTransform: "uppercase",
+                  letterSpacing: "0.18em", color: "rgba(255,255,255,0.3)", textAlign: "center", lineHeight: 1.4,
+                }}>
+                  {label}
+                </span>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
 
@@ -540,7 +583,7 @@ export default function HeroSection() {
               className="inline-flex items-center gap-3 px-8"
               style={{ fontFamily:"monospace", fontSize:11, textTransform:"uppercase", letterSpacing:"0.2em", color:"rgba(255,255,255,0.5)" }}>
               <span className="rounded-full flex-shrink-0"
-                style={{ width:6, height:6, background:i%3===0?"#3B82F6":"rgba(255,255,255,0.16)", display:"block" }} />
+                style={{ width:6, height:6, background:"#F97316", display:"block" }} />
               {item}
             </span>
           ))}
