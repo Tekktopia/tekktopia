@@ -1,10 +1,10 @@
 "use client";
 
-import { useRef, useEffect, CSSProperties } from "react";
+import { useRef, useEffect } from "react";
 import Link from "next/link";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
-import { ArrowUpRight, Shield, TrendingUp, Zap, Code2, CheckCircle2, FolderOpen, Users, CalendarDays, Headphones } from "lucide-react";
+import { ArrowUpRight, Shield, TrendingUp, Zap, Code2, FolderOpen, Users, CalendarDays, Headphones } from "lucide-react";
 
 // ─── Data ─────────────────────────────────────────────────────────────────────
 const TICKER = [
@@ -27,11 +27,15 @@ const TERMINAL_LINES = [
   { t:"cmd",     text:"$ uptime --sla"                },
   { t:"success", text:"✓  99.9% — all systems go"     },
 ];
-const METRICS = [
-  { label:"API Latency",  pct:92, color:"#3B82F6", glow:"rgba(59,130,246,0.5)"  },
-  { label:"Uptime",       pct:99, color:"#06B6D4", glow:"rgba(6,182,212,0.5)"   },
-  { label:"Security",     pct:98, color:"#8B5CF6", glow:"rgba(139,92,246,0.5)"  },
-  { label:"Performance",  pct:94, color:"#10B981", glow:"rgba(16,185,129,0.5)"  },
+const PACKET_PROTOS = [
+  { name:"HTTPS", color:"#3B82F6", bg:"rgba(59,130,246,0.14)"  },
+  { name:"HTTPS", color:"#3B82F6", bg:"rgba(59,130,246,0.14)"  },
+  { name:"TCP",   color:"#06B6D4", bg:"rgba(6,182,212,0.14)"   },
+  { name:"TCP",   color:"#06B6D4", bg:"rgba(6,182,212,0.14)"   },
+  { name:"UDP",   color:"#8B5CF6", bg:"rgba(139,92,246,0.14)"  },
+  { name:"DNS",   color:"#10B981", bg:"rgba(16,185,129,0.14)"  },
+  { name:"SSH",   color:"#F59E0B", bg:"rgba(245,158,11,0.14)"  },
+  { name:"BLOCK", color:"#EF4444", bg:"rgba(239,68,68,0.14)"   },
 ];
 const BADGES = [
   { icon:Shield,     text:"ISO Compliant",  sub:"Security First",  side:"left",  top:"30%" },
@@ -139,86 +143,132 @@ function TerminalCard() {
   );
 }
 
-// ─── Animated metrics card ─────────────────────────────────────────────────────
-function MetricsCard() {
+// ─── Live packet sniffer card ──────────────────────────────────────────────────
+function PacketSnifferCard() {
   const cardRef  = useRef<HTMLDivElement>(null);
-  const fillRefs = useRef<(HTMLDivElement|null)[]>([]);
-  const shimRefs = useRef<(HTMLDivElement|null)[]>([]);
-  const numRefs  = useRef<(HTMLSpanElement|null)[]>([]);
+  const rowsRef  = useRef<HTMLDivElement>(null);
+  const countRef = useRef<HTMLSpanElement>(null);
+  const totalRef = useRef<number>(0);
 
   useEffect(() => {
-    // Opposite phase float to terminal
     gsap.to(cardRef.current, { y:14,  duration:4.6, ease:"sine.inOut", yoyo:true, repeat:-1 });
     gsap.to(cardRef.current, { x:-7,  duration:3.9, ease:"sine.inOut", yoyo:true, repeat:-1, delay:1.3 });
     gsap.to(cardRef.current, { rotation:-0.8, duration:7, ease:"sine.inOut", yoyo:true, repeat:-1, delay:0.6 });
+  }, []);
 
-    METRICS.forEach((m, i) => {
-      const fill = fillRefs.current[i];
-      const shim = shimRefs.current[i];
-      const num  = numRefs.current[i];
-      if (!fill || !shim || !num) return;
-      const d = 2.6 + i * 0.2;
+  useEffect(() => {
+    let dead = false;
+    const wait = (ms: number) => new Promise<void>(r => setTimeout(r, ms));
+    const randOctet = (max = 255, min = 1) => Math.floor(Math.random() * (max - min + 1) + min);
+    const randIP  = () => `${randOctet(220,10)}.${randOctet()}.${randOctet()}.${randOctet()}`;
+    const randPort = () => String(Math.floor(Math.random() * 58000 + 1024));
+    const randSize = () => {
+      const n = Math.floor(Math.random() * 8800 + 64);
+      return n >= 1024 ? `${(n / 1024).toFixed(1)}K` : `${n}B`;
+    };
 
-      // Smooth fill with power3 ease
-      gsap.fromTo(fill, { width:"0%", opacity:0.8 },
-        { width:`${m.pct}%`, opacity:1, duration:1.6, delay:d, ease:"power3.out" });
+    const loop = async () => {
+      await wait(1200);
+      while (!dead) {
+        if (!rowsRef.current) break;
+        const proto = PACKET_PROTOS[Math.floor(Math.random() * PACKET_PROTOS.length)];
+        totalRef.current += 1;
+        if (countRef.current) countRef.current.textContent = String(totalRef.current);
 
-      // Repeating shimmer sweep
-      gsap.set(shim, { x:"-110%" });
-      gsap.to(shim, {
-        x: "120%", duration:1.0, delay:d + 0.8, ease:"power2.inOut",
-        repeat:-1, repeatDelay:2.8,
-        onRepeat() { gsap.set(shim, { x:"-110%" }); },
-      });
+        const row = document.createElement("div");
+        row.style.cssText = "display:flex;align-items:center;gap:5px;padding:4.5px 0;border-bottom:1px solid rgba(255,255,255,0.035);opacity:0;transition:opacity 0.18s ease;flex-shrink:0";
 
-      // Number count-up in sync
-      const obj = { v:0 };
-      gsap.to(obj, { v:m.pct, duration:1.6, delay:d, ease:"power3.out",
-        onUpdate() { num.textContent = `${Math.round(obj.v)}%`; } });
-    });
+        const badge = document.createElement("span");
+        badge.style.cssText = `font-family:monospace;font-size:8.5px;font-weight:700;padding:2px 5px;border-radius:4px;color:${proto.color};background:${proto.bg};border:1px solid ${proto.color}22;flex-shrink:0;width:36px;text-align:center;letter-spacing:0.04em`;
+        badge.textContent = proto.name;
+
+        const src = document.createElement("span");
+        src.style.cssText = "font-family:monospace;font-size:8.5px;color:rgba(255,255,255,0.42);flex:1;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;min-width:0";
+        src.textContent = `${randIP()}:${randPort()}`;
+
+        const arrow = document.createElement("span");
+        arrow.style.cssText = "font-family:monospace;font-size:9px;color:rgba(255,255,255,0.18);flex-shrink:0";
+        arrow.textContent = "›";
+
+        const dst = document.createElement("span");
+        dst.style.cssText = "font-family:monospace;font-size:8px;color:rgba(255,255,255,0.28);flex-shrink:0;max-width:60px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis";
+        dst.textContent = randIP();
+
+        const size = document.createElement("span");
+        size.style.cssText = `font-family:monospace;font-size:8px;color:${proto.color};opacity:0.7;flex-shrink:0;min-width:28px;text-align:right`;
+        size.textContent = randSize();
+
+        row.appendChild(badge);
+        row.appendChild(src);
+        row.appendChild(arrow);
+        row.appendChild(dst);
+        row.appendChild(size);
+        rowsRef.current.appendChild(row);
+
+        requestAnimationFrame(() => { (row as HTMLDivElement).style.opacity = "1"; });
+
+        while (rowsRef.current.children.length > 11) {
+          rowsRef.current.removeChild(rowsRef.current.firstChild!);
+        }
+
+        await wait(320 + Math.random() * 380);
+      }
+    };
+    loop();
+    return () => { dead = true; };
   }, []);
 
   return (
     <div ref={cardRef} className="hidden xl:block absolute right-6 2xl:right-12 z-20"
-      style={{ top:"50%", transform:"translateY(-50%)", width:250, willChange:"transform" }}>
+      style={{ top:"50%", transform:"translateY(-50%)", width:268, willChange:"transform" }}>
       <div style={{
         background: "rgba(8,14,28,0.82)",
         backdropFilter: "blur(24px) saturate(180%)",
         border: "1px solid rgba(255,255,255,0.07)",
         borderRadius: 20,
-        boxShadow: "0 0 0 0.5px rgba(255,255,255,0.04) inset, 0 32px 80px rgba(0,0,0,0.6), 0 0 40px rgba(6,182,212,0.07)",
+        boxShadow: "0 0 0 0.5px rgba(255,255,255,0.04) inset, 0 32px 80px rgba(0,0,0,0.6), 0 0 40px rgba(59,130,246,0.07)",
         overflow: "hidden",
       }}>
+        {/* Title bar */}
         <div style={{ display:"flex", alignItems:"center", justifyContent:"space-between", padding:"12px 16px", borderBottom:"1px solid rgba(255,255,255,0.05)" }}>
-          <span style={{ fontFamily:"monospace", fontSize:10, textTransform:"uppercase", letterSpacing:"0.2em", color:"rgba(255,255,255,0.28)" }}>System Health</span>
-          <span style={{ fontFamily:"monospace", fontSize:9, padding:"3px 9px", borderRadius:100, background:"rgba(74,222,128,0.1)", color:"#4ADE80", border:"1px solid rgba(74,222,128,0.18)" }}>
-            All Good
-          </span>
+          <div style={{ display:"flex", alignItems:"center", gap:8 }}>
+            <span style={{ fontFamily:"monospace", fontSize:10, textTransform:"uppercase", letterSpacing:"0.2em", color:"rgba(255,255,255,0.28)" }}>Packet Feed</span>
+            <span style={{ fontFamily:"monospace", fontSize:9, padding:"2px 7px", borderRadius:100, background:"rgba(59,130,246,0.1)", color:"#3B82F6", border:"1px solid rgba(59,130,246,0.2)" }}>
+              eth0
+            </span>
+          </div>
+          <div style={{ display:"flex", alignItems:"center", gap:6 }}>
+            <span style={{ position:"relative", display:"flex", width:7, height:7 }}>
+              <span className="animate-ping" style={{ position:"absolute", inset:0, borderRadius:"50%", background:"#3B82F6", opacity:0.6 }} />
+              <span style={{ position:"relative", width:7, height:7, borderRadius:"50%", background:"#3B82F6", display:"block" }} />
+            </span>
+            <span style={{ fontFamily:"monospace", fontSize:9, color:"#3B82F6" }}>live</span>
+          </div>
         </div>
-        <div style={{ padding:"16px", display:"flex", flexDirection:"column", gap:18 }}>
-          {METRICS.map(({ label, pct, color, glow }, i) => (
-            <div key={label}>
-              <div style={{ display:"flex", justifyContent:"space-between", marginBottom:8 }}>
-                <span style={{ fontFamily:"monospace", fontSize:10, color:"rgba(255,255,255,0.42)" }}>{label}</span>
-                <span ref={el => { numRefs.current[i]=el; }}
-                  style={{ fontFamily:"monospace", fontSize:11, fontWeight:700, color }}>0%</span>
-              </div>
-              {/* Track */}
-              <div style={{ height:5, borderRadius:100, background:"rgba(255,255,255,0.06)", overflow:"hidden" }}>
-                {/* Fill with glow */}
-                <div ref={el => { fillRefs.current[i]=el; }}
-                  style={{ height:"100%", borderRadius:100, background:color, width:0, boxShadow:`0 0 10px ${glow}`, position:"relative", overflow:"hidden" }}>
-                  {/* Shimmer */}
-                  <div ref={el => { shimRefs.current[i]=el; }}
-                    style={{ position:"absolute", inset:0, background:"linear-gradient(90deg,transparent 0%,rgba(255,255,255,0.55) 50%,transparent 100%)", borderRadius:100, transform:"translateX(-110%)" }} />
-                </div>
-              </div>
-            </div>
+
+        {/* Column headers */}
+        <div style={{ display:"flex", gap:5, padding:"5px 16px 4px", borderBottom:"1px solid rgba(255,255,255,0.04)" }}>
+          {["PROTO","SRC","","DST","SIZE"].map((h, i) => (
+            <span key={i} style={{
+              fontFamily:"monospace", fontSize:7.5, textTransform:"uppercase",
+              letterSpacing:"0.12em", color:"rgba(255,255,255,0.16)",
+              flex: i === 1 ? 1 : i === 3 ? "0 0 60px" : "none",
+              width: i === 0 ? 36 : i === 2 ? 9 : i === 4 ? 28 : undefined,
+              textAlign: i === 4 ? "right" : "left",
+              flexShrink: 0,
+            }}>{h}</span>
           ))}
         </div>
-        <div style={{ padding:"10px 16px", borderTop:"1px solid rgba(255,255,255,0.05)", display:"flex", alignItems:"center", gap:6 }}>
-          <CheckCircle2 style={{ width:12, height:12, color:"#4ADE80", flexShrink:0 }} strokeWidth={2} />
-          <span style={{ fontFamily:"monospace", fontSize:9, color:"rgba(255,255,255,0.26)" }}>Updated just now</span>
+
+        {/* Live rows */}
+        <div ref={rowsRef} style={{ padding:"4px 16px 6px", minHeight:170, maxHeight:170, overflow:"hidden", display:"flex", flexDirection:"column" }} />
+
+        {/* Footer */}
+        <div style={{ padding:"8px 16px", borderTop:"1px solid rgba(255,255,255,0.05)", display:"flex", alignItems:"center", justifyContent:"space-between" }}>
+          <span style={{ fontFamily:"monospace", fontSize:8.5, color:"rgba(255,255,255,0.18)" }}>
+            captured: <span ref={countRef} style={{ color:"rgba(255,255,255,0.38)" }}>0</span>
+          </span>
+          <span style={{ fontFamily:"monospace", fontSize:8.5, color:"#10B981" }}>● capturing</span>
         </div>
       </div>
     </div>
@@ -235,6 +285,40 @@ export default function HeroSection() {
   const b4 = useRef<HTMLDivElement>(null);
   const mouseRef    = useRef({ x:0, y:0 });
   const badgeRefs   = useRef<(HTMLDivElement|null)[]>([]);
+  const wordGlitchMap = useRef<Map<HTMLElement, gsap.core.Timeline>>(new Map());
+
+  const handleWordEnter = (e: React.MouseEvent<HTMLSpanElement>) => {
+    const el = e.currentTarget;
+    gsap.killTweensOf(el);
+    wordGlitchMap.current.get(el)?.kill();
+
+    el.style.fontStyle = "italic";
+    gsap.to(el, { color: "#60A5FA", duration: 0.35, ease: "power2.out" });
+
+    const tl = gsap.timeline({ repeat: -1, repeatDelay: 1.0 + Math.random() * 1.8 });
+    tl.to(el, { x: -5, skewX: -6, filter: "brightness(1.7) contrast(1.3)", textShadow: "5px 0 rgba(255,40,40,0.9), -5px 0 rgba(0,220,255,0.9)", opacity: 0.75, duration: 0.04, ease: "none" })
+      .to(el, { x: 6,  skewX: 4,  filter: "brightness(0.6) contrast(1.8)", textShadow: "-4px 0 rgba(255,40,40,0.95), 4px 0 rgba(0,220,255,0.95)", opacity: 1, duration: 0.04, ease: "none" })
+      .to(el, { x: -3, skewX: -2, filter: "brightness(1.3)", textShadow: "2px 0 rgba(255,40,40,0.55), -2px 0 rgba(0,220,255,0.55)", opacity: 0.88, duration: 0.05, ease: "none" })
+      .to(el, { x: 0,  skewX: 0,  filter: "brightness(1) contrast(1)", textShadow: "0px 0px 0px rgba(0,0,0,0)", opacity: 1, duration: 0.2, ease: "power2.out" });
+
+    wordGlitchMap.current.set(el, tl);
+  };
+
+  const handleWordLeave = (e: React.MouseEvent<HTMLSpanElement>) => {
+    const el = e.currentTarget;
+    wordGlitchMap.current.get(el)?.kill();
+    wordGlitchMap.current.delete(el);
+    gsap.killTweensOf(el);
+
+    el.style.fontStyle = "normal";
+    gsap.to(el, {
+      color: "#ffffff",
+      x: 0, skewX: 0, opacity: 1,
+      filter: "brightness(1) contrast(1)",
+      textShadow: "0px 0px 0px rgba(0,0,0,0)",
+      duration: 0.6, ease: "power2.out",
+    });
+  };
 
   // ── Particle canvas ─────────────────────────────────────────────────────────
   useEffect(() => {
@@ -435,7 +519,7 @@ export default function HeroSection() {
 
       {/* Side cards */}
       <TerminalCard />
-      <MetricsCard />
+      <PacketSnifferCard />
 
       {/* Floating badges */}
       {BADGES.map(({ icon:Icon, text, sub, side, top }, i) => (
@@ -484,8 +568,8 @@ export default function HeroSection() {
           {["Build","Without","Limits."].map((word, i) => (
             <span key={i} className="h-ww inline-block overflow-hidden align-bottom mr-[0.18em]" style={{ lineHeight:1.06 }}>
               <span className="h-word inline-block text-white cursor-default"
-                onMouseEnter={e => gsap.to(e.currentTarget, { color:"#60A5FA", duration:0.4, ease:"power2.out" })}
-                onMouseLeave={e => gsap.to(e.currentTarget, { color:"#ffffff", duration:0.7, ease:"power2.out" })}>
+                onMouseEnter={handleWordEnter}
+                onMouseLeave={handleWordLeave}>
                 {word}
               </span>
             </span>

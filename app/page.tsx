@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import {
   HeroSection,
-  StatsStrip,
+  NetworkGlobe,
   ServicesGrid,
   WhySection,
   ProcessSection,
@@ -27,7 +27,10 @@ export default function HomePage() {
   return (
     <>
       <HeroSection />
-      <StatsStrip />
+      <div aria-hidden style={{ height: 96, background: "#04080F", position: "relative" }}>
+        <div style={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%,-50%)", width: "60%", height: 1, background: "linear-gradient(to right, transparent, rgba(37,99,235,0.35), transparent)" }} />
+      </div>
+      <NetworkGlobe />
       <ServicesGrid />
       <WhySection />
       <ProcessSection />

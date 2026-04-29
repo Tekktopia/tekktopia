@@ -4,103 +4,232 @@ import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
-import { Zap, Clock, Lock, Layers, ArrowRight } from "lucide-react";
+import { Zap, Lock, Layers, Clock, ArrowUpRight } from "lucide-react";
 import Link from "next/link";
 
 gsap.registerPlugin(ScrollTrigger);
 
 const PILLARS = [
-  { icon: Zap,    title: "Speed Without Compromise",  body: "We move fast — never at the expense of quality. Agile process means real results in days, not months.", color: "text-blue", bg: "bg-blue/10",    border: "border-blue/20" },
-  { icon: Lock,   title: "Security-First by Default", body: "Every solution is hardened from day one. Cybersecurity isn't an afterthought — it's baked into our DNA.", color: "text-red-400", bg: "bg-red-500/10", border: "border-red-500/15" },
-  { icon: Layers, title: "Full-Stack Ownership",      body: "One team, end to end. Strategy, design, development, deployment, and ongoing support — we own every layer.", color: "text-orange",  bg: "bg-orange/10",  border: "border-orange/20" },
-  { icon: Clock,  title: "Always-On Support",         body: "Your business doesn't sleep, and neither do we. 24/7 monitoring and helpdesk keeps you operational.", color: "text-green-400", bg: "bg-green-500/10", border: "border-green-500/15" },
+  {
+    num: "01", icon: Zap,    color: "#3B82F6", glow: "rgba(59,130,246,0.18)",
+    title: "Speed Without Compromise",
+    body:  "Agile process, real results — days not months. We move fast without cutting corners on quality, security, or scalability.",
+  },
+  {
+    num: "02", icon: Lock,   color: "#EF4444", glow: "rgba(239,68,68,0.18)",
+    title: "Security-First by Default",
+    body:  "Every solution is hardened from day one. Cybersecurity isn't an afterthought — it's baked into every line of code and every deployment.",
+  },
+  {
+    num: "03", icon: Layers, color: "#F97316", glow: "rgba(249,115,22,0.18)",
+    title: "Full-Stack Ownership",
+    body:  "One team, end to end. Strategy, design, development, deployment, and 24/7 support — we own every layer so nothing falls through the cracks.",
+  },
+  {
+    num: "04", icon: Clock,  color: "#10B981", glow: "rgba(16,185,129,0.18)",
+    title: "Always-On Support",
+    body:  "Your business doesn't sleep, and neither do we. 24/7 monitoring, helpdesk, and escalation keeps you operational no matter what.",
+  },
 ];
 
 export default function WhySection() {
   const sectionRef = useRef<HTMLElement>(null);
 
   useGSAP(() => {
-    const words = document.querySelectorAll<HTMLElement>(".why-word");
-    gsap.set(".why-eyebrow-line", { scaleX: 0, transformOrigin: "left" });
-    gsap.set(".why-eyebrow",      { opacity: 0, y: 12 });
-    gsap.set(words,               { y: "110%" });
-    gsap.set(".why-body",         { opacity: 0, y: 20 });
-    gsap.set(".why-cta",          { opacity: 0, y: 16 });
-    gsap.set(".why-card",         { opacity: 0, y: 36, scale: 0.96 });
+    gsap.set(".why-eyebrow", { opacity: 0, y: 14 });
+    gsap.set(".why-word",    { yPercent: 110 });
+    gsap.set(".why-body",    { opacity: 0, y: 20 });
+    gsap.set(".why-cta",     { opacity: 0, y: 16 });
+    gsap.set(".why-card",    { opacity: 0, y: 36 });
 
-    gsap.timeline({ scrollTrigger: { trigger: ".why-left", start: "top 82%", toggleActions: "play reverse play reverse" }, defaults: { ease: "power3.out" } })
-      .to(".why-eyebrow-line", { scaleX: 1, duration: 0.45, ease: "power2.inOut" })
-      .to(".why-eyebrow",      { opacity: 1, y: 0, duration: 0.4 }, "-=0.2")
-      .to(words,               { y: 0, duration: 0.85, stagger: 0.07 }, "-=0.2")
-      .to(".why-body",         { opacity: 1, y: 0, duration: 0.7, stagger: 0.1 }, "-=0.5")
-      .to(".why-cta",          { opacity: 1, y: 0, duration: 0.6, ease: "back.out(1.5)" }, "-=0.3");
+    gsap.timeline({
+      scrollTrigger: {
+        trigger: ".why-left",
+        start: "top 82%",
+        end: "top 15%",
+        toggleActions: "play none none reverse",
+      },
+      defaults: { ease: "power3.out" },
+    })
+      .to(".why-eyebrow", { opacity: 1, y: 0, duration: 0.5 })
+      .to(".why-word",    { yPercent: 0, duration: 0.9, stagger: 0.07 }, "-=0.25")
+      .to(".why-body",    { opacity: 1, y: 0, duration: 0.7, stagger: 0.1 }, "-=0.5")
+      .to(".why-cta",     { opacity: 1, y: 0, duration: 0.6 }, "-=0.3");
 
-    gsap.timeline({ scrollTrigger: { trigger: ".why-right", start: "top 82%", toggleActions: "play reverse play reverse" } })
-      .to(".why-card", { opacity: 1, y: 0, scale: 1, duration: 0.65, stagger: 0.1, ease: "power3.out" });
+    gsap.to(".why-card", {
+      opacity: 1, y: 0, duration: 0.6, stagger: 0.1, ease: "power3.out",
+      scrollTrigger: {
+        trigger: ".why-right",
+        start: "top 82%",
+        end: "top 15%",
+        toggleActions: "play none none reverse",
+      },
+    });
 
-    document.querySelectorAll<HTMLElement>(".why-card").forEach((card) => {
-      card.addEventListener("mouseenter", () => gsap.to(card, { y: -5, duration: 0.3, ease: "power2.out" }));
-      card.addEventListener("mouseleave", () => gsap.to(card, { y: 0, duration: 0.5, ease: "elastic.out(1, 0.6)" }));
+    document.querySelectorAll<HTMLElement>(".why-card").forEach(card => {
+      const color = card.dataset.color!;
+      card.addEventListener("mouseenter", () => {
+        gsap.to(card, { y: -6, duration: 0.35, ease: "power2.out" });
+        card.style.borderColor = color + "55";
+        card.style.boxShadow = `0 0 0 1px ${color}18, 0 24px 60px ${color}18, inset 0 1px 0 rgba(255,255,255,0.04)`;
+      });
+      card.addEventListener("mouseleave", () => {
+        gsap.to(card, { y: 0, duration: 0.6, ease: "elastic.out(1, 0.55)" });
+        card.style.borderColor = "rgba(255,255,255,0.07)";
+        card.style.boxShadow = "none";
+      });
     });
   }, { scope: sectionRef });
 
   return (
-    <section ref={sectionRef} className="py-20 md:py-28 px-6 md:px-12 bg-navy" aria-label="Why choose Tekktopia">
-      <div className="max-w-7xl mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-20 items-center">
+    <section
+      ref={sectionRef}
+      aria-label="Why choose Tekktopia"
+      className="relative overflow-hidden"
+      style={{ background: "#04080F", paddingTop: 96, paddingBottom: 96 }}
+    >
+      {/* Fine grid */}
+      <div aria-hidden className="absolute inset-0 pointer-events-none"
+        style={{
+          backgroundImage: "linear-gradient(rgba(255,255,255,0.018) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.018) 1px,transparent 1px)",
+          backgroundSize: "64px 64px",
+        }} />
 
-          {/* Left */}
+      {/* Aurora blobs */}
+      <div aria-hidden className="absolute pointer-events-none" style={{ width:800, height:800, borderRadius:"50%", top:"-20%", left:"-10%", background:"radial-gradient(circle,rgba(37,99,235,0.14) 0%,transparent 68%)", filter:"blur(90px)" }} />
+      <div aria-hidden className="absolute pointer-events-none" style={{ width:600, height:600, borderRadius:"50%", bottom:"-15%", right:"-8%", background:"radial-gradient(circle,rgba(249,115,22,0.1) 0%,transparent 68%)", filter:"blur(100px)" }} />
+      <div aria-hidden className="absolute pointer-events-none" style={{ width:400, height:400, borderRadius:"50%", top:"50%", right:"30%", background:"radial-gradient(circle,rgba(139,92,246,0.08) 0%,transparent 68%)", filter:"blur(80px)" }} />
+
+      <div className="relative max-w-7xl mx-auto px-5 sm:px-8 md:px-12">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
+
+          {/* ── Left ── */}
           <div className="why-left flex flex-col">
-            <span className="why-eyebrow text-xs font-mono font-semibold text-orange uppercase tracking-[0.22em] mb-8 flex items-center gap-3">
-              <span className="why-eyebrow-line w-6 h-[2px] bg-orange block rounded-full" />
-              Why Tekktopia
-            </span>
 
-            <h2 className="font-display font-bold text-[clamp(32px,4.5vw,58px)] text-white leading-[1.0] tracking-tight mb-8">
-              {["The tech partner", "that actually", "gets it done."].map((line, li) => (
+            {/* Eyebrow */}
+            <div className="why-eyebrow flex items-center gap-3 mb-6">
+              <span style={{ height:1, width:24, background:"#F97316", display:"block", borderRadius:99 }} />
+              <span style={{ fontFamily:"monospace", fontSize:10, textTransform:"uppercase", letterSpacing:"0.28em", color:"rgba(255,255,255,0.32)" }}>
+                Why Tekktopia
+              </span>
+            </div>
+
+            {/* Headline */}
+            <h2 className="font-display font-black uppercase mb-8"
+              style={{ fontSize:"clamp(34px,4.8vw,60px)", lineHeight:0.92, letterSpacing:"-0.03em" }}>
+              {[
+                { text: "The tech", accent: false },
+                { text: "partner that", accent: false },
+                { text: "gets it done.", accent: true },
+              ].map(({ text, accent }, li) => (
                 <span key={li} className="block">
-                  {line.split(" ").map((word, i) => (
-                    <span key={i} className="inline-block overflow-hidden align-bottom pb-1">
-                      <span className="why-word inline-block">{word}&nbsp;</span>
+                  {text.split(" ").map((word, wi) => (
+                    <span key={wi} className="inline-block overflow-hidden align-bottom pb-1 mr-[0.18em]">
+                      <span className="why-word inline-block"
+                        style={{ color: accent ? "#F97316" : "#ffffff" }}>
+                        {word}
+                      </span>
                     </span>
                   ))}
                 </span>
               ))}
             </h2>
 
-            <div className="w-12 h-[2px] bg-gradient-to-r from-orange to-blue mb-8 rounded-full" />
-
-            <p className="why-body text-base md:text-lg text-white/55 font-light leading-relaxed mb-4 max-w-lg">
-              We're not a faceless agency with rotating consultants. We're a focused, hands-on team of engineers, designers, and strategists who treat your problems like our own.
+            {/* Body */}
+            <p className="why-body mb-4 max-w-md"
+              style={{ fontSize:"clamp(14px,1.5vw,16px)", color:"rgba(255,255,255,0.5)", fontWeight:300, lineHeight:1.75 }}>
+              We&apos;re not a faceless agency with rotating consultants. We&apos;re a focused, hands-on team of engineers, designers, and strategists who treat your problems like our own.
             </p>
-            <p className="why-body text-base text-white/50 font-light leading-relaxed mb-10 max-w-lg">
-              Our clients stay because we deliver — on time, within budget, and beyond expectations.
+            <p className="why-body mb-12 max-w-md"
+              style={{ fontSize:"clamp(13px,1.4vw,15px)", color:"rgba(255,255,255,0.35)", fontWeight:300, lineHeight:1.8 }}>
+              Our clients stay because we deliver — on time, within budget, and beyond expectations. Every time.
             </p>
 
-            <div className="why-cta flex flex-col sm:flex-row gap-4">
-              <Link href="/about" className="group inline-flex items-center gap-2 text-white font-semibold text-sm border-b-2 border-orange/50 hover:border-orange pb-1 transition-colors">
-                Meet the team <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+            {/* CTAs */}
+            <div className="why-cta flex flex-wrap gap-3">
+              <Link href="/about"
+                className="group inline-flex items-center gap-2.5 font-semibold text-sm px-7 py-3.5 rounded-xl text-white"
+                style={{
+                  background: "linear-gradient(135deg,#2563EB,#1D4ED8)",
+                  boxShadow: "0 0 0 1px rgba(59,130,246,0.28), 0 4px 24px rgba(37,99,235,0.28)",
+                  transition: "box-shadow 0.3s, transform 0.3s",
+                }}
+                onMouseEnter={e => { e.currentTarget.style.boxShadow="0 0 60px rgba(37,99,235,0.55),0 0 0 1px rgba(59,130,246,0.5)"; e.currentTarget.style.transform="translateY(-2px)"; }}
+                onMouseLeave={e => { e.currentTarget.style.boxShadow="0 0 0 1px rgba(59,130,246,0.28),0 4px 24px rgba(37,99,235,0.28)"; e.currentTarget.style.transform="none"; }}
+              >
+                Meet the team
+                <ArrowUpRight className="w-4 h-4 transition-transform group-hover:rotate-45" />
               </Link>
-              <Link href="/projects" className="group inline-flex items-center gap-2 text-white/50 font-medium text-sm border-b-2 border-transparent hover:border-white/30 pb-1 transition-colors hover:text-white">
-                See our work <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+              <Link href="/projects"
+                className="group inline-flex items-center gap-2.5 font-medium text-sm px-7 py-3.5 rounded-xl"
+                style={{
+                  color:"rgba(255,255,255,0.65)",
+                  background:"rgba(255,255,255,0.04)",
+                  border:"1px solid rgba(255,255,255,0.1)",
+                  transition:"border-color 0.3s, color 0.3s, background 0.3s",
+                }}
+                onMouseEnter={e => { e.currentTarget.style.borderColor="rgba(255,255,255,0.22)"; e.currentTarget.style.color="#fff"; e.currentTarget.style.background="rgba(255,255,255,0.07)"; }}
+                onMouseLeave={e => { e.currentTarget.style.borderColor="rgba(255,255,255,0.1)"; e.currentTarget.style.color="rgba(255,255,255,0.65)"; e.currentTarget.style.background="rgba(255,255,255,0.04)"; }}
+              >
+                See our work
+                <ArrowUpRight className="w-4 h-4 transition-transform group-hover:rotate-45" />
               </Link>
             </div>
           </div>
 
-          {/* Right — 2×2 cards */}
+          {/* ── Right — 2×2 pillar cards ── */}
           <div className="why-right grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {PILLARS.map(({ icon: Icon, title, body, color, bg, border }) => (
-              <div key={title} className={`why-card relative p-6 rounded-2xl border ${border} bg-white/5 cursor-default flex flex-col gap-4 transition-all duration-300 hover:bg-white/8 hover:border-orange/30`}>
-                <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${bg} border ${border}`}>
-                  <Icon className={`w-5 h-5 ${color}`} strokeWidth={1.75} />
+            {PILLARS.map(({ num, icon: Icon, color, glow, title, body }) => (
+              <div key={num}
+                className="why-card relative flex flex-col gap-5 p-7 rounded-2xl cursor-default overflow-hidden"
+                data-color={color}
+                style={{
+                  background: "rgba(255,255,255,0.025)",
+                  border: "1px solid rgba(255,255,255,0.07)",
+                  backdropFilter: "blur(12px)",
+                  transition: "border-color 0.35s, box-shadow 0.35s",
+                }}
+              >
+                {/* Large background number */}
+                <span aria-hidden style={{
+                  position: "absolute", top: 12, right: 16,
+                  fontFamily: "monospace", fontSize: 64, fontWeight: 900,
+                  color: color, opacity: 0.06, lineHeight: 1, userSelect: "none",
+                  letterSpacing: "-0.04em",
+                }}>
+                  {num}
+                </span>
+
+                {/* Icon */}
+                <div style={{
+                  width: 46, height: 46, borderRadius: 13, display: "flex",
+                  alignItems: "center", justifyContent: "center",
+                  background: glow, border: `1px solid ${color}30`,
+                  boxShadow: `0 0 18px ${glow}`,
+                }}>
+                  <Icon style={{ width: 20, height: 20, color }} strokeWidth={1.6} />
                 </div>
+
+                {/* Content */}
                 <div>
-                  <h3 className="font-display font-semibold text-white text-base mb-2">{title}</h3>
-                  <p className="text-sm font-light text-white/50 leading-relaxed">{body}</p>
+                  <h3 className="font-display font-bold mb-2.5"
+                    style={{ fontSize: 16, color: "#fff", lineHeight: 1.25 }}>
+                    {title}
+                  </h3>
+                  <p style={{ fontSize: 13.5, color: "rgba(255,255,255,0.42)", lineHeight: 1.7 }}>
+                    {body}
+                  </p>
                 </div>
+
+                {/* Bottom color line */}
+                <div style={{
+                  position: "absolute", bottom: 0, left: 0, right: 0, height: 2,
+                  background: `linear-gradient(to right, transparent, ${color}55, transparent)`,
+                }} />
               </div>
             ))}
           </div>
+
         </div>
       </div>
     </section>
