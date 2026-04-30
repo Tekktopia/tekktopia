@@ -2,101 +2,113 @@
 
 import { useRef, useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
-import { ArrowRight, ChevronDown } from "lucide-react";
+import { ArrowUpRight, ChevronDown, X } from "lucide-react";
 
 const NAV_LINKS = [
-  { name: "Home", href: "/" },
-  { name: "About", href: "/about" },
+  { name: "Home",     href: "/"         },
+  { name: "About",    href: "/about"    },
   { name: "Services", href: "/services", hasDropdown: true },
-  { name: "Blog", href: "/blog" },
-  { name: "Career", href: "/careers" },
-  { name: "Our Team", href: "/team" },
+  { name: "Blog",     href: "/blog"     },
+  { name: "Careers",  href: "/careers"  },
+  { name: "Our Team", href: "/team"     },
 ];
 
+// ── Wordmark — shared between desktop + mobile ─────────────────────────────
+function Wordmark() {
+  return (
+    <span className="flex items-center gap-2.5">
+      <Image
+        src="/logoTransparent.png"
+        alt="Tekktopia"
+        width={28}
+        height={28}
+        style={{ objectFit: "contain" }}
+      />
+      <span
+        style={{
+          fontFamily: "'GT Walsheim Pro', 'Space Grotesk', sans-serif",
+          fontWeight: 700,
+          fontSize: "1.15rem",
+          letterSpacing: "-0.02em",
+          lineHeight: 1,
+        }}
+      >
+        <span style={{ color: "#F97316" }}>t</span>
+        <span style={{ color: "#ffffff" }}>ekk</span>
+        <span style={{ color: "#3B82F6" }}>t</span>
+        <span style={{ color: "#ffffff" }}>opia</span>
+      </span>
+    </span>
+  );
+}
+
 export default function Navigation() {
-  const headerRef = useRef<HTMLElement>(null);
-  const mobileRef = useRef<HTMLDivElement>(null);
+  const headerRef  = useRef<HTMLElement>(null);
+  const mobileRef  = useRef<HTMLDivElement>(null);
   const backdropRef = useRef<HTMLDivElement>(null);
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
 
+  // ── Scroll detection ──────────────────────────────────────────────────────
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 16);
+    const onScroll = () => setScrolled(window.scrollY > 20);
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  // ── Lock body scroll when menu is open ───────────────────────────────────
   useEffect(() => {
     document.body.style.overflow = menuOpen ? "hidden" : "";
-    return () => {
-      document.body.style.overflow = "";
-    };
+    return () => { document.body.style.overflow = ""; };
   }, [menuOpen]);
 
-  useEffect(() => {
-    setMenuOpen(false);
-  }, [pathname]);
+  // ── Close on route change ─────────────────────────────────────────────────
+  useEffect(() => { setMenuOpen(false); }, [pathname]);
 
-  useGSAP(
-    () => {
-      gsap.fromTo(
-        headerRef.current,
-        { y: -80, opacity: 0 },
-        { y: 0, opacity: 1, duration: 0.9, ease: "expo.out", delay: 0.05 },
-      );
-    },
-    { scope: headerRef },
-  );
+  // ── Entry animation ───────────────────────────────────────────────────────
+  useGSAP(() => {
+    gsap.fromTo(
+      headerRef.current,
+      { y: -72, autoAlpha: 0 },
+      { y: 0, autoAlpha: 1, duration: 0.85, ease: "expo.out", delay: 0.08 },
+    );
+  }, { scope: headerRef });
 
+  // ── Mobile menu open ──────────────────────────────────────────────────────
   const openMenu = () => {
     setMenuOpen(true);
     requestAnimationFrame(() => {
-      const menu = mobileRef.current;
+      const menu     = mobileRef.current;
       const backdrop = backdropRef.current;
       if (!menu || !backdrop) return;
       const links = menu.querySelectorAll<HTMLElement>(".mob-link");
-      gsap.set([menu, backdrop], { opacity: 0 });
-      gsap.set(menu, { y: -12 });
-      gsap.set(links, { y: 16, opacity: 0 });
+      gsap.set([menu, backdrop], { autoAlpha: 0 });
+      gsap.set(menu,  { y: -16 });
+      gsap.set(links, { y: 18, autoAlpha: 0 });
       gsap
         .timeline({ defaults: { ease: "expo.out" } })
-        .to(backdrop, { opacity: 1, duration: 0.28 })
-        .to(menu, { y: 0, opacity: 1, duration: 0.42 }, "-=0.18")
-        .to(
-          links,
-          { y: 0, opacity: 1, duration: 0.38, stagger: 0.05 },
-          "-=0.22",
-        );
+        .to(backdrop, { autoAlpha: 1, duration: 0.3 })
+        .to(menu,  { y: 0, autoAlpha: 1, duration: 0.45 }, "-=0.2")
+        .to(links, { y: 0, autoAlpha: 1, duration: 0.4, stagger: 0.055 }, "-=0.25");
     });
   };
 
+  // ── Mobile menu close ─────────────────────────────────────────────────────
   const closeMenu = () => {
-    const menu = mobileRef.current;
+    const menu     = mobileRef.current;
     const backdrop = backdropRef.current;
-    if (!menu || !backdrop) {
-      setMenuOpen(false);
-      return;
-    }
+    if (!menu || !backdrop) { setMenuOpen(false); return; }
     const links = menu.querySelectorAll<HTMLElement>(".mob-link");
     gsap
       .timeline({ onComplete: () => setMenuOpen(false) })
-      .to(links, {
-        y: -10,
-        opacity: 0,
-        duration: 0.2,
-        stagger: 0.03,
-        ease: "power2.in",
-      })
-      .to(
-        menu,
-        { y: -12, opacity: 0, duration: 0.28, ease: "power2.in" },
-        "-=0.1",
-      )
-      .to(backdrop, { opacity: 0, duration: 0.22 }, "-=0.14");
+      .to(links,   { y: -10, autoAlpha: 0, duration: 0.18, stagger: 0.03, ease: "power2.in" })
+      .to(menu,    { y: -16, autoAlpha: 0, duration: 0.28, ease: "power2.in" }, "-=0.1")
+      .to(backdrop,{ autoAlpha: 0, duration: 0.22 }, "-=0.14");
   };
 
   const isActive = (href: string) =>
@@ -104,123 +116,183 @@ export default function Navigation() {
 
   return (
     <>
+      {/* ── Header bar ───────────────────────────────────────────────────── */}
       <header
         ref={headerRef}
-        className={[
-          "sticky top-0 z-50 w-full transition-all duration-300",
-          scrolled
-            ? "backdrop-blur-xl shadow-[0_1px_16px_rgba(0,0,0,0.4)]"
-            : "",
-        ].join(" ")}
+        className="sticky top-0 z-50 w-full transition-all duration-300"
         style={{
-          background: scrolled ? "rgba(255,255,255,0.97)" : "#ffffff",
-          borderBottom: "1px solid rgba(0,0,0,0.06)",
-          boxShadow: scrolled ? "0 1px 16px rgba(0,0,0,0.08)" : "none",
+          background: "#04080F",
+          borderBottom: "none",
+          boxShadow: "none",
         }}
       >
-        <div className="max-w-7xl mx-auto px-6 h-[72px] flex items-center justify-between gap-8">
+        {/* Fine grid overlay */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0"
+          style={{
+            backgroundImage:
+              "linear-gradient(rgba(255,255,255,0.012) 1px,transparent 1px)," +
+              "linear-gradient(90deg,rgba(255,255,255,0.012) 1px,transparent 1px)",
+            backgroundSize: "64px 64px",
+          }}
+        />
+
+        <div className="relative max-w-7xl mx-auto px-5 sm:px-8 md:px-12 h-[68px] flex items-center justify-between gap-8">
+
           {/* Logo */}
           <Link
             href="/"
-            className="flex items-center shrink-0"
+            className="shrink-0 group"
             onClick={() => menuOpen && closeMenu()}
+            style={{ transition: "opacity 0.2s" }}
+            onMouseEnter={e => (e.currentTarget.style.opacity = "0.82")}
+            onMouseLeave={e => (e.currentTarget.style.opacity = "1")}
           >
-            <img src="/logo.png" alt="Tekktopia Logo" className="h-10 w-auto object-contain" />
+            <Wordmark />
           </Link>
 
-          {/* Desktop nav */}
-          <nav
-            className="hidden md:flex items-center gap-1"
-            aria-label="Main navigation"
-          >
+          {/* ── Desktop nav ────────────────────────────────────────────── */}
+          <nav className="hidden md:flex items-center gap-0.5" aria-label="Main navigation">
             {NAV_LINKS.map((link) => {
               const active = isActive(link.href);
               return (
                 <Link
                   key={link.name}
                   href={link.href}
-                  className={[
-                    "relative inline-flex items-center gap-1 px-4 py-2 text-sm font-medium rounded-full transition-all duration-200",
-                    active
-                      ? "text-orange"
-                      : "text-navy/70 hover:text-navy hover:bg-slate-50",
-                  ].join(" ")}
+                  className="relative inline-flex items-center gap-1 px-4 py-2 rounded-full text-sm font-medium transition-all duration-200"
+                  style={{
+                    color: active ? "#F97316" : "rgba(255,255,255,0.58)",
+                    background: active ? "rgba(249,115,22,0.08)" : "transparent",
+                  }}
+                  onMouseEnter={e => {
+                    if (!active) {
+                      e.currentTarget.style.color = "#ffffff";
+                      e.currentTarget.style.background = "rgba(255,255,255,0.05)";
+                    }
+                  }}
+                  onMouseLeave={e => {
+                    if (!active) {
+                      e.currentTarget.style.color = "rgba(255,255,255,0.58)";
+                      e.currentTarget.style.background = "transparent";
+                    }
+                  }}
                 >
                   {link.name}
                   {link.hasDropdown && (
-                    <ChevronDown className="w-3.5 h-3.5 opacity-60" />
+                    <ChevronDown
+                      style={{ width: 13, height: 13, opacity: 0.6 }}
+                    />
                   )}
+                  {/* Active underline dot */}
                   {active && (
-                    <span className="absolute bottom-0.5 left-4 right-4 h-[2px] bg-orange rounded-full" />
+                    <span
+                      className="absolute bottom-1 left-1/2 -translate-x-1/2"
+                      style={{
+                        width: 4,
+                        height: 4,
+                        borderRadius: "50%",
+                        background: "#F97316",
+                        boxShadow: "0 0 6px rgba(249,115,22,0.7)",
+                        display: "block",
+                      }}
+                    />
                   )}
                 </Link>
               );
             })}
           </nav>
 
-          {/* CTA */}
+          {/* ── Right side — CTA + hamburger ───────────────────────────── */}
           <div className="flex items-center gap-3 shrink-0">
+            {/* Desktop CTA */}
             <Link
               href="/contact"
-              className="hidden cursor-pointer md:inline-flex items-center gap-2 relative overflow-hidden bg-orange hover:opacity-90 text-white px-5 py-2.5 rounded-full font-semibold text-sm transition-all duration-300 hover:-translate-y-0.5 active:scale-95 group"
+              className="hidden md:inline-flex group items-center gap-2 font-semibold text-sm text-white px-5 py-2.5 rounded-full"
+              style={{
+                background: "linear-gradient(135deg,#F97316,#EA6A00)",
+                boxShadow: "0 0 0 1px rgba(249,115,22,0.3),0 4px 18px rgba(249,115,22,0.2)",
+                transition: "box-shadow 0.3s, transform 0.25s",
+              }}
+              onMouseEnter={e => {
+                e.currentTarget.style.boxShadow = "0 0 40px rgba(249,115,22,0.5),0 0 0 1px rgba(249,115,22,0.55)";
+                e.currentTarget.style.transform = "translateY(-1px)";
+              }}
+              onMouseLeave={e => {
+                e.currentTarget.style.boxShadow = "0 0 0 1px rgba(249,115,22,0.3),0 4px 18px rgba(249,115,22,0.2)";
+                e.currentTarget.style.transform = "none";
+              }}
             >
-              <span className="absolute inset-0 flex h-full w-full justify-center [transform:skew(-12deg)_translateX(-100%)] group-hover:duration-700 group-hover:[transform:skew(-12deg)_translateX(100%)]">
-                <span className="relative h-full w-6 bg-white/10" />
-              </span>
-              <span className="relative z-10 flex items-center gap-1.5">
-                Connect with us
-                <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5" />
-              </span>
+              Connect with us
+              <ArrowUpRight
+                style={{ width: 14, height: 14 }}
+                className="transition-transform duration-300 group-hover:rotate-45"
+              />
             </Link>
 
             {/* Hamburger */}
             <button
-              onClick={() => (menuOpen ? closeMenu() : openMenu())}
+              onClick={() => menuOpen ? closeMenu() : openMenu()}
               aria-label={menuOpen ? "Close menu" : "Open menu"}
               aria-expanded={menuOpen}
-              className="md:hidden flex flex-col justify-center items-center w-10 h-10 rounded-xl hover:bg-white/5 transition-colors gap-[5px]"
+              className="md:hidden flex flex-col justify-center items-center w-10 h-10 rounded-xl transition-all duration-200"
+              style={{
+                background: menuOpen
+                  ? "rgba(249,115,22,0.1)"
+                  : "rgba(255,255,255,0.05)",
+                border: menuOpen
+                  ? "1px solid rgba(249,115,22,0.25)"
+                  : "1px solid rgba(255,255,255,0.08)",
+              }}
             >
-              <span
-                className={[
-                  "block w-5 h-[1.5px] bg-navy rounded-full transition-all duration-300 origin-center",
-                  menuOpen ? "rotate-45 translate-y-[6.5px]" : "",
-                ].join(" ")}
-              />
-              <span
-                className={[
-                  "block w-5 h-[1.5px] bg-navy rounded-full transition-all duration-300",
-                  menuOpen ? "opacity-0 scale-x-0" : "",
-                ].join(" ")}
-              />
-              <span
-                className={[
-                  "block w-5 h-[1.5px] bg-navy rounded-full transition-all duration-300 origin-center",
-                  menuOpen ? "-rotate-45 -translate-y-[6.5px]" : "",
-                ].join(" ")}
-              />
+              {menuOpen ? (
+                <X style={{ width: 16, height: 16, color: "#F97316" }} strokeWidth={2} />
+              ) : (
+                <span className="flex flex-col gap-[5px] items-center">
+                  <span style={{ display: "block", width: 18, height: 1.5, borderRadius: 99, background: "rgba(255,255,255,0.75)" }} />
+                  <span style={{ display: "block", width: 12, height: 1.5, borderRadius: 99, background: "rgba(255,255,255,0.45)" }} />
+                  <span style={{ display: "block", width: 18, height: 1.5, borderRadius: 99, background: "rgba(255,255,255,0.75)" }} />
+                </span>
+              )}
             </button>
           </div>
         </div>
       </header>
 
-      {/* Mobile menu */}
+      {/* ── Mobile overlay + drawer ───────────────────────────────────────── */}
       {menuOpen && (
         <>
+          {/* Backdrop */}
           <div
             ref={backdropRef}
-            className="md:hidden fixed inset-0 z-40 backdrop-blur-sm"
-            style={{ background: "rgba(0,0,0,0.5)" }}
+            className="md:hidden fixed inset-0 z-40"
+            style={{ background: "rgba(0,0,0,0.6)", backdropFilter: "blur(4px)" }}
             onClick={closeMenu}
           />
+
+          {/* Drawer */}
           <div
             ref={mobileRef}
-            className="md:hidden fixed top-[72px] left-0 right-0 z-50 shadow-xl"
+            className="md:hidden fixed top-[68px] left-0 right-0 z-50"
             style={{
-              background: "#ffffff",
-              borderBottom: "1px solid rgba(0,0,0,0.06)",
+              background: "#04080F",
+              borderBottom: "none",
+              boxShadow: "none",
             }}
           >
-            <nav className="flex flex-col px-6 py-5 gap-1">
+            {/* Fine grid in drawer */}
+            <div
+              aria-hidden
+              className="pointer-events-none absolute inset-0"
+              style={{
+                backgroundImage:
+                  "linear-gradient(rgba(255,255,255,0.012) 1px,transparent 1px)," +
+                  "linear-gradient(90deg,rgba(255,255,255,0.012) 1px,transparent 1px)",
+                backgroundSize: "64px 64px",
+              }}
+            />
+
+            <nav className="relative flex flex-col px-5 py-5 gap-1">
               {NAV_LINKS.map((link) => {
                 const active = isActive(link.href);
                 return (
@@ -228,30 +300,68 @@ export default function Navigation() {
                     key={link.name}
                     href={link.href}
                     onClick={closeMenu}
-                    className={[
-                      "mob-link flex items-center justify-between px-4 py-3.5 rounded-xl text-base font-medium transition-all",
-                      active
-                        ? "text-orange bg-orange/5 border-l-4 border-orange pl-3"
-                        : "text-navy/70 hover:text-navy hover:bg-slate-50",
-                    ].join(" ")}
+                    className="mob-link flex items-center justify-between px-4 py-3.5 rounded-xl text-[15px] font-medium transition-all duration-200"
+                    style={{
+                      color: active ? "#F97316" : "rgba(255,255,255,0.62)",
+                      background: active
+                        ? "rgba(249,115,22,0.07)"
+                        : "transparent",
+                      borderLeft: active
+                        ? "2px solid #F97316"
+                        : "2px solid transparent",
+                    }}
+                    onMouseEnter={e => {
+                      if (!active) {
+                        e.currentTarget.style.color = "#fff";
+                        e.currentTarget.style.background = "rgba(255,255,255,0.04)";
+                      }
+                    }}
+                    onMouseLeave={e => {
+                      if (!active) {
+                        e.currentTarget.style.color = "rgba(255,255,255,0.62)";
+                        e.currentTarget.style.background = "transparent";
+                      }
+                    }}
                   >
                     <span>{link.name}</span>
                     {active && (
-                      <span className="w-1.5 h-1.5 rounded-full bg-orange" />
+                      <span
+                        style={{
+                          width: 6,
+                          height: 6,
+                          borderRadius: "50%",
+                          background: "#F97316",
+                          boxShadow: "0 0 8px rgba(249,115,22,0.7)",
+                          display: "inline-block",
+                          flexShrink: 0,
+                        }}
+                      />
                     )}
                   </Link>
                 );
               })}
+
+              {/* Divider */}
               <div
-                className="mob-link h-px my-2"
-                style={{ background: "rgba(0,0,0,0.06)" }}
+                className="mob-link my-1"
+                style={{ height: 1, background: "rgba(255,255,255,0.06)" }}
               />
+
+              {/* Mobile CTA */}
               <Link
                 href="/contact"
                 onClick={closeMenu}
-                className="mob-link w-full flex items-center justify-center gap-2 bg-orange text-white px-5 py-4 rounded-full font-semibold text-sm"
+                className="mob-link group inline-flex items-center justify-center gap-2 font-semibold text-sm text-white py-4 rounded-xl"
+                style={{
+                  background: "linear-gradient(135deg,#F97316,#EA6A00)",
+                  boxShadow: "0 0 0 1px rgba(249,115,22,0.3),0 4px 18px rgba(249,115,22,0.2)",
+                }}
               >
-                Connect with us <ArrowRight className="w-4 h-4" />
+                Connect with us
+                <ArrowUpRight
+                  style={{ width: 15, height: 15 }}
+                  className="transition-transform duration-300 group-hover:rotate-45"
+                />
               </Link>
             </nav>
           </div>

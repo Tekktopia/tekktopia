@@ -104,7 +104,14 @@ export default function Footer() {
               height={36}
               style={{ objectFit: "contain" }}
             />
-            <span className="font-display font-bold text-xl tracking-tight">
+            <span
+              style={{
+                fontFamily: "'GT Walsheim Pro', 'Space Grotesk', sans-serif",
+                fontWeight: 700,
+                fontSize: "1.2rem",
+                letterSpacing: "-0.02em",
+              }}
+            >
               <span style={{ color: "#F97316" }}>t</span>
               <span style={{ color: "#FFFFFF" }}>ekk</span>
               <span style={{ color: "#3B82F6" }}>t</span>

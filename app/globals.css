@@ -58,8 +58,8 @@
   --off-white:    #F8FAFC;   /* light section bg */
 
   /* ── Semantic Tokens ──────────────── */
-  --background:   #FFFFFF;
-  --foreground:   #0F172A;
+  --background:   #04080F;
+  --foreground:   #ffffff;
 
   --card:              #FFFFFF;
   --card-foreground:   #0F172A;
@@ -96,6 +96,42 @@
   h1, h2, h3, h4, h5, h6 {
     @apply font-display text-navy;
   }
+}
+
+/* ── GT Walsheim Pro (local — place files in /public/fonts/) ─────────────── */
+/*    Grilli Type licenced font. Drop the .woff2 files from your licence kit  */
+/*    into public/fonts/ using the exact filenames below.                     */
+@font-face {
+  font-family: "GT Walsheim Pro";
+  src: url("/fonts/GTWalsheimPro-Regular.woff2") format("woff2"),
+       url("/fonts/GTWalsheimPro-Regular.woff")  format("woff");
+  font-weight: 400;
+  font-style:  normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "GT Walsheim Pro";
+  src: url("/fonts/GTWalsheimPro-Medium.woff2") format("woff2"),
+       url("/fonts/GTWalsheimPro-Medium.woff")  format("woff");
+  font-weight: 500;
+  font-style:  normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "GT Walsheim Pro";
+  src: url("/fonts/GTWalsheimPro-Bold.woff2") format("woff2"),
+       url("/fonts/GTWalsheimPro-Bold.woff")  format("woff");
+  font-weight: 700;
+  font-style:  normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "GT Walsheim Pro";
+  src: url("/fonts/GTWalsheimPro-Black.woff2") format("woff2"),
+       url("/fonts/GTWalsheimPro-Black.woff")  format("woff");
+  font-weight: 900;
+  font-style:  normal;
+  font-display: swap;
 }
 
 /* ── Marquee ticker ───────────────────────────────────────────────────────── */
