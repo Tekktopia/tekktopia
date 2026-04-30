@@ -1,27 +1,18 @@
 import type { Metadata } from "next";
-import { ServicesHero, ServicesList, WhyUsStrip } from "@/components/services";
-import { CTABanner } from "@/components/home";
+import ServicesPage from "@/components/services/ServicesPage";
 
 export const metadata: Metadata = {
-  title: "Services | Tekktopia",
+  title: "Our Services | Tekktopia",
   description:
-    "Ten end-to-end technology services — software development, cloud, cybersecurity, AI, data analytics, IT support, mobile & web, product design, M365, and IT consultancy.",
+    "From software development and cybersecurity to cloud computing, AI, and IT support — explore Tekktopia full range of technology services.",
   alternates: { canonical: "https://tekktopialtd.com/services" },
   openGraph: {
-    title: "Our Services | Tekktopia",
-    description:
-      "Ten focused disciplines. One accountable partner. Explore what Tekktopia builds and manages for ambitious businesses.",
+    title: "Services | Tekktopia",
+    description: "End-to-end technology services for startups and enterprises across Africa and beyond.",
     url: "https://tekktopialtd.com/services",
   },
 };
 
-export default function ServicesPage() {
-  return (
-    <>
-      <ServicesHero />
-      <ServicesList />
-      <WhyUsStrip />
-      <CTABanner />
-    </>
-  );
+export default function Page() {
+  return <ServicesPage />;
 }
