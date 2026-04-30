@@ -4,6 +4,7 @@ import {
   NetworkGlobe,
   ServicesGrid,
   WhySection,
+  PartnersStrip,
   ProcessSection,
   CTABanner,
 } from "@/components/home";
@@ -35,6 +36,7 @@ export default function HomePage() {
       <WhySection />
       <ProcessSection />
       <CTABanner />
+      <PartnersStrip />
     </>
   );
 }

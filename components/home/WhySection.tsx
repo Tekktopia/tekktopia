@@ -33,14 +33,15 @@ const PILLARS = [
 ];
 
 export default function WhySection() {
-  const sectionRef = useRef<HTMLElement>(null);
+  const sectionRef  = useRef<HTMLElement>(null);
+  const cardRefs    = useRef<(HTMLDivElement | null)[]>([]);
 
   useGSAP(() => {
+    /* ── Left column ── */
     gsap.set(".why-eyebrow", { autoAlpha: 0, y: 20, filter: "blur(6px)" });
     gsap.set(".why-word",    { yPercent: 110 });
     gsap.set(".why-body",    { autoAlpha: 0, y: 24, filter: "blur(5px)" });
     gsap.set(".why-cta",     { autoAlpha: 0, y: 20, filter: "blur(4px)" });
-    gsap.set(".why-card",    { autoAlpha: 0, y: 48, scale: 0.96, filter: "blur(8px)" });
 
     gsap.timeline({
       scrollTrigger: {
@@ -56,18 +57,94 @@ export default function WhySection() {
       .to(".why-body",    { autoAlpha: 1, y: 0, filter: "blur(0px)", duration: 0.75, stagger: 0.12 }, "-=0.5")
       .to(".why-cta",     { autoAlpha: 1, y: 0, filter: "blur(0px)", duration: 0.6 }, "-=0.3");
 
-    gsap.to(".why-card", {
-      autoAlpha: 1, y: 0, scale: 1, filter: "blur(0px)",
-      duration: 0.65, stagger: 0.1, ease: "power3.out",
-      scrollTrigger: {
-        trigger: sectionRef.current,
-        start: "top 85%",
-        end: "bottom 15%",
-        toggleActions: "play reverse play reverse",
+    /* ── Per-card individual animations ── */
+    const CARD_CONFIGS = [
+      /* Card 01 — slides in from the LEFT */
+      {
+        card:   { autoAlpha: 0, x: -70, y: 20, scale: 0.95, filter: "blur(10px)" },
+        cardTo: { autoAlpha: 1, x: 0,   y: 0,  scale: 1,    filter: "blur(0px)", duration: 0.75, ease: "power3.out" },
+        start:  "top 84%",
+        delay:  0,
       },
+      /* Card 02 — slides in from the RIGHT */
+      {
+        card:   { autoAlpha: 0, x: 70,  y: 20, scale: 0.95, filter: "blur(10px)" },
+        cardTo: { autoAlpha: 1, x: 0,   y: 0,  scale: 1,    filter: "blur(0px)", duration: 0.75, ease: "power3.out" },
+        start:  "top 84%",
+        delay:  0.12,
+      },
+      /* Card 03 — scales up from below */
+      {
+        card:   { autoAlpha: 0, x: 0, y: 60, scale: 0.88, filter: "blur(12px)" },
+        cardTo: { autoAlpha: 1, x: 0, y: 0,  scale: 1,    filter: "blur(0px)", duration: 0.8, ease: "back.out(1.4)" },
+        start:  "top 80%",
+        delay:  0.06,
+      },
+      /* Card 04 — drops in from above */
+      {
+        card:   { autoAlpha: 0, x: 0, y: -50, scale: 0.94, filter: "blur(10px)" },
+        cardTo: { autoAlpha: 1, x: 0, y: 0,   scale: 1,    filter: "blur(0px)", duration: 0.75, ease: "power3.out" },
+        start:  "top 80%",
+        delay:  0.18,
+      },
+    ];
+
+    cardRefs.current.forEach((card, i) => {
+      if (!card) return;
+      const cfg = CARD_CONFIGS[i];
+
+      /* set initial state */
+      gsap.set(card, cfg.card);
+
+      const num   = card.querySelector<HTMLElement>(".wc-num");
+      const icon  = card.querySelector<HTMLElement>(".wc-icon");
+      const title = card.querySelector<HTMLElement>(".wc-title");
+      const body  = card.querySelector<HTMLElement>(".wc-body");
+      const line  = card.querySelector<HTMLElement>(".wc-line");
+
+      if (num)   gsap.set(num,   { autoAlpha: 0 });
+      if (icon)  gsap.set(icon,  { autoAlpha: 0, scale: 0.5, rotation: -20 });
+      if (title) gsap.set(title, { autoAlpha: 0, y: 16, filter: "blur(4px)" });
+      if (body)  gsap.set(body,  { autoAlpha: 0, y: 12, filter: "blur(3px)" });
+      if (line)  gsap.set(line,  { scaleX: 0, transformOrigin: "left center" });
+
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: card,
+          start: cfg.start,
+          end: "bottom 10%",
+          toggleActions: "play reverse play reverse",
+        },
+        delay: cfg.delay,
+      });
+
+      /* 1. Card shell */
+      tl.to(card, cfg.cardTo);
+
+      /* 2. Background number fades in */
+      if (num)
+        tl.to(num, { autoAlpha: 1, duration: 0.5, ease: "power2.out" }, "-=0.45");
+
+      /* 3. Icon pops with a little spin */
+      if (icon)
+        tl.to(icon, { autoAlpha: 1, scale: 1, rotation: 0, duration: 0.55, ease: "back.out(1.8)" }, "-=0.35");
+
+      /* 4. Title slides up */
+      if (title)
+        tl.to(title, { autoAlpha: 1, y: 0, filter: "blur(0px)", duration: 0.5, ease: "power3.out" }, "-=0.25");
+
+      /* 5. Body text fades */
+      if (body)
+        tl.to(body,  { autoAlpha: 1, y: 0, filter: "blur(0px)", duration: 0.5, ease: "power2.out" }, "-=0.3");
+
+      /* 6. Bottom accent line draws across */
+      if (line)
+        tl.to(line,  { scaleX: 1, duration: 0.6, ease: "power2.inOut" }, "-=0.3");
     });
 
-    document.querySelectorAll<HTMLElement>(".why-card").forEach(card => {
+    /* Hover lift (kept separate from scroll timelines) */
+    cardRefs.current.forEach(card => {
+      if (!card) return;
       const color = card.dataset.color!;
       card.addEventListener("mouseenter", () => {
         gsap.to(card, { y: -6, duration: 0.35, ease: "power2.out" });
@@ -180,9 +257,11 @@ export default function WhySection() {
 
           {/* ── Right — 2×2 pillar cards ── */}
           <div className="why-right grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {PILLARS.map(({ num, icon: Icon, color, glow, title, body }) => (
-              <div key={num}
-                className="why-card relative flex flex-col gap-5 p-7 rounded-2xl cursor-default overflow-hidden"
+            {PILLARS.map(({ num, icon: Icon, color, glow, title, body }, i) => (
+              <div
+                key={num}
+                ref={el => { cardRefs.current[i] = el; }}
+                className="relative flex flex-col gap-5 p-7 rounded-2xl cursor-default overflow-hidden"
                 data-color={color}
                 style={{
                   background: "rgba(255,255,255,0.025)",
@@ -192,7 +271,7 @@ export default function WhySection() {
                 }}
               >
                 {/* Large background number */}
-                <span aria-hidden style={{
+                <span className="wc-num" aria-hidden style={{
                   position: "absolute", top: 12, right: 16,
                   fontFamily: "monospace", fontSize: 64, fontWeight: 900,
                   color: color, opacity: 0.06, lineHeight: 1, userSelect: "none",
@@ -202,7 +281,7 @@ export default function WhySection() {
                 </span>
 
                 {/* Icon */}
-                <div style={{
+                <div className="wc-icon" style={{
                   width: 46, height: 46, borderRadius: 13, display: "flex",
                   alignItems: "center", justifyContent: "center",
                   background: glow, border: `1px solid ${color}30`,
@@ -213,17 +292,17 @@ export default function WhySection() {
 
                 {/* Content */}
                 <div>
-                  <h3 className="font-display font-bold mb-2.5"
+                  <h3 className="wc-title font-display font-bold mb-2.5"
                     style={{ fontSize: 16, color: "#fff", lineHeight: 1.25 }}>
                     {title}
                   </h3>
-                  <p style={{ fontSize: 13.5, color: "rgba(255,255,255,0.65)", lineHeight: 1.7 }}>
+                  <p className="wc-body" style={{ fontSize: 13.5, color: "rgba(255,255,255,0.65)", lineHeight: 1.7 }}>
                     {body}
                   </p>
                 </div>
 
                 {/* Bottom color line */}
-                <div style={{
+                <div className="wc-line" style={{
                   position: "absolute", bottom: 0, left: 0, right: 0, height: 2,
                   background: `linear-gradient(to right, transparent, ${color}55, transparent)`,
                 }} />

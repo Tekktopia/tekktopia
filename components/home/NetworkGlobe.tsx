@@ -94,7 +94,7 @@ export default function NetworkGlobe() {
   const countElRef = useRef<HTMLSpanElement>(null);
   const logoRef    = useRef<HTMLImageElement | null>(null);
 
-  const rotation  = useRef({ x: 0.22, y: 0.9 });
+  const rotation  = useRef({ x: 0.115, y: -1.512 });
   const drag      = useRef({ active: false, lastX: 0, lastY: 0 });
   const autoSpin  = useRef(true);
   const spinTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -477,12 +477,17 @@ export default function NetworkGlobe() {
 
       {/* Title */}
       <div className="absolute top-10 left-1/2 -translate-x-1/2 text-center pointer-events-none z-10">
-        <p style={{ fontFamily:"monospace", fontSize:10, textTransform:"uppercase", letterSpacing:"0.32em", color:"rgba(255,255,255,0.9)", marginBottom:10 }}>
-          Global Network
-        </p>
+        <div className="flex items-center justify-center gap-3 mb-3">
+          <span style={{ height:1, width:20, background:"#F97316", display:"block", borderRadius:99 }} />
+          <p style={{ fontFamily:"monospace", fontSize:10, textTransform:"uppercase", letterSpacing:"0.28em", color:"rgba(255,255,255,0.5)" }}>
+            Global Network
+          </p>
+          <span style={{ height:1, width:20, background:"#F97316", display:"block", borderRadius:99 }} />
+        </div>
         <h2 className="font-display font-black uppercase"
-          style={{ fontSize:"clamp(26px,3.8vw,52px)", color:"#fff", letterSpacing:"-0.02em", lineHeight:1 }}>
-          Connected Worldwide
+          style={{ fontSize:"clamp(26px,3.8vw,52px)", letterSpacing:"-0.02em", lineHeight:1 }}>
+          <span style={{ color:"#ffffff" }}>Connected{" "}</span>
+          <span style={{ color:"#F97316" }}>Worldwide</span>
         </h2>
       </div>
 

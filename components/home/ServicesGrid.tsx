@@ -265,8 +265,9 @@ export default function ServicesGrid() {
           </div>
           <div className="svc-title flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
             <h2 className="font-display font-black uppercase"
-              style={{ fontSize:"clamp(36px,5.5vw,68px)", color:"#fff", letterSpacing:"-0.03em", lineHeight:0.92 }}>
-              End-to-End<br />Tech Services
+              style={{ fontSize:"clamp(36px,5.5vw,68px)", letterSpacing:"-0.03em", lineHeight:0.92 }}>
+              <span style={{ color:"#ffffff" }}>End-to-End</span><br />
+              <span style={{ color:"#F97316" }}>Tech Services</span>
             </h2>
             <div className="flex items-center gap-4 flex-shrink-0 pb-1">
               <span style={{ fontFamily:"monospace", fontSize:10, textTransform:"uppercase", letterSpacing:"0.2em", color:"rgba(255,255,255,0.52)" }}>
