@@ -36,33 +36,34 @@ export default function WhySection() {
   const sectionRef = useRef<HTMLElement>(null);
 
   useGSAP(() => {
-    gsap.set(".why-eyebrow", { opacity: 0, y: 14 });
+    gsap.set(".why-eyebrow", { autoAlpha: 0, y: 20, filter: "blur(6px)" });
     gsap.set(".why-word",    { yPercent: 110 });
-    gsap.set(".why-body",    { opacity: 0, y: 20 });
-    gsap.set(".why-cta",     { opacity: 0, y: 16 });
-    gsap.set(".why-card",    { opacity: 0, y: 36 });
+    gsap.set(".why-body",    { autoAlpha: 0, y: 24, filter: "blur(5px)" });
+    gsap.set(".why-cta",     { autoAlpha: 0, y: 20, filter: "blur(4px)" });
+    gsap.set(".why-card",    { autoAlpha: 0, y: 48, scale: 0.96, filter: "blur(8px)" });
 
     gsap.timeline({
       scrollTrigger: {
-        trigger: ".why-left",
-        start: "top 82%",
-        end: "top 15%",
-        toggleActions: "play none none reverse",
+        trigger: sectionRef.current,
+        start: "top 85%",
+        end: "bottom 15%",
+        toggleActions: "play reverse play reverse",
       },
       defaults: { ease: "power3.out" },
     })
-      .to(".why-eyebrow", { opacity: 1, y: 0, duration: 0.5 })
-      .to(".why-word",    { yPercent: 0, duration: 0.9, stagger: 0.07 }, "-=0.25")
-      .to(".why-body",    { opacity: 1, y: 0, duration: 0.7, stagger: 0.1 }, "-=0.5")
-      .to(".why-cta",     { opacity: 1, y: 0, duration: 0.6 }, "-=0.3");
+      .to(".why-eyebrow", { autoAlpha: 1, y: 0, filter: "blur(0px)", duration: 0.65 })
+      .to(".why-word",    { yPercent: 0, duration: 0.9, stagger: 0.07 }, "-=0.35")
+      .to(".why-body",    { autoAlpha: 1, y: 0, filter: "blur(0px)", duration: 0.75, stagger: 0.12 }, "-=0.5")
+      .to(".why-cta",     { autoAlpha: 1, y: 0, filter: "blur(0px)", duration: 0.6 }, "-=0.3");
 
     gsap.to(".why-card", {
-      opacity: 1, y: 0, duration: 0.6, stagger: 0.1, ease: "power3.out",
+      autoAlpha: 1, y: 0, scale: 1, filter: "blur(0px)",
+      duration: 0.65, stagger: 0.1, ease: "power3.out",
       scrollTrigger: {
-        trigger: ".why-right",
-        start: "top 82%",
-        end: "top 15%",
-        toggleActions: "play none none reverse",
+        trigger: sectionRef.current,
+        start: "top 85%",
+        end: "bottom 15%",
+        toggleActions: "play reverse play reverse",
       },
     });
 
@@ -109,7 +110,7 @@ export default function WhySection() {
             {/* Eyebrow */}
             <div className="why-eyebrow flex items-center gap-3 mb-6">
               <span style={{ height:1, width:24, background:"#F97316", display:"block", borderRadius:99 }} />
-              <span style={{ fontFamily:"monospace", fontSize:10, textTransform:"uppercase", letterSpacing:"0.28em", color:"rgba(255,255,255,0.32)" }}>
+              <span style={{ fontFamily:"monospace", fontSize:10, textTransform:"uppercase", letterSpacing:"0.28em", color:"rgba(255,255,255,0.58)" }}>
                 Why Tekktopia
               </span>
             </div>
@@ -137,11 +138,11 @@ export default function WhySection() {
 
             {/* Body */}
             <p className="why-body mb-4 max-w-md"
-              style={{ fontSize:"clamp(14px,1.5vw,16px)", color:"rgba(255,255,255,0.5)", fontWeight:300, lineHeight:1.75 }}>
+              style={{ fontSize:"clamp(14px,1.5vw,16px)", color:"rgba(255,255,255,0.72)", fontWeight:300, lineHeight:1.75 }}>
               We&apos;re not a faceless agency with rotating consultants. We&apos;re a focused, hands-on team of engineers, designers, and strategists who treat your problems like our own.
             </p>
             <p className="why-body mb-12 max-w-md"
-              style={{ fontSize:"clamp(13px,1.4vw,15px)", color:"rgba(255,255,255,0.35)", fontWeight:300, lineHeight:1.8 }}>
+              style={{ fontSize:"clamp(13px,1.4vw,15px)", color:"rgba(255,255,255,0.55)", fontWeight:300, lineHeight:1.8 }}>
               Our clients stay because we deliver — on time, within budget, and beyond expectations. Every time.
             </p>
 
@@ -216,7 +217,7 @@ export default function WhySection() {
                     style={{ fontSize: 16, color: "#fff", lineHeight: 1.25 }}>
                     {title}
                   </h3>
-                  <p style={{ fontSize: 13.5, color: "rgba(255,255,255,0.42)", lineHeight: 1.7 }}>
+                  <p style={{ fontSize: 13.5, color: "rgba(255,255,255,0.65)", lineHeight: 1.7 }}>
                     {body}
                   </p>
                 </div>

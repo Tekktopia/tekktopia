@@ -95,7 +95,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       <head>
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       </head>
-      <body className="flex min-h-screen flex-col bg-background text-foreground antialiased selection:bg-blue selection:text-white">
+      <body className="flex min-h-screen flex-col bg-background text-foreground antialiased selection:bg-blue selection:text-white overflow-x-hidden">
         <ScrollProgress />
         <CustomCursor />
         <Navigation />

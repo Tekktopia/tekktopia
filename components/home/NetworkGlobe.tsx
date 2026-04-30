@@ -106,7 +106,7 @@ export default function NetworkGlobe() {
   useEffect(() => {
     // Preload logo
     const img = new Image();
-    img.src = "/logo.png";
+    img.src = "/logoIcon.png";
     img.onload = () => { logoRef.current = img; };
 
     pulses.current = NODES
@@ -477,7 +477,7 @@ export default function NetworkGlobe() {
 
       {/* Title */}
       <div className="absolute top-10 left-1/2 -translate-x-1/2 text-center pointer-events-none z-10">
-        <p style={{ fontFamily:"monospace", fontSize:10, textTransform:"uppercase", letterSpacing:"0.32em", color:"rgba(255,255,255,0.22)", marginBottom:10 }}>
+        <p style={{ fontFamily:"monospace", fontSize:10, textTransform:"uppercase", letterSpacing:"0.32em", color:"rgba(255,255,255,0.9)", marginBottom:10 }}>
           Global Network
         </p>
         <h2 className="font-display font-black uppercase"
@@ -488,7 +488,7 @@ export default function NetworkGlobe() {
 
       {/* Active connections — top left */}
       <div className="absolute top-10 left-8 xl:left-14 pointer-events-none z-10">
-        <p style={{ fontFamily:"monospace", fontSize:8.5, textTransform:"uppercase", letterSpacing:"0.22em", color:"rgba(255,255,255,0.2)", marginBottom:5 }}>
+        <p style={{ fontFamily:"monospace", fontSize:8.5, textTransform:"uppercase", letterSpacing:"0.22em", color:"rgba(255,255,255,0.9)", marginBottom:5 }}>
           Active Connections
         </p>
         <span style={{ fontFamily:"monospace", fontSize:28, fontWeight:700, color:"#10B981", lineHeight:1 }}>
@@ -498,7 +498,7 @@ export default function NetworkGlobe() {
 
       {/* Packets counter — top right */}
       <div className="absolute top-10 right-8 xl:right-14 pointer-events-none z-10 text-right">
-        <p style={{ fontFamily:"monospace", fontSize:8.5, textTransform:"uppercase", letterSpacing:"0.22em", color:"rgba(255,255,255,0.2)", marginBottom:5 }}>
+        <p style={{ fontFamily:"monospace", fontSize:8.5, textTransform:"uppercase", letterSpacing:"0.22em", color:"rgba(255,255,255,0.9)", marginBottom:5 }}>
           Packets Transmitted
         </p>
         <span ref={countElRef} style={{ fontFamily:"monospace", fontSize:28, fontWeight:700, color:"#3B82F6", lineHeight:1 }}>0</span>
@@ -514,7 +514,7 @@ export default function NetworkGlobe() {
         ].map(({ color, label }) => (
           <div key={label} className="flex items-center gap-2">
             <span style={{ width:7, height:7, borderRadius:"50%", background:color, display:"block", boxShadow:`0 0 6px ${color}88`, flexShrink:0 }} />
-            <span style={{ fontFamily:"monospace", fontSize:9, textTransform:"uppercase", letterSpacing:"0.14em", color:"rgba(255,255,255,0.28)" }}>
+            <span style={{ fontFamily:"monospace", fontSize:9, textTransform:"uppercase", letterSpacing:"0.14em", color:"rgba(255,255,255,0.9)" }}>
               {label}
             </span>
           </div>
@@ -523,7 +523,7 @@ export default function NetworkGlobe() {
 
       {/* Hint — bottom center */}
       <div className="absolute bottom-12 left-1/2 -translate-x-1/2 z-10 pointer-events-none">
-        <p style={{ fontFamily:"monospace", fontSize:9, textTransform:"uppercase", letterSpacing:"0.22em", color:"rgba(255,255,255,0.16)", whiteSpace:"nowrap" }}>
+        <p style={{ fontFamily:"monospace", fontSize:9, textTransform:"uppercase", letterSpacing:"0.22em", color:"rgba(255,255,255,0.9)", whiteSpace:"nowrap" }}>
           Drag to rotate · Hover nodes to explore
         </p>
       </div>

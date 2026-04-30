@@ -144,7 +144,7 @@ function ServiceCard({ svc, index }: { svc: Service; index: number }) {
       </h3>
 
       {/* Desc */}
-      <p style={{ fontSize: 13.5, color: "rgba(255,255,255,0.42)", lineHeight: 1.7, marginBottom: 20, flex: 1 }}>
+      <p style={{ fontSize: 13.5, color: "rgba(255,255,255,0.65)", lineHeight: 1.7, marginBottom: 20, flex: 1 }}>
         {svc.desc}
       </p>
 
@@ -154,7 +154,7 @@ function ServiceCard({ svc, index }: { svc: Service; index: number }) {
           <span key={tag} style={{
             fontFamily: "monospace", fontSize: 9, padding: "3px 8px",
             borderRadius: 100, border: `1px solid ${svc.color}28`,
-            color: "rgba(255,255,255,0.38)", background: `${svc.color}0d`,
+            color: "rgba(255,255,255,0.58)", background: `${svc.color}0d`,
             textTransform: "uppercase", letterSpacing: "0.1em",
           }}>
             {tag}
@@ -204,21 +204,31 @@ export default function ServicesGrid() {
   };
 
   useGSAP(() => {
-    gsap.set(".svc-eyebrow", { autoAlpha: 0, y: 14 });
-    gsap.set(".svc-title",   { autoAlpha: 0, y: 22 });
-    gsap.set(".svc-card",    { autoAlpha: 0, y: 28 });
+    gsap.set(".svc-eyebrow", { autoAlpha: 0, y: 20, filter: "blur(6px)" });
+    gsap.set(".svc-title",   { autoAlpha: 0, y: 32, filter: "blur(6px)" });
+    gsap.set(".svc-card",    { autoAlpha: 0, y: 48, scale: 0.96, filter: "blur(8px)" });
 
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: sectionRef.current,
-        start: "top 82%",
-        end: "top 20%",
-        toggleActions: "play none none reverse",
+        start: "top 85%",
+        end: "bottom 15%",
+        toggleActions: "play reverse play reverse",
       },
     });
-    tl.to(".svc-eyebrow", { autoAlpha: 1, y: 0, duration: 0.5, ease: "power3.out" })
-      .to(".svc-title",   { autoAlpha: 1, y: 0, duration: 0.65, ease: "power3.out" }, "-=0.3")
-      .to(".svc-card",    { autoAlpha: 1, y: 0, duration: 0.5, stagger: 0.07, ease: "power3.out" }, "-=0.3");
+
+    tl.to(".svc-eyebrow", {
+        autoAlpha: 1, y: 0, filter: "blur(0px)",
+        duration: 0.65, ease: "power3.out",
+      })
+      .to(".svc-title", {
+        autoAlpha: 1, y: 0, filter: "blur(0px)",
+        duration: 0.75, ease: "power3.out",
+      }, "-=0.4")
+      .to(".svc-card", {
+        autoAlpha: 1, y: 0, scale: 1, filter: "blur(0px)",
+        duration: 0.65, stagger: 0.09, ease: "power3.out",
+      }, "-=0.45");
   }, { scope: sectionRef });
 
   return (
@@ -249,7 +259,7 @@ export default function ServicesGrid() {
         <div className="mb-16 max-w-2xl">
           <div className="svc-eyebrow flex items-center gap-3 mb-5">
             <span style={{ height:1, width:24, background:"#F97316", display:"block", borderRadius:99 }} />
-            <span style={{ fontFamily:"monospace", fontSize:10, textTransform:"uppercase", letterSpacing:"0.28em", color:"rgba(255,255,255,0.3)" }}>
+            <span style={{ fontFamily:"monospace", fontSize:10, textTransform:"uppercase", letterSpacing:"0.28em", color:"rgba(255,255,255,0.58)" }}>
               What We Do
             </span>
           </div>
@@ -259,7 +269,7 @@ export default function ServicesGrid() {
               End-to-End<br />Tech Services
             </h2>
             <div className="flex items-center gap-4 flex-shrink-0 pb-1">
-              <span style={{ fontFamily:"monospace", fontSize:10, textTransform:"uppercase", letterSpacing:"0.2em", color:"rgba(255,255,255,0.25)" }}>
+              <span style={{ fontFamily:"monospace", fontSize:10, textTransform:"uppercase", letterSpacing:"0.2em", color:"rgba(255,255,255,0.52)" }}>
                 10 Services
               </span>
               <Link

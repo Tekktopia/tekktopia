@@ -287,13 +287,13 @@ export default function HeroSection() {
   const badgeRefs   = useRef<(HTMLDivElement|null)[]>([]);
   const wordGlitchMap = useRef<Map<HTMLElement, gsap.core.Timeline>>(new Map());
 
-  const handleWordEnter = (e: React.MouseEvent<HTMLSpanElement>) => {
+  const handleWordEnter = (e: React.MouseEvent<HTMLSpanElement>, color = "#60A5FA") => {
     const el = e.currentTarget;
     gsap.killTweensOf(el);
     wordGlitchMap.current.get(el)?.kill();
 
     el.style.fontStyle = "italic";
-    gsap.to(el, { color: "#60A5FA", duration: 0.35, ease: "power2.out" });
+    gsap.to(el, { color, duration: 0.35, ease: "power2.out" });
 
     const tl = gsap.timeline({ repeat: -1, repeatDelay: 1.0 + Math.random() * 1.8 });
     tl.to(el, { x: -5, skewX: -6, filter: "brightness(1.7) contrast(1.3)", textShadow: "5px 0 rgba(255,40,40,0.9), -5px 0 rgba(0,220,255,0.9)", opacity: 0.75, duration: 0.04, ease: "none" })
@@ -565,12 +565,16 @@ export default function HeroSection() {
         {/* Headline */}
         <h1 className="font-display font-black uppercase mb-9 select-none"
           style={{ fontSize:"clamp(48px,9.8vw,136px)", lineHeight:0.9, letterSpacing:"-0.03em" }}>
-          {["Build","Without","Limits."].map((word, i) => (
+          {[
+            { text: "Build",   hoverColor: "#60A5FA" },
+            { text: "Without", hoverColor: "#F97316" },
+            { text: "Limits.", hoverColor: "#60A5FA" },
+          ].map(({ text, hoverColor }, i) => (
             <span key={i} className="h-ww inline-block overflow-hidden align-bottom mr-[0.18em]" style={{ lineHeight:1.06 }}>
               <span className="h-word inline-block text-white cursor-default"
-                onMouseEnter={handleWordEnter}
+                onMouseEnter={(e) => handleWordEnter(e, hoverColor)}
                 onMouseLeave={handleWordLeave}>
-                {word}
+                {text}
               </span>
             </span>
           ))}
