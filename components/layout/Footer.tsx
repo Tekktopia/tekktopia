@@ -2,13 +2,151 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { Mail, Phone, ArrowUpRight } from "lucide-react";
+import { Mail, Phone, ArrowUpRight, CheckCircle, Loader2 } from "lucide-react";
 import {
   FaLinkedinIn,
   FaXTwitter,
   FaGithub,
   FaInstagram,
 } from "react-icons/fa6";
+import { useForm, ValidationError } from "@formspree/react";
+
+// ─── Replace with your Formspree newsletter form ID ───────────────────────────
+// 1. Go to formspree.io → New Form → name it "Newsletter"
+// 2. Copy the 8-char ID from the URL (e.g. formspree.io/f/xabcdefg → "xabcdefg")
+const NEWSLETTER_FORM_ID = "mojrvwyy";
+// ─────────────────────────────────────────────────────────────────────────────
+
+function NewsletterForm() {
+  const [state, handleSubmit] = useForm(NEWSLETTER_FORM_ID);
+
+  if (state.succeeded) {
+    return (
+      <div
+        className="flex flex-col items-center gap-3 py-5 px-4 rounded-2xl text-center"
+        style={{
+          background: "rgba(16,185,129,0.07)",
+          border: "1px solid rgba(16,185,129,0.2)",
+        }}
+      >
+        <CheckCircle
+          style={{ width: 28, height: 28, color: "#10B981" }}
+          strokeWidth={1.5}
+        />
+        <p
+          style={{
+            fontSize: 13,
+            fontWeight: 500,
+            color: "rgba(255,255,255,0.82)",
+            lineHeight: 1.6,
+          }}
+        >
+          You&apos;re subscribed!
+        </p>
+        <p
+          style={{
+            fontSize: 11,
+            color: "rgba(255,255,255,0.38)",
+            fontFamily: "monospace",
+          }}
+        >
+          We&apos;ll be in touch with the good stuff.
+        </p>
+      </div>
+    );
+  }
+
+  return (
+    <form className="flex flex-col gap-3" onSubmit={handleSubmit}>
+      <input
+        id="newsletter-email"
+        type="email"
+        name="email"
+        required
+        placeholder="your@email.com"
+        style={{
+          width: "100%",
+          background: "rgba(255,255,255,0.04)",
+          border: "1px solid rgba(255,255,255,0.09)",
+          borderRadius: 12,
+          padding: "11px 14px",
+          fontSize: 13,
+          color: "#fff",
+          outline: "none",
+          transition: "border-color 0.25s",
+        }}
+        onFocus={(e) =>
+          (e.currentTarget.style.borderColor = "rgba(249,115,22,0.45)")
+        }
+        onBlur={(e) =>
+          (e.currentTarget.style.borderColor = "rgba(255,255,255,0.09)")
+        }
+      />
+
+      <ValidationError
+        prefix="Email"
+        field="email"
+        errors={state.errors}
+        style={{ fontSize: 11, color: "#EF4444", fontFamily: "monospace" }}
+      />
+
+      <button
+        type="submit"
+        disabled={state.submitting}
+        className="group inline-flex items-center justify-center gap-2 font-semibold text-sm text-white"
+        style={{
+          padding: "11px 14px",
+          borderRadius: 12,
+          background: state.submitting ? "rgba(249,115,22,0.6)" : "#F97316",
+          border: "none",
+          cursor: state.submitting ? "not-allowed" : "pointer",
+          transition: "box-shadow 0.3s, transform 0.3s, background 0.2s",
+        }}
+        onMouseEnter={(e) => {
+          if (state.submitting) return;
+          (e.currentTarget as HTMLElement).style.boxShadow =
+            "0 0 32px rgba(249,115,22,0.45)";
+          (e.currentTarget as HTMLElement).style.transform = "translateY(-1px)";
+        }}
+        onMouseLeave={(e) => {
+          (e.currentTarget as HTMLElement).style.boxShadow = "none";
+          (e.currentTarget as HTMLElement).style.transform = "none";
+        }}
+      >
+        {state.submitting ? (
+          <>
+            <Loader2
+              style={{ width: 14, height: 14 }}
+              className="animate-spin"
+            />
+            Subscribing…
+          </>
+        ) : (
+          <>
+            Subscribe
+            <ArrowUpRight
+              style={{ width: 14, height: 14 }}
+              className="transition-transform duration-300 group-hover:rotate-45"
+            />
+          </>
+        )}
+      </button>
+
+      {state.errors && Object.keys(state.errors).length > 0 && !state.submitting && (
+        <p
+          style={{
+            fontSize: 11,
+            color: "#EF4444",
+            fontFamily: "monospace",
+            marginTop: 2,
+          }}
+        >
+          Something went wrong. Please try again.
+        </p>
+      )}
+    </form>
+  );
+}
 
 const SERVICE_LINKS = [
   { label: "Software Development", href: "/services/software-development" },
@@ -153,7 +291,7 @@ export default function Footer() {
               info@tekktopia.com
             </a>
             <a
-              href="tel:+44000000000"
+              href="tel:+2348154332992"
               className="inline-flex items-center gap-2.5 w-fit"
               style={{
                 fontSize: 13,
@@ -172,7 +310,29 @@ export default function Footer() {
                 style={{ width: 14, height: 14, flexShrink: 0 }}
                 strokeWidth={1.8}
               />
-              +44 (0) 000 000 0000
+              +234 815 433 2992
+            </a>
+            <a
+              href="tel:+2348094140706"
+              className="inline-flex items-center gap-2.5 w-fit"
+              style={{
+                fontSize: 13,
+                fontWeight: 400,
+                color: "rgba(255,255,255,0.45)",
+                transition: "color 0.2s",
+              }}
+              onMouseEnter={(e) =>
+                (e.currentTarget.style.color = "rgba(255,255,255,0.85)")
+              }
+              onMouseLeave={(e) =>
+                (e.currentTarget.style.color = "rgba(255,255,255,0.45)")
+              }
+            >
+              <Phone
+                style={{ width: 14, height: 14, flexShrink: 0 }}
+                strokeWidth={1.8}
+              />
+              +234 809 414 0706
             </a>
           </div>
 
@@ -318,60 +478,43 @@ export default function Footer() {
             Tech insights, company news, and industry trends — straight to your
             inbox.
           </p>
-          <form
-            className="flex flex-col gap-3"
-            onSubmit={(e) => e.preventDefault()}
+          <NewsletterForm />
+
+          {/* Company credentials */}
+          <div
+            className="flex flex-col gap-2 mt-5 pt-5"
+            style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}
           >
-            <input
-              type="email"
-              placeholder="your@email.com"
-              style={{
-                width: "100%",
-                background: "rgba(255,255,255,0.04)",
-                border: "1px solid rgba(255,255,255,0.09)",
-                borderRadius: 12,
-                padding: "11px 14px",
-                fontSize: 13,
-                color: "#fff",
-                outline: "none",
-                transition: "border-color 0.25s",
-              }}
-              onFocus={(e) =>
-                (e.currentTarget.style.borderColor = "rgba(249,115,22,0.45)")
-              }
-              onBlur={(e) =>
-                (e.currentTarget.style.borderColor = "rgba(255,255,255,0.09)")
-              }
-            />
-            <button
-              type="submit"
-              className="group inline-flex items-center justify-center gap-2 font-semibold text-sm text-white"
-              style={{
-                padding: "11px 14px",
-                borderRadius: 12,
-                background: "#F97316",
-                border: "none",
-                cursor: "pointer",
-                transition: "box-shadow 0.3s, transform 0.3s",
-              }}
-              onMouseEnter={(e) => {
-                (e.currentTarget as HTMLElement).style.boxShadow =
-                  "0 0 32px rgba(249,115,22,0.45)";
-                (e.currentTarget as HTMLElement).style.transform =
-                  "translateY(-1px)";
-              }}
-              onMouseLeave={(e) => {
-                (e.currentTarget as HTMLElement).style.boxShadow = "none";
-                (e.currentTarget as HTMLElement).style.transform = "none";
-              }}
-            >
-              Subscribe
-              <ArrowUpRight
-                style={{ width: 14, height: 14 }}
-                className="transition-transform duration-300 group-hover:rotate-45"
-              />
-            </button>
-          </form>
+            {[
+              { label: "RC Number",           value: "7466800"    },
+              { label: "D-U-N-S Number",       value: "669827033"  },
+              { label: "Microsoft Partner ID", value: "7098303"    },
+            ].map(({ label, value }) => (
+              <div key={label} className="flex items-center justify-between gap-2">
+                <span
+                  style={{
+                    fontFamily: "monospace",
+                    fontSize: 9,
+                    textTransform: "uppercase",
+                    letterSpacing: "0.16em",
+                    color: "rgba(255,255,255,0.28)",
+                  }}
+                >
+                  {label}
+                </span>
+                <span
+                  style={{
+                    fontFamily: "monospace",
+                    fontSize: 9,
+                    letterSpacing: "0.1em",
+                    color: "rgba(255,255,255,0.48)",
+                  }}
+                >
+                  {value}
+                </span>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
 
