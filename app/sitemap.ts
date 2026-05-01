@@ -1,5 +1,7 @@
 import type { MetadataRoute } from "next";
 
+export const dynamic = "force-static";
+
 const BASE = "https://tekktopialtd.com";
 
 export default function sitemap(): MetadataRoute.Sitemap {
@@ -17,7 +19,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE}/services/consultancy`,         priority: 0.8,  changeFrequency: "monthly" as const },
     { url: `${BASE}/about`,                        priority: 0.8,  changeFrequency: "monthly" as const },
     { url: `${BASE}/projects`,                     priority: 0.75, changeFrequency: "weekly"  as const },
-    { url: `${BASE}/blog`,                         priority: 0.7,  changeFrequency: "daily"   as const },
     { url: `${BASE}/team`,                         priority: 0.65, changeFrequency: "monthly" as const },
     { url: `${BASE}/careers`,                      priority: 0.65, changeFrequency: "weekly"  as const },
     { url: `${BASE}/contact`,                      priority: 0.7,  changeFrequency: "monthly" as const },

@@ -236,7 +236,8 @@ export default function ServicesGrid() {
       ref={sectionRef}
       id="services"
       aria-label="Tekktopia services"
-      style={{ background: "#04080F", paddingTop: 96, paddingBottom: 96, overflow: "hidden" }}
+      className="relative overflow-hidden"
+      style={{ background: "#04080F", paddingTop: 96, paddingBottom: 96 }}
     >
       {/* Fine grid */}
       <div aria-hidden className="pointer-events-none absolute inset-0"
