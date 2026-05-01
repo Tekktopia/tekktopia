@@ -27,7 +27,6 @@ const COMPANY_LINKS = [
   { label: "About Us", href: "/about" },
   { label: "Projects", href: "/projects" },
   { label: "Our Team", href: "/team" },
-  { label: "Blog", href: "/blog" },
   { label: "Careers", href: "/careers" },
   { label: "FAQ", href: "/faq" },
   { label: "Contact", href: "/contact" },
@@ -36,14 +35,13 @@ const COMPANY_LINKS = [
 const SOCIAL_LINKS = [
   {
     icon: FaLinkedinIn,
-    href: "https://linkedin.com/company/tekktopia",
+    href: "https://www.linkedin.com/company/tekktopia/",
     label: "LinkedIn",
   },
-  { icon: FaXTwitter, href: "https://x.com/tekktopia", label: "X/Twitter" },
-  { icon: FaGithub, href: "https://github.com/tekktopia", label: "GitHub" },
+  { icon: FaXTwitter, href: "https://x.com/tekktopialtd/", label: "X/Twitter" },
   {
     icon: FaInstagram,
-    href: "https://instagram.com/tekktopia",
+    href: "https://www.instagram.com/tekktopia/",
     label: "Instagram",
   },
 ];

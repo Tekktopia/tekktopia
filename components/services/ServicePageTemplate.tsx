@@ -6,12 +6,13 @@ import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import Link from "next/link";
 import { ArrowUpRight, ArrowLeft, CheckCircle2 } from "lucide-react";
-import type { ServiceData } from "@/lib/services-data";
+import SERVICES from "@/lib/services-data";
 import { CTABanner } from "@/components/home";
 
 gsap.registerPlugin(ScrollTrigger);
 
-export default function ServicePageTemplate({ svc }: { svc: ServiceData }) {
+export default function ServicePageTemplate({ slug }: { slug: string }) {
+  const svc = SERVICES.find(s => s.slug === slug)!;
   const Icon = svc.icon;
   const pageRef = useRef<HTMLDivElement>(null);
 

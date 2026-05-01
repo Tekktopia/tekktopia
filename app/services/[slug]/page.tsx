@@ -29,5 +29,5 @@ export default async function ServicePage({ params }: Props) {
   const { slug } = await params;
   const svc = getServiceBySlug(slug);
   if (!svc) notFound();
-  return <ServicePageTemplate svc={svc} />;
+  return <ServicePageTemplate slug={slug} />;
 }
