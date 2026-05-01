@@ -91,7 +91,7 @@ const jsonLd = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${spaceGrotesk.variable} ${inter.variable} ${jetbrainsMono.variable}`}>
+    <html lang="en" className={`${spaceGrotesk.variable} ${inter.variable} ${jetbrainsMono.variable} overflow-x-hidden`}>
       <head>
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       </head>
@@ -99,7 +99,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <ScrollProgress />
         <CustomCursor />
         <Navigation />
-        <main className="flex-grow">{children}</main>
+        <main className="flex-grow overflow-x-hidden">{children}</main>
         <Footer />
       </body>
     </html>

@@ -39,7 +39,7 @@ export default function ServicesPage() {
 
   return (
     <>
-      <main ref={sectionRef} style={{ background: "#04080F" }}>
+      <main ref={sectionRef} style={{ background: "#04080F", overflowX: "hidden" }}>
 
         {/* ── Hero ── */}
         <section className="relative overflow-hidden" style={{ paddingTop: 128, paddingBottom: 80 }}>
