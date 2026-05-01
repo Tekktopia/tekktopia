@@ -82,7 +82,7 @@ export default function Footer() {
         style={{
           height: 280,
           background:
-            "radial-gradient(ellipse 70% 100% at 50% 0%,rgba(37,99,235,0.07) 0%,transparent 100%)",
+            "radial-gradient(ellipse 70% 100% at 50% 0%,rgba(37,99,235,0.07) 0%,transparent 100%) ",
         }}
       />
 
