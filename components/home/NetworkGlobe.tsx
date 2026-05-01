@@ -462,7 +462,7 @@ export default function NetworkGlobe() {
     <section
       ref={sectionRef}
       aria-label="Global Network"
-      className="relative flex items-center justify-center"
+      className="relative flex items-center justify-center overflow-hidden"
       style={{ height: "100svh", background: "#04080F", overflow: "hidden", opacity: 0, zIndex: 60 }}
     >
       {/* Grid overlay */}

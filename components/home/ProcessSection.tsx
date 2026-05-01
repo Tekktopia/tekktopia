@@ -93,7 +93,7 @@ export default function ProcessSection() {
       ref={sectionRef}
       id="process"
       aria-label="How we work"
-      className="relative"
+      className="relative overflow-hidden"
       style={{ background: "#04080F", paddingTop: 96, paddingBottom: 96 }}
     >
       {/* Fine grid */}

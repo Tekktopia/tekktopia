@@ -101,7 +101,7 @@ export default function StatsStrip() {
     <section
       ref={sectionRef}
       aria-label="Tekktopia statistics"
-      style={{ background: "#04080F", opacity: 0 }}
+      style={{ background: "#04080F", opacity: 0, overflow: "hidden" }}
     >
       {/* Top orange line */}
       <div style={{ height: 2, background: "linear-gradient(to right, transparent, #F97316 30%, #F97316 70%, transparent)" }} />
