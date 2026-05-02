@@ -65,9 +65,10 @@ export default function Navigation() {
   const backdropRef = useRef<HTMLDivElement>(null);
   const closeTimer  = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  const [menuOpen,     setMenuOpen]     = useState(false);
-  const [scrolled,     setScrolled]     = useState(false);
-  const [servicesOpen, setServicesOpen] = useState(false);
+  const [menuOpen,            setMenuOpen]            = useState(false);
+  const [scrolled,            setScrolled]            = useState(false);
+  const [servicesOpen,        setServicesOpen]        = useState(false);
+  const [mobileServicesOpen,  setMobileServicesOpen]  = useState(false);
 
   const pathname = usePathname();
 
@@ -496,6 +497,91 @@ export default function Navigation() {
             <nav className="relative flex flex-col px-5 py-5 gap-1">
               {NAV_LINKS.map((link) => {
                 const active = isActive(link.href);
+
+                // ── Services — accordion row ──────────────────────────────
+                if (link.hasDropdown) {
+                  return (
+                    <div key={link.name} className="mob-link flex flex-col">
+                      {/* Services toggle row */}
+                      <button
+                        onClick={() => setMobileServicesOpen(p => !p)}
+                        className="flex items-center justify-between px-4 py-3.5 rounded-xl text-[15px] font-medium w-full transition-all duration-200"
+                        style={{
+                          color: active || mobileServicesOpen ? "#F97316" : "rgba(255,255,255,0.62)",
+                          background: active || mobileServicesOpen ? "rgba(249,115,22,0.07)" : "transparent",
+                          borderLeft: active || mobileServicesOpen ? "2px solid #F97316" : "2px solid transparent",
+                          cursor: "pointer",
+                          border: "none",
+                          textAlign: "left",
+                          borderLeft: active || mobileServicesOpen ? "2px solid #F97316" : "2px solid transparent",
+                        }}
+                      >
+                        <span>{link.name}</span>
+                        <ChevronDown
+                          style={{
+                            width: 15,
+                            height: 15,
+                            color: mobileServicesOpen ? "#F97316" : "rgba(255,255,255,0.4)",
+                            transition: "transform 0.25s, color 0.2s",
+                            transform: mobileServicesOpen ? "rotate(180deg)" : "rotate(0deg)",
+                            flexShrink: 0,
+                          }}
+                        />
+                      </button>
+
+                      {/* Sub-links — expands directly below */}
+                      {mobileServicesOpen && (
+                        <div
+                          className="flex flex-col gap-0.5 mt-1 mb-1 ml-3 pl-3"
+                          style={{ borderLeft: "2px solid rgba(249,115,22,0.25)" }}
+                        >
+                          {SERVICE_LINKS.map(({ label, href }) => (
+                            <Link
+                              key={href}
+                              href={href}
+                              onClick={closeMenu}
+                              className="flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-[13px] font-medium transition-all duration-150"
+                              style={{ color: "rgba(255,255,255,0.52)" }}
+                              onMouseEnter={e => {
+                                e.currentTarget.style.color = "#fff";
+                                e.currentTarget.style.background = "rgba(255,255,255,0.05)";
+                              }}
+                              onMouseLeave={e => {
+                                e.currentTarget.style.color = "rgba(255,255,255,0.52)";
+                                e.currentTarget.style.background = "transparent";
+                              }}
+                            >
+                              <span
+                                style={{
+                                  width: 4, height: 4, borderRadius: "50%",
+                                  background: "#F97316", opacity: 0.6, flexShrink: 0,
+                                }}
+                              />
+                              {label}
+                            </Link>
+                          ))}
+
+                          {/* View all */}
+                          <Link
+                            href="/services"
+                            onClick={closeMenu}
+                            className="flex items-center gap-2 px-3 py-2.5 mt-1 rounded-lg text-[12px] font-semibold"
+                            style={{
+                              color: "#F97316",
+                              background: "rgba(249,115,22,0.07)",
+                              borderTop: "1px solid rgba(249,115,22,0.12)",
+                            }}
+                          >
+                            <ArrowUpRight style={{ width: 12, height: 12 }} />
+                            View all services
+                          </Link>
+                        </div>
+                      )}
+                    </div>
+                  );
+                }
+
+                // ── Regular nav link ──────────────────────────────────────
                 return (
                   <Link
                     key={link.name}
@@ -535,32 +621,6 @@ export default function Navigation() {
                   </Link>
                 );
               })}
-
-              {/* Mobile services sub-links */}
-              <div
-                className="mob-link flex flex-col gap-1 ml-4 mt-1 mb-1 pl-3"
-                style={{ borderLeft: "1px solid rgba(249,115,22,0.2)" }}
-              >
-                {SERVICE_LINKS.map(({ label, href }) => (
-                  <Link
-                    key={href}
-                    href={href}
-                    onClick={closeMenu}
-                    className="flex items-center gap-2 px-3 py-2 rounded-lg text-[13px]"
-                    style={{ color: "rgba(255,255,255,0.48)", transition: "color 0.2s" }}
-                    onMouseEnter={e => (e.currentTarget.style.color = "rgba(255,255,255,0.85)")}
-                    onMouseLeave={e => (e.currentTarget.style.color = "rgba(255,255,255,0.48)")}
-                  >
-                    <span
-                      style={{
-                        width: 4, height: 4, borderRadius: "50%",
-                        background: "#F97316", opacity: 0.5, flexShrink: 0,
-                      }}
-                    />
-                    {label}
-                  </Link>
-                ))}
-              </div>
 
               {/* Divider */}
               <div
