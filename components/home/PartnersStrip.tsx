@@ -4,6 +4,7 @@ import { useRef, useState } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
+import { useTheme } from "@/context/ThemeContext";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -79,17 +80,19 @@ const TRACK = [...PARTNERS, ...PARTNERS];
 
 /* ── Individual card ── */
 function PartnerCard({
-  name, abbr, accent, desc, logo, logoBg, logoFilter,
-}: (typeof PARTNERS)[0]) {
+  name, abbr, accent, desc, logo, logoBg, logoFilter, isLight
+}: (typeof PARTNERS)[0] & {isLight: boolean}) {
   const [imgFailed, setImgFailed] = useState(false);
   const showLogo = logo && !imgFailed;
+
+
 
   return (
     <div
       className="group flex-shrink-0 flex items-center gap-4 px-6 py-4 rounded-2xl mx-2.5"
       style={{
-        background: "rgba(255,255,255,0.03)",
-        border: "1px solid rgba(255,255,255,0.07)",
+        background: isLight ? "rgba(15, 23, 42, 0.04)" : "rgba(255,255,255,0.03)",
+        border: isLight ? "1px solid rgba(15,23,42,0.08)" : "1px solid rgba(255,255,255,0.07)",
         backdropFilter: "blur(10px)",
         transition: "border-color 0.3s, background 0.3s, box-shadow 0.3s",
         minWidth: 230,
@@ -103,18 +106,22 @@ function PartnerCard({
       }}
       onMouseLeave={e => {
         const el = e.currentTarget;
-        el.style.borderColor = "rgba(255,255,255,0.07)";
-        el.style.background = "rgba(255,255,255,0.03)";
-        el.style.boxShadow = "none";
+        el.style.borderColor = isLight ? "rgba(15,23,42,0.08)" : "rgba(255,255,255,0.07)";
+        el.style.background  = isLight ? "rgba(15,23,42,0.04)" : "rgba(255,255,255,0.03)";
+        el.style.boxShadow   = "none";
       }}
     >
       {/* Logo / monogram badge */}
       <div style={{
         width: 46, height: 46, borderRadius: 11, flexShrink: 0,
         background: showLogo
-          ? (logoBg ?? `radial-gradient(135deg at 30% 30%, ${accent}30, ${accent}0A)`)
+          ? (logoBg === "transparent"
+              ? (isLight ? "rgba(15,23,42,0.08)" : "transparent")
+              : (logoBg ?? `radial-gradient(135deg at 30% 30%, ${accent}30, ${accent}0A)`))
           : `radial-gradient(135deg at 30% 30%, ${accent}30, ${accent}0A)`,
-        border: showLogo ? "1px solid rgba(255,255,255,0.12)" : `1px solid ${accent}30`,
+        border: showLogo
+          ? (isLight ? "1px solid rgba(15,23,42,0.1)" : "1px solid rgba(255,255,255,0.12)")
+          : `1px solid ${accent}30`,
         display: "flex", alignItems: "center", justifyContent: "center",
         boxShadow: showLogo ? "none" : `0 0 14px ${accent}20`,
         overflow: "hidden",
@@ -146,14 +153,14 @@ function PartnerCard({
       {/* Name + descriptor */}
       <div style={{ minWidth: 0 }}>
         <p style={{
-          fontSize: 13.5, fontWeight: 600, color: "#fff",
+          fontSize: 13.5, fontWeight: 600, color: isLight ? "#0F172A" : "#fff",
           whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis",
           lineHeight: 1.3,
         }}>
           {name}
         </p>
         <p style={{
-          fontSize: 11, color: "rgba(255,255,255,0.38)",
+          fontSize: 11, color: isLight ? "rgba(15, 23, 42, 0.38)" : "rgba(255,255,255,0.38)",
           letterSpacing: "0.06em", textTransform: "uppercase",
           marginTop: 2, fontFamily: "monospace",
         }}>
@@ -168,6 +175,9 @@ export default function PartnersStrip() {
   const sectionRef = useRef<HTMLElement>(null);
   const track1Ref  = useRef<HTMLDivElement>(null);
   const track2Ref  = useRef<HTMLDivElement>(null);
+
+  const { theme } = useTheme();
+  const isLight = theme === "light";
 
   useGSAP(() => {
     /* ── Entrance ── */
@@ -220,12 +230,14 @@ export default function PartnersStrip() {
       ref={sectionRef}
       aria-label="Our partners"
       className="relative overflow-hidden"
-      style={{ background: "#04080F", paddingTop: 80, paddingBottom: 88 }}
+      style={{ background: isLight ? "#F8FAFC" : "#04080F", paddingTop: 80, paddingBottom: 88 }}
     >
       {/* Grid */}
       <div aria-hidden className="absolute inset-0 pointer-events-none"
         style={{
-          backgroundImage: "linear-gradient(rgba(255,255,255,0.016) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.016) 1px,transparent 1px)",
+          backgroundImage: isLight
+            ? "linear-gradient(rgba(15,23,42,0.06) 1px,transparent 1px),linear-gradient(90deg,rgba(15,23,42,0.06) 1px,transparent 1px)"
+            : "linear-gradient(rgba(255,255,255,0.016) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.016) 1px,transparent 1px)",
           backgroundSize: "64px 64px",
         }} />
 
@@ -237,7 +249,7 @@ export default function PartnersStrip() {
       <div className="relative max-w-7xl mx-auto px-5 sm:px-8 md:px-12 mb-12 text-center">
         <div className="ps-eyebrow flex items-center justify-center gap-3 mb-5">
           <span style={{ height: 1, width: 24, background: "#F97316", display: "block", borderRadius: 99 }} />
-          <span style={{ fontFamily: "monospace", fontSize: 10, textTransform: "uppercase", letterSpacing: "0.28em", color: "rgba(255,255,255,0.5)" }}>
+          <span style={{ fontFamily: "monospace", fontSize: 10, textTransform: "uppercase", letterSpacing: "0.28em", color: isLight ? "rgba(15,23,42,0.5)" : "rgba(255,255,255,0.5)", }}>
             Trusted by
           </span>
           <span style={{ height: 1, width: 24, background: "#F97316", display: "block", borderRadius: 99 }} />
@@ -245,17 +257,19 @@ export default function PartnersStrip() {
 
         <h2 className="ps-headline font-display font-black uppercase"
           style={{ fontSize: "clamp(28px,3.8vw,48px)", lineHeight: 1, letterSpacing: "-0.03em" }}>
-          <span style={{ color: "#ffffff" }}>Our{" "}</span>
+          <span style={{ color: isLight ? "#0F172A" : "#ffffff" }}>Our{" "}</span>
           <span style={{ color: "#F97316" }}>Partners</span>
         </h2>
 
         <p className="ps-sub mt-4 mx-auto max-w-lg"
-          style={{ fontSize: "clamp(13px,1.4vw,15px)", color: "rgba(255,255,255,0.48)", lineHeight: 1.8, fontWeight: 300 }}>
+          style={{ fontSize: "clamp(13px,1.4vw,15px)", color: isLight ? "rgba(15,23,42,0.48)" : "rgba(255,255,255,0.48)", lineHeight: 1.8, fontWeight: 300 }}>
           We work alongside industry leaders and innovators — delivering results for brands that demand excellence.
         </p>
 
         <div className="ps-divider mx-auto mt-8"
-          style={{ height: 1, width: 160, background: "linear-gradient(to right, transparent, rgba(255,255,255,0.12), transparent)" }} />
+          style={{ height: 1, width: 160, background: isLight
+            ? "linear-gradient(to right, transparent, rgba(15,23,42,0.12), transparent)"
+            : "linear-gradient(to right, transparent, rgba(255,255,255,0.12), transparent)" }} />
       </div>
 
       {/* Row 1 — left to right */}
@@ -265,7 +279,7 @@ export default function PartnersStrip() {
           WebkitMaskImage: "linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%)",
         }}>
         <div ref={track1Ref} className="flex items-stretch py-1" style={{ width: "max-content" }}>
-          {TRACK.map((p, i) => <PartnerCard key={i} {...p} />)}
+          {TRACK.map((p, i) => <PartnerCard key={i} {...p} isLight={isLight} />)}
         </div>
       </div>
 
@@ -276,7 +290,7 @@ export default function PartnersStrip() {
           WebkitMaskImage: "linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%)",
         }}>
         <div ref={track2Ref} className="flex items-stretch py-1" style={{ width: "max-content", transform: "translateX(-15%)" }}>
-          {TRACK.map((p, i) => <PartnerCard key={i} {...p} />)}
+          {TRACK.map((p, i) => <PartnerCard key={i} {...p} isLight={isLight} />)}
         </div>
       </div>
 
@@ -285,8 +299,8 @@ export default function PartnersStrip() {
         <div style={{
           display: "inline-flex", alignItems: "center", gap: 8,
           padding: "8px 18px", borderRadius: 99,
-          background: "rgba(255,255,255,0.04)",
-          border: "1px solid rgba(255,255,255,0.08)",
+          background: isLight ? "rgba(15,23,42,0.04)" : "rgba(255,255,255,0.04)",
+          border: isLight ? "1px solid rgba(15,23,42,0.08)" : "1px solid rgba(255,255,255,0.08)",
         }}>
           <span style={{
             width: 7, height: 7, borderRadius: "50%",
@@ -295,7 +309,7 @@ export default function PartnersStrip() {
             display: "inline-block",
             animation: "ps-pulse 2s infinite",
           }} />
-          <span style={{ fontSize: 12, color: "rgba(255,255,255,0.45)", fontFamily: "monospace", letterSpacing: "0.08em" }}>
+          <span style={{ fontSize: 13, color: isLight ? "rgba(15,23,42,0.45)" : "rgba(255,255,255,0.45)", fontFamily: "monospace", letterSpacing: "0.08em" }}>
             {PARTNERS.length} active partnerships
           </span>
         </div>

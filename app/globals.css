@@ -57,6 +57,10 @@
   --slate:        #64748B;   /* body text secondary */
   --off-white:    #F8FAFC;   /* light section bg */
 
+  --radius: 0.75rem;
+}
+
+html.dark{
   /* ── Semantic Tokens ──────────────── */
   --background:   #04080F;
   --foreground:   #ffffff;
@@ -79,8 +83,31 @@
   --border: #E2E8F0;
   --input:  #E2E8F0;
   --ring:   #2563EB;
+}
 
-  --radius: 0.75rem;
+/* Light mode semantic token */
+html.light{
+  --background:        #F8FAFC;
+  --foreground:        #0F172A;
+
+  --card:              #FFFFFF;
+  --card-foreground:   #0F172A;
+
+  --primary:           #3B82F6;   /* blue in light mode */
+  --primary-foreground:#FFFFFF;
+
+  --secondary:             #F1F5F9;
+  --secondary-foreground:  #0F172A;
+
+  --muted:             #F1F5F9;
+  --muted-foreground:  #64748B;
+
+  --accent:            #F97316;
+  --accent-foreground: #FFFFFF;
+
+  --border: #E2E8F0;
+  --input:  #E2E8F0;
+  --ring:   #3B82F6;
 }
 
 @layer base {
@@ -96,7 +123,7 @@
     overflow-x: hidden;
   }
   h1, h2, h3, h4, h5, h6 {
-    @apply font-display text-navy;
+    @apply font-display text-foreground;
   }
 }
 

@@ -6,6 +6,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Search, PenTool, Code2, ShieldCheck, Rocket } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
+import { useTheme } from "@/context/ThemeContext";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -55,6 +56,9 @@ const STEPS: Step[] = [
 export default function ProcessSection() {
   const sectionRef = useRef<HTMLElement>(null);
 
+  const { theme } = useTheme();
+  const isLight = theme === "light";
+
   useGSAP(() => {
     gsap.set(".proc-eyebrow", { autoAlpha: 0, y: 20, filter: "blur(6px)" });
     gsap.set(".proc-word",    { yPercent: 110 });
@@ -94,12 +98,14 @@ export default function ProcessSection() {
       id="process"
       aria-label="How we work"
       className="relative overflow-hidden"
-      style={{ background: "#04080F", paddingTop: 96, paddingBottom: 96 }}
+      style={{ background: isLight ? "#F8FAFC" : "#04080F", paddingTop: 96, paddingBottom: 96 }}
     >
       {/* Fine grid */}
       <div aria-hidden className="absolute inset-0 pointer-events-none"
         style={{
-          backgroundImage: "linear-gradient(rgba(255,255,255,0.018) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.018) 1px,transparent 1px)",
+          backgroundImage: isLight
+            ? "linear-gradient(rgba(15,23,42,0.06) 1px,transparent 1px),linear-gradient(90deg,rgba(15,23,42,0.06) 1px,transparent 1px)"
+            : "linear-gradient(rgba(255,255,255,0.018) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.018) 1px,transparent 1px)",
           backgroundSize: "64px 64px",
         }}
       />
@@ -115,21 +121,21 @@ export default function ProcessSection() {
           <div>
             <div className="proc-eyebrow flex items-center gap-3 mb-6">
               <span style={{ height: 1, width: 24, background: "#F97316", display: "block", borderRadius: 99 }} />
-              <span style={{ fontFamily: "monospace", fontSize: 10, textTransform: "uppercase", letterSpacing: "0.28em", color: "rgba(255,255,255,0.58)" }}>
+              <span style={{ fontFamily: "monospace", fontSize: 10, textTransform: "uppercase", letterSpacing: "0.28em", color: isLight ? "rgba(15, 23, 42, 0.58)" : "rgba(255,255,255,0.58)" }}>
                 How We Work
               </span>
             </div>
             <h2 className="font-display font-black uppercase"
               style={{ fontSize: "clamp(36px,5.5vw,68px)", color: "#fff", letterSpacing: "-0.03em", lineHeight: 0.92 }}>
               {[
-                { line: "How we turn",       accent: false },
-                { line: "ideas into",        accent: false },
-                { line: "shipped products.", accent: true  },
-              ].map(({ line, accent }, li) => (
+                { line: "How we turn", accent: false, isLight: true },
+                { line: "ideas into", accent: false, isLight: true },
+                { line: "shipped products.", accent: true, isLight: false  },
+              ].map(({ line, accent, isLight }, li) => (
                 <span key={li} className="block">
                   {line.split(" ").map((word, wi) => (
                     <span key={wi} className="inline-block overflow-hidden align-bottom pb-1 mr-[0.18em]">
-                      <span className="proc-word inline-block" style={{ color: accent ? "#F97316" : "#fff" }}>
+                      <span className="proc-word inline-block" style={{ color: accent ? "#F97316" : isLight ? "#0F172A" : "#fff" }}>
                         {word}
                       </span>
                     </span>
@@ -139,7 +145,7 @@ export default function ProcessSection() {
             </h2>
           </div>
           <span className="proc-eyebrow flex-shrink-0 pb-1"
-            style={{ fontFamily: "monospace", fontSize: 10, textTransform: "uppercase", letterSpacing: "0.22em", color: "rgba(255,255,255,0.25)" }}>
+            style={{ fontFamily: "monospace", fontSize: 15, textTransform: "uppercase", letterSpacing: "0.22em", color: isLight ? "rgba(15, 23, 42, 0.75)" : "rgba(255,255,255,0.25)" }}>
             5 Steps
           </span>
         </div>
@@ -154,8 +160,8 @@ export default function ProcessSection() {
                 key={step.num}
                 className="proc-row group relative"
                 style={{
-                  borderTop: "1px solid rgba(255,255,255,0.06)",
-                  ...(isLast ? { borderBottom: "1px solid rgba(255,255,255,0.06)" } : {}),
+                  borderTop: isLight ? "1px solid rgba(15, 23, 42, 0.20)" : "1px solid rgba(255,255,255,0.06)",
+                  ...(isLast ? { borderBottom: isLight ? "1px solid rgba(15, 23, 42, 0.20)" :  "1px solid rgba(255,255,255,0.06)" } : {}),
                 }}
               >
                 {/* Hover: left color border */}
@@ -197,13 +203,13 @@ export default function ProcessSection() {
                         <Icon style={{ width: 15, height: 15, color: step.color }} strokeWidth={1.7} />
                       </div>
                       <h3 className="font-display font-bold"
-                        style={{ fontSize: "clamp(17px,1.9vw,22px)", color: "#fff", lineHeight: 1.1 }}>
+                        style={{ fontSize: "clamp(17px,1.9vw,22px)", color: isLight ? "#0F172A" : "#fff", lineHeight: 1.1 }}>
                         {step.title}
                       </h3>
                     </div>
                     <p style={{
                       fontSize: "clamp(13px,1.2vw,14.5px)",
-                      color: "rgba(255,255,255,0.62)",
+                      color: isLight ? "rgba(15, 23, 42, 0.62)" :  "rgba(255,255,255,0.62)",
                       lineHeight: 1.78,
                       paddingLeft: 52,
                       maxWidth: 600,
@@ -219,7 +225,7 @@ export default function ProcessSection() {
                         fontFamily: "monospace", fontSize: 9, padding: "4px 11px",
                         borderRadius: 100, whiteSpace: "nowrap",
                         border: `1px solid ${step.color}30`,
-                        color: "rgba(255,255,255,0.58)",
+                        color: isLight ? "rgba(15, 23, 42, 0.58)" :  "rgba(255,255,255,0.58)",
                         background: `${step.color}0d`,
                         textTransform: "uppercase", letterSpacing: "0.13em",
                         transition: "border-color 0.3s",
@@ -243,10 +249,10 @@ export default function ProcessSection() {
                     <span style={{ fontFamily: "monospace", fontSize: 9, color: step.color, letterSpacing: "0.15em", display: "block", marginBottom: 5 }}>
                       {step.num}
                     </span>
-                    <h3 className="font-display font-bold mb-2" style={{ fontSize: 17, color: "#fff", lineHeight: 1.2 }}>
+                    <h3 className="font-display font-bold mb-2" style={{ fontSize: 17, color: isLight ? "#0F172A" :  "#fff", lineHeight: 1.2 }}>
                       {step.title}
                     </h3>
-                    <p style={{ fontSize: 13, color: "rgba(255,255,255,0.62)", lineHeight: 1.75, marginBottom: 12 }}>
+                    <p style={{ fontSize: 13, color: isLight ? "rgba(15, 23, 42, 0.62)" :  "rgba(255,255,255,0.62)", lineHeight: 1.75, marginBottom: 12 }}>
                       {step.body}
                     </p>
                     <div className="flex flex-wrap gap-1.5">
@@ -254,7 +260,7 @@ export default function ProcessSection() {
                         <span key={tag} style={{
                           fontFamily: "monospace", fontSize: 8.5, padding: "3px 8px",
                           borderRadius: 100, border: `1px solid ${step.color}28`,
-                          color: "rgba(255,255,255,0.58)", background: `${step.color}0d`,
+                          color: isLight ? "rgba(15, 23, 42, 0.58)" :  "rgba(255,255,255,0.58)", background: `${step.color}0d`,
                           textTransform: "uppercase", letterSpacing: "0.1em",
                         }}>
                           {tag}

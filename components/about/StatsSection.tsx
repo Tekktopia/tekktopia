@@ -4,6 +4,7 @@ import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
+import { useTheme } from "@/context/ThemeContext";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -18,6 +19,9 @@ const STATS = [
 
 export default function StatsSection() {
   const sectionRef = useRef<HTMLElement>(null);
+
+  const { theme } = useTheme();
+  const isLight = theme === "light";
 
   useGSAP(() => {
     gsap.set(".st-card", { autoAlpha: 0, y: 40, scale: 0.95, filter: "blur(8px)" });
@@ -59,13 +63,17 @@ export default function StatsSection() {
       ref={sectionRef}
       aria-label="Company stats"
       className="relative overflow-hidden"
-      style={{ background: "#060C15", paddingTop: 80, paddingBottom: 80 }}
+      style={{ background: isLight ? "#F1F5F9" : "#060C15", paddingTop: 80, paddingBottom: 80 }}
     >
       {/* Top & bottom rules */}
       <div aria-hidden className="absolute top-0 left-0 right-0 h-px"
-        style={{ background: "linear-gradient(to right,transparent,rgba(255,255,255,0.07),transparent)" }} />
+        style={{ background: isLight
+          ? "linear-gradient(to right,transparent,rgba(15,23,42,0.1),transparent)"
+          : "linear-gradient(to right,transparent,rgba(255,255,255,0.07),transparent)" }} />
       <div aria-hidden className="absolute bottom-0 left-0 right-0 h-px"
-        style={{ background: "linear-gradient(to right,transparent,rgba(255,255,255,0.07),transparent)" }} />
+        style={{ background: isLight
+          ? "linear-gradient(to right,transparent,rgba(15,23,42,0.1),transparent)"
+          : "linear-gradient(to right,transparent,rgba(255,255,255,0.07),transparent)" }} />
 
       <div className="relative max-w-7xl mx-auto px-5 sm:px-8 md:px-12">
 
@@ -80,8 +88,8 @@ export default function StatsSection() {
             return (
               <div key={label} className="st-card flex flex-col items-center text-center p-6 rounded-2xl"
                 style={{
-                  background: "rgba(255,255,255,0.025)",
-                  border: "1px solid rgba(255,255,255,0.06)",
+                  background: isLight ? "rgba(15,23,42,0.04)" : "rgba(255,255,255,0.025)",
+                  border: isLight ? "1px solid rgba(15,23,42,0.08)" : "1px solid rgba(255,255,255,0.06)",
                   backdropFilter: "blur(10px)",
                   position: "relative",
                   overflow: "hidden",
@@ -111,7 +119,7 @@ export default function StatsSection() {
                   )}
                 </div>
 
-                <p style={{ fontSize: 11, color: "rgba(255,255,255,0.45)", textTransform: "uppercase", letterSpacing: "0.14em", fontFamily: "monospace", lineHeight: 1.4 }}>
+                <p style={{ fontSize: 11.5, color: isLight ? "rgba(15,23,42,0.45)" : "rgba(255,255,255,0.45)", textTransform: "uppercase", letterSpacing: "0.14em", fontFamily: "monospace", lineHeight: 1.4 }}>
                   {label}
                 </p>
               </div>

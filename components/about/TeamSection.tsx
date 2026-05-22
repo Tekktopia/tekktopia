@@ -5,6 +5,7 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import { ExternalLink, AtSign } from "lucide-react";
+import { useTheme } from "@/context/ThemeContext";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -75,6 +76,9 @@ export default function TeamSection() {
   const sectionRef = useRef<HTMLElement>(null);
   const cardRefs   = useRef<(HTMLDivElement | null)[]>([]);
 
+  const { theme } = useTheme();
+  const isLight = theme === "light";
+
   useGSAP(() => {
     gsap.set(".tm-eyebrow", { autoAlpha: 0, y: 16, filter: "blur(5px)" });
     gsap.set(".tm-word",    { yPercent: 110 });
@@ -128,7 +132,7 @@ export default function TeamSection() {
       ref={sectionRef}
       aria-label="Our team"
       className="relative overflow-hidden"
-      style={{ background: "#060C15", paddingTop: 96, paddingBottom: 96 }}
+      style={{ background: isLight ? "#F1F5F9" : "#060C15", paddingTop: 96, paddingBottom: 96 }}
     >
       {/* Top rule */}
       <div aria-hidden className="absolute top-0 left-0 right-0 h-px"
@@ -137,9 +141,9 @@ export default function TeamSection() {
       {/* Grid */}
       <div aria-hidden className="absolute inset-0 pointer-events-none"
         style={{
-          backgroundImage:
-            "linear-gradient(rgba(255,255,255,0.016) 1px,transparent 1px)," +
-            "linear-gradient(90deg,rgba(255,255,255,0.016) 1px,transparent 1px)",
+          backgroundImage: isLight
+            ? "linear-gradient(rgba(15,23,42,0.06) 1px,transparent 1px),linear-gradient(90deg,rgba(15,23,42,0.06) 1px,transparent 1px)"
+            : "linear-gradient(rgba(255,255,255,0.015) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.015) 1px,transparent 1px)",
           backgroundSize: "64px 64px",
         }} />
 
@@ -155,7 +159,7 @@ export default function TeamSection() {
         <div className="text-center mb-16">
           <div className="tm-eyebrow flex items-center justify-center gap-3 mb-6">
             <span style={{ height: 1, width: 24, background: "#F97316", display: "block", borderRadius: 99 }} />
-            <span style={{ fontFamily: "monospace", fontSize: 10, textTransform: "uppercase", letterSpacing: "0.28em", color: "rgba(255,255,255,0.55)" }}>
+            <span style={{ fontFamily: "monospace", fontSize: 10, textTransform: "uppercase", letterSpacing: "0.28em", color: isLight ? "rgba(15,23,42,0.55)" : "rgba(255,255,255,0.55)" }}>
               The People
             </span>
             <span style={{ height: 1, width: 24, background: "#F97316", display: "block", borderRadius: 99 }} />
@@ -164,14 +168,14 @@ export default function TeamSection() {
             style={{ fontSize: "clamp(32px,4.5vw,58px)", lineHeight: 0.92, letterSpacing: "-0.03em" }}>
             {["Meet", "the", "Team"].map((word, i) => (
               <span key={i} className="inline-block overflow-hidden align-bottom pb-1 mr-[0.18em]">
-                <span className="tm-word inline-block" style={{ color: i === 2 ? "#F97316" : "#ffffff" }}>
+                <span className="tm-word inline-block" style={{ color: i === 2 ? "#F97316" : isLight ? "#0F172A" : "#ffffff" }}>
                   {word}
                 </span>
               </span>
             ))}
           </h2>
           <p className="tm-sub mt-5 mx-auto max-w-lg"
-            style={{ fontSize: "clamp(13px,1.4vw,15px)", color: "rgba(255,255,255,0.48)", lineHeight: 1.8, fontWeight: 300 }}>
+            style={{ fontSize: "clamp(13px,1.4vw,15px)", color: isLight ? "rgba(15,23,42,0.48)" : "rgba(255,255,255,0.48)", lineHeight: 1.8, fontWeight: 300 }}>
             A focused, battle-tested team of engineers, designers, and strategists — each one hand-picked for their craft and their character.
           </p>
         </div>
@@ -185,8 +189,8 @@ export default function TeamSection() {
               data-color={accent}
               className="relative flex flex-col rounded-2xl overflow-hidden cursor-default"
               style={{
-                background: "rgba(255,255,255,0.025)",
-                border: "1px solid rgba(255,255,255,0.07)",
+                background: isLight ? "rgba(15,23,42,0.04)" : "rgba(255,255,255,0.025)",
+                border: isLight ? "1px solid rgba(15,23,42,0.08)" : "1px solid rgba(255,255,255,0.07)",
                 transition: "border-color 0.35s, box-shadow 0.35s",
               }}
             >
@@ -226,16 +230,16 @@ export default function TeamSection() {
               <div className="flex flex-col flex-1 p-5">
                 {/* Name + role */}
                 <div className="mb-3">
-                  <p style={{ fontSize: 15, fontWeight: 700, color: "#fff", lineHeight: 1.25, marginBottom: 3 }}>
+                  <p style={{ fontSize: 15, fontWeight: 700, color: isLight ? "#0F172A" : "#fff", lineHeight: 1.25, marginBottom: 3 }}>
                     {name}
                   </p>
-                  <p style={{ fontSize: 11, color: accent, fontFamily: "monospace", textTransform: "uppercase", letterSpacing: "0.12em" }}>
+                  <p style={{ fontSize: 11.4, color: accent, fontFamily: "monospace", textTransform: "uppercase", letterSpacing: "0.12em" }}>
                     {role}
                   </p>
                 </div>
 
                 {/* Bio */}
-                <p style={{ fontSize: 13, color: "rgba(255,255,255,0.55)", lineHeight: 1.75, fontWeight: 300, flexGrow: 1, marginBottom: 16 }}>
+                <p style={{ fontSize: 13, color: isLight ? "rgba(15,23,42,0.55)" : "rgba(255,255,255,0.55)", lineHeight: 1.75, fontWeight: 300, flexGrow: 1, marginBottom: 16 }}>
                   {bio}
                 </p>
 
@@ -243,17 +247,17 @@ export default function TeamSection() {
                 <div className="flex items-center gap-2.5">
                   <a href={linkedin} aria-label="LinkedIn"
                     className="flex items-center justify-center rounded-lg transition-all duration-200"
-                    style={{ width: 32, height: 32, background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.08)", color: "rgba(255,255,255,0.38)" }}
+                    style={{ width: 32, height: 32, background: isLight ? "rgba(15,23,42,0.08)" : "rgba(255,255,255,0.05)", border: isLight ? " 1px solid rgba(15,23,42,0.10)" : "1px solid rgba(255,255,255,0.08)", color: isLight ? "rgba(15,23,42,0.40)" : "rgba(255,255,255,0.38)" }}
                     onMouseEnter={e => { e.currentTarget.style.color = accent; e.currentTarget.style.borderColor = accent + "44"; e.currentTarget.style.background = accent + "12"; }}
-                    onMouseLeave={e => { e.currentTarget.style.color = "rgba(255,255,255,0.38)"; e.currentTarget.style.borderColor = "rgba(255,255,255,0.08)"; e.currentTarget.style.background = "rgba(255,255,255,0.05)"; }}
+                    onMouseLeave={e => { e.currentTarget.style.color = isLight ? "rgba(15,23,42,0.40)" : "rgba(255,255,255,0.38)"; e.currentTarget.style.borderColor = isLight ? "rgba(15,23,42,0.10)" : "rgba(255,255,255,0.08)"; e.currentTarget.style.background = isLight ? "rgba(15,23,42,0.08)" : "rgba(255,255,255,0.05)"; }}
                   >
                     <ExternalLink style={{ width: 13, height: 13 }} />
                   </a>
                   <a href={twitter} aria-label="Twitter / X"
                     className="flex items-center justify-center rounded-lg transition-all duration-200"
-                    style={{ width: 32, height: 32, background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.08)", color: "rgba(255,255,255,0.38)" }}
+                    style={{ width: 32, height: 32, background: isLight ? "rgba(15,23,42,0.08)" : "rgba(255,255,255,0.05)", border: isLight ? "1px solid rgba(15,23,42,0.10)" : "1px solid rgba(255,255,255,0.08)", color: isLight ? "rgba(15,23,42,0.40)" : "rgba(255,255,255,0.38)" }}
                     onMouseEnter={e => { e.currentTarget.style.color = accent; e.currentTarget.style.borderColor = accent + "44"; e.currentTarget.style.background = accent + "12"; }}
-                    onMouseLeave={e => { e.currentTarget.style.color = "rgba(255,255,255,0.38)"; e.currentTarget.style.borderColor = "rgba(255,255,255,0.08)"; e.currentTarget.style.background = "rgba(255,255,255,0.05)"; }}
+                    onMouseLeave={e => { e.currentTarget.style.color = isLight ? "rgba(15,23,42,0.40)" : "rgba(255,255,255,0.38)"; e.currentTarget.style.borderColor = isLight ? "rgba(15,23,42,0.10)" : "rgba(255,255,255,0.08)"; e.currentTarget.style.background = isLight ? "rgba(15,23,42,0.08)" : "rgba(255,255,255,0.05)"; }}
                   >
                     <AtSign style={{ width: 13, height: 13 }} />
                   </a>

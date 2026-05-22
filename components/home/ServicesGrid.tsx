@@ -11,6 +11,7 @@ import {
   LayoutGrid, Lightbulb,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
+import { useTheme } from "@/context/ThemeContext";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -90,7 +91,7 @@ const SERVICES: Service[] = [
 
 const VISIBLE = 6;
 
-function ServiceCard({ svc, index }: { svc: Service; index: number }) {
+function ServiceCard({ svc, index, isLight }: { svc: Service; index: number; isLight: boolean }) {
   const cardRef = useRef<HTMLDivElement>(null);
   const Icon = svc.icon;
 
@@ -99,20 +100,22 @@ function ServiceCard({ svc, index }: { svc: Service; index: number }) {
       ref={cardRef}
       className="svc-card group relative flex flex-col p-7 rounded-2xl cursor-default"
       style={{
-        background: "rgba(255,255,255,0.03)",
-        border: "1px solid rgba(255,255,255,0.07)",
+        background: isLight ? "rgba(15,23,42,0.04)" : "rgba(255,255,255,0.03)",
+        border: isLight ? "1px solid rgba(15,23,42,0.08)" : "1px solid rgba(255,255,255,0.07)",
         backdropFilter: "blur(12px)",
         transition: "border-color 0.4s ease, box-shadow 0.4s ease, transform 0.4s ease",
       }}
       onMouseEnter={e => {
         const el = e.currentTarget;
         el.style.borderColor = svc.color + "55";
-        el.style.boxShadow = `0 0 0 1px ${svc.color}22, 0 20px 60px ${svc.glow}, inset 0 1px 0 rgba(255,255,255,0.05)`;
+        el.style.boxShadow = isLight
+          ? `0 0 0 1px ${svc.color}22, 0 20px 60px ${svc.glow}, inset 0 1px 0 rgba(15,23,42,0.04)`
+          : `0 0 0 1px ${svc.color}22, 0 20px 60px ${svc.glow}, inset 0 1px 0 rgba(255,255,255,0.05)`;
         el.style.transform = "translateY(-4px)";
       }}
       onMouseLeave={e => {
         const el = e.currentTarget;
-        el.style.borderColor = "rgba(255,255,255,0.07)";
+        el.style.borderColor = isLight ? "rgba(15,23,42,0.08)" : "rgba(255,255,255,0.07)";
         el.style.boxShadow = "none";
         el.style.transform = "translateY(0)";
       }}
@@ -139,12 +142,12 @@ function ServiceCard({ svc, index }: { svc: Service; index: number }) {
 
       {/* Name */}
       <h3 className="font-display font-bold mb-3"
-        style={{ fontSize: "clamp(17px,1.5vw,20px)", color: "#fff", lineHeight: 1.15, letterSpacing: "-0.01em" }}>
+        style={{ fontSize: "clamp(17px,1.5vw,20px)", color: isLight ? "#0F172A" : "#fff", lineHeight: 1.15, letterSpacing: "-0.01em" }}>
         {svc.name}
       </h3>
 
       {/* Desc */}
-      <p style={{ fontSize: 13.5, color: "rgba(255,255,255,0.65)", lineHeight: 1.7, marginBottom: 20, flex: 1 }}>
+      <p style={{ fontSize: 13.5, color: isLight ? "rgba(15,23,42,0.65)" : "rgba(255,255,255,0.65)", lineHeight: 1.7, marginBottom: 20, flex: 1 }}>
         {svc.desc}
       </p>
 
@@ -154,7 +157,7 @@ function ServiceCard({ svc, index }: { svc: Service; index: number }) {
           <span key={tag} style={{
             fontFamily: "monospace", fontSize: 9, padding: "3px 8px",
             borderRadius: 100, border: `1px solid ${svc.color}28`,
-            color: "rgba(255,255,255,0.58)", background: `${svc.color}0d`,
+            color: isLight ? "rgba(15,23,42,0.58)" : "rgba(255,255,255,0.58)", background: `${svc.color}0d`,
             textTransform: "uppercase", letterSpacing: "0.1em",
           }}>
             {tag}
@@ -184,6 +187,9 @@ export default function ServicesGrid() {
   const sectionRef  = useRef<HTMLElement>(null);
   const moreRef     = useRef<HTMLDivElement>(null);
   const [expanded, setExpanded] = useState(false);
+
+  const { theme } = useTheme();
+  const isLight = theme === "light";
 
   const toggle = () => {
     if (!moreRef.current) return;
@@ -237,12 +243,14 @@ export default function ServicesGrid() {
       id="services"
       aria-label="Tekktopia services"
       className="relative overflow-hidden"
-      style={{ background: "#04080F", paddingTop: 96, paddingBottom: 96 }}
+      style={{ background: isLight ? "#F8FAFC" : "#04080F", paddingTop: 96, paddingBottom: 96 }}
     >
       {/* Fine grid */}
       <div aria-hidden className="pointer-events-none absolute inset-0"
         style={{
-          backgroundImage: "linear-gradient(rgba(255,255,255,0.018) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.018) 1px,transparent 1px)",
+          backgroundImage: isLight
+            ? "linear-gradient(rgba(15,23,42,0.06) 1px,transparent 1px),linear-gradient(90deg,rgba(15,23,42,0.06) 1px,transparent 1px)"
+            : "linear-gradient(rgba(255,255,255,0.018) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.018) 1px,transparent 1px)",
           backgroundSize: "64px 64px",
         }} />
 
@@ -260,18 +268,18 @@ export default function ServicesGrid() {
         <div className="mb-16 max-w-2xl">
           <div className="svc-eyebrow flex items-center gap-3 mb-5">
             <span style={{ height:1, width:24, background:"#F97316", display:"block", borderRadius:99 }} />
-            <span style={{ fontFamily:"monospace", fontSize:10, textTransform:"uppercase", letterSpacing:"0.28em", color:"rgba(255,255,255,0.58)" }}>
+            <span style={{ fontFamily:"monospace", fontSize:10, textTransform:"uppercase", letterSpacing:"0.28em", color: isLight ? "rgba(15,23,42,0.58)" : "rgba(255,255,255,0.58)" }}>
               What We Do
             </span>
           </div>
           <div className="svc-title flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
             <h2 className="font-display font-black uppercase"
               style={{ fontSize:"clamp(36px,5.5vw,68px)", letterSpacing:"-0.03em", lineHeight:0.92 }}>
-              <span style={{ color:"#ffffff" }}>End-to-End</span><br />
+              <span style={{ color: isLight ? "#0F172A" : "#ffffff" }}>End-to-End</span><br />
               <span style={{ color:"#F97316" }}>Tech Services</span>
             </h2>
             <div className="flex items-center gap-4 flex-shrink-0 pb-1">
-              <span style={{ fontFamily:"monospace", fontSize:10, textTransform:"uppercase", letterSpacing:"0.2em", color:"rgba(255,255,255,0.52)" }}>
+              <span style={{ fontFamily:"monospace", fontSize:10, textTransform:"uppercase", letterSpacing:"0.2em", color: isLight ? "rgba(15,23,42,0.52)" : "rgba(255,255,255,0.52)" }}>
                 10 Services
               </span>
               <Link
@@ -291,7 +299,7 @@ export default function ServicesGrid() {
         {/* First 6 cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-4">
           {SERVICES.slice(0, VISIBLE).map((svc, i) => (
-            <ServiceCard key={svc.num} svc={svc} index={i} />
+            <ServiceCard key={svc.num} svc={svc} index={i} isLight={isLight} />
           ))}
         </div>
 
@@ -302,7 +310,7 @@ export default function ServicesGrid() {
           style={{ display: "none" }}
         >
           {SERVICES.slice(VISIBLE).map((svc, i) => (
-            <ServiceCard key={svc.num} svc={svc} index={i} />
+            <ServiceCard key={svc.num} svc={svc} index={i} isLight={isLight} />
           ))}
         </div>
 
@@ -312,9 +320,9 @@ export default function ServicesGrid() {
             onClick={toggle}
             className="group inline-flex items-center gap-3 font-semibold text-sm px-8 py-4 rounded-2xl"
             style={{
-              background: "rgba(255,255,255,0.04)",
-              border: "1px solid rgba(255,255,255,0.1)",
-              color: "rgba(255,255,255,0.75)",
+              background: isLight ? "rgba(15,23,42,0.04)" : "rgba(255,255,255,0.04)",
+              border: isLight ? "1px solid rgba(15,23,42,0.1)" : "1px solid rgba(255,255,255,0.1)",
+              color: isLight ? "rgba(15,23,42,0.75)" : "rgba(255,255,255,0.75)",
               backdropFilter: "blur(12px)",
               transition: "background 0.3s, border-color 0.3s, color 0.3s, box-shadow 0.3s",
             }}
@@ -327,9 +335,9 @@ export default function ServicesGrid() {
             }}
             onMouseLeave={e => {
               const el = e.currentTarget;
-              el.style.background = "rgba(255,255,255,0.04)";
-              el.style.borderColor = "rgba(255,255,255,0.1)";
-              el.style.color = "rgba(255,255,255,0.75)";
+              el.style.background = isLight ? "rgba(15,23,42,0.04)" : "rgba(255,255,255,0.04)";
+              el.style.borderColor = isLight ? "rgba(15,23,42,0.1)" : "rgba(255,255,255,0.1)";
+              el.style.color = isLight ? "rgba(15,23,42,0.75)" : "rgba(255,255,255,0.75)";
               el.style.boxShadow = "none";
             }}
           >

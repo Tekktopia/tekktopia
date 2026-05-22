@@ -6,6 +6,7 @@ import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import { Zap, Lock, Layers, Clock, ArrowUpRight } from "lucide-react";
 import Link from "next/link";
+import { useTheme } from "@/context/ThemeContext";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -35,6 +36,9 @@ const PILLARS = [
 export default function WhySection() {
   const sectionRef  = useRef<HTMLElement>(null);
   const cardRefs    = useRef<(HTMLDivElement | null)[]>([]);
+
+  const { theme } = useTheme();
+  const isLight = theme === "light";
 
   useGSAP(() => {
     /* ── Left column ── */
@@ -164,12 +168,14 @@ export default function WhySection() {
       ref={sectionRef}
       aria-label="Why choose Tekktopia"
       className="relative overflow-hidden"
-      style={{ background: "#04080F", paddingTop: 96, paddingBottom: 96 }}
+      style={{ background: isLight ? "#F8FAFC" : "#04080F", paddingTop: 96, paddingBottom: 96 }}
     >
       {/* Fine grid */}
       <div aria-hidden className="absolute inset-0 pointer-events-none"
         style={{
-          backgroundImage: "linear-gradient(rgba(255,255,255,0.018) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.018) 1px,transparent 1px)",
+          backgroundImage: isLight
+            ? "linear-gradient(rgba(15,23,42,0.06) 1px,transparent 1px),linear-gradient(90deg,rgba(15,23,42,0.06) 1px,transparent 1px)"
+            : "linear-gradient(rgba(255,255,255,0.018) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.018) 1px,transparent 1px)",
           backgroundSize: "64px 64px",
         }} />
 
@@ -187,24 +193,24 @@ export default function WhySection() {
             {/* Eyebrow */}
             <div className="why-eyebrow flex items-center gap-3 mb-6">
               <span style={{ height:1, width:24, background:"#F97316", display:"block", borderRadius:99 }} />
-              <span style={{ fontFamily:"monospace", fontSize:10, textTransform:"uppercase", letterSpacing:"0.28em", color:"rgba(255,255,255,0.58)" }}>
+              <span style={{ fontFamily:"monospace", fontSize:10, textTransform:"uppercase", letterSpacing:"0.28em", color: isLight ? "rgba(15,23,42,0.58)" : "rgba(255,255,255,0.58)" }}>
                 Why Tekktopia
               </span>
             </div>
 
             {/* Headline */}
             <h2 className="font-display font-black uppercase mb-8"
-              style={{ fontSize:"clamp(34px,4.8vw,60px)", lineHeight:0.92, letterSpacing:"-0.03em" }}>
+              style={{ fontSize:"clamp(34px,4.8vw,60px)", lineHeight:0.92, letterSpacing:"-0.03em",  }}>
               {[
-                { text: "The tech", accent: false },
-                { text: "partner that", accent: false },
-                { text: "gets it done.", accent: true },
-              ].map(({ text, accent }, li) => (
+                { text: "The tech", accent: false, isLight: true },
+                { text: "partner that", accent: false, isLight: true },
+                { text: "gets it done.", accent: true, isLight: true },
+              ].map(({ text, accent, isLight }, li) => (
                 <span key={li} className="block">
                   {text.split(" ").map((word, wi) => (
                     <span key={wi} className="inline-block overflow-hidden align-bottom pb-1 mr-[0.18em]">
                       <span className="why-word inline-block"
-                        style={{ color: accent ? "#F97316" : "#ffffff" }}>
+                        style={{ color: accent ? "#F97316" : isLight ? "#0F172A" : "#ffffff" }}>
                         {word}
                       </span>
                     </span>
@@ -215,11 +221,11 @@ export default function WhySection() {
 
             {/* Body */}
             <p className="why-body mb-4 max-w-md"
-              style={{ fontSize:"clamp(14px,1.5vw,16px)", color:"rgba(255,255,255,0.72)", fontWeight:300, lineHeight:1.75 }}>
+              style={{ fontSize:"clamp(14px,1.5vw,16px)", color:isLight ? "rgba(15, 23, 42, 0.72)" : "rgba(255,255,255,0.72)", fontWeight:300, lineHeight:1.75 }}>
               We&apos;re not a faceless agency with rotating consultants. We&apos;re a focused, hands-on team of engineers, designers, and strategists who treat your problems like our own.
             </p>
             <p className="why-body mb-12 max-w-md"
-              style={{ fontSize:"clamp(13px,1.4vw,15px)", color:"rgba(255,255,255,0.55)", fontWeight:300, lineHeight:1.8 }}>
+              style={{ fontSize:"clamp(13px,1.4vw,15px)", color:isLight ? "rgba(15, 23, 42, 0.55)" :"rgba(255,255,255,0.55)", fontWeight:300, lineHeight:1.8 }}>
               Our clients stay because we deliver — on time, within budget, and beyond expectations. Every time.
             </p>
 
@@ -241,13 +247,13 @@ export default function WhySection() {
               <Link href="/projects"
                 className="group inline-flex items-center gap-2.5 font-medium text-sm px-7 py-3.5 rounded-xl"
                 style={{
-                  color:"rgba(255,255,255,0.65)",
-                  background:"rgba(255,255,255,0.04)",
-                  border:"1px solid rgba(255,255,255,0.1)",
+                  color: isLight ? "rgba(15, 23, 42, 0.65)" : "rgba(255,255,255,0.65)",
+                  background: isLight ? "rgba(15, 23, 42, 0.03)" : "rgba(255,255,255,0.04)",
+                  border: isLight ? "rgba(15, 23, 42, 0.1)" : "1px solid rgba(255,255,255,0.1)",
                   transition:"border-color 0.3s, color 0.3s, background 0.3s",
                 }}
-                onMouseEnter={e => { e.currentTarget.style.borderColor="rgba(255,255,255,0.22)"; e.currentTarget.style.color="#fff"; e.currentTarget.style.background="rgba(255,255,255,0.07)"; }}
-                onMouseLeave={e => { e.currentTarget.style.borderColor="rgba(255,255,255,0.1)"; e.currentTarget.style.color="rgba(255,255,255,0.65)"; e.currentTarget.style.background="rgba(255,255,255,0.04)"; }}
+                onMouseEnter={e => { e.currentTarget.style.borderColor= isLight ? "rgba(15, 23, 42, 0.18)" : "rgba(255,255,255,0.22)"; e.currentTarget.style.color= isLight ? "#0F172A" : "#fff"; e.currentTarget.style.background= isLight ? "rgba(15, 23, 42, 0.06)" : "rgba(255,255,255,0.07)"; }}
+                onMouseLeave={e => { e.currentTarget.style.borderColor= isLight ? "rgba(15, 23, 42, 0.1)" : "rgba(255,255,255,0.1)"; e.currentTarget.style.color= isLight ? "rgba(15, 23, 42, 0.65)" : "rgba(255,255,255,0.65)"; e.currentTarget.style.background= isLight ? "rgba(15, 23, 42, 0.03)" : "rgba(255,255,255,0.04)"; }}
               >
                 See our work
                 <ArrowUpRight className="w-4 h-4 transition-transform group-hover:rotate-45" />
@@ -264,8 +270,8 @@ export default function WhySection() {
                 className="relative flex flex-col gap-5 p-7 rounded-2xl cursor-default overflow-hidden"
                 data-color={color}
                 style={{
-                  background: "rgba(255,255,255,0.025)",
-                  border: "1px solid rgba(255,255,255,0.07)",
+                  background: isLight ? "rgba(15, 23, 42, 0.02)" : "rgba(255,255,255,0.025)",
+                  border: isLight ? "rgba(15, 23, 42, 0.08)" :  "1px solid rgba(255,255,255,0.07)",
                   backdropFilter: "blur(12px)",
                   transition: "border-color 0.35s, box-shadow 0.35s",
                 }}
@@ -293,10 +299,10 @@ export default function WhySection() {
                 {/* Content */}
                 <div>
                   <h3 className="wc-title font-display font-bold mb-2.5"
-                    style={{ fontSize: 16, color: "#fff", lineHeight: 1.25 }}>
+                    style={{ fontSize: 16, color: isLight ? "#0F172A" :  "#fff", lineHeight: 1.25 }}>
                     {title}
                   </h3>
-                  <p className="wc-body" style={{ fontSize: 13.5, color: "rgba(255,255,255,0.65)", lineHeight: 1.7 }}>
+                  <p className="wc-body" style={{ fontSize: 13.5, color: isLight ? "rgba(15, 23, 42, 0.65)" :  "rgba(255,255,255,0.65)", lineHeight: 1.7 }}>
                     {body}
                   </p>
                 </div>

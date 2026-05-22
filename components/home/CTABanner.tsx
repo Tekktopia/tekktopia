@@ -6,6 +6,7 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ArrowUpRight, Calendar } from "lucide-react";
+import { useTheme } from "@/context/ThemeContext";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -19,6 +20,9 @@ const TRUST = [
 
 export default function CTABanner() {
   const sectionRef = useRef<HTMLElement>(null);
+
+  const { theme } = useTheme();
+  const isLight = theme === "light";
 
   useGSAP(() => {
     gsap.set(".cta-badge", { autoAlpha: 0, y: 16, filter: "blur(6px)" });
@@ -48,12 +52,14 @@ export default function CTABanner() {
       ref={sectionRef}
       aria-label="Get started with Tekktopia"
       className="relative overflow-hidden"
-      style={{ background: "#04080F", paddingTop: 120, paddingBottom: 120 }}
+      style={{ background: isLight ? "#f8fafc" : "#04080F", paddingTop: 120, paddingBottom: 120 }}
     >
       {/* Fine grid */}
       <div aria-hidden className="absolute inset-0 pointer-events-none"
         style={{
-          backgroundImage: "linear-gradient(rgba(255,255,255,0.018) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.018) 1px,transparent 1px)",
+          backgroundImage: isLight
+            ? "linear-gradient(rgba(15,23,42,0.06) 1px,transparent 1px),linear-gradient(90deg,rgba(15,23,42,0.06) 1px,transparent 1px)"
+            : "linear-gradient(rgba(255,255,255,0.018) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.018) 1px,transparent 1px)",
           backgroundSize: "64px 64px",
         }}
       />
@@ -75,16 +81,16 @@ export default function CTABanner() {
         {/* Eyebrow badge */}
         <div className="cta-badge inline-flex items-center gap-2.5 px-5 py-2.5 rounded-full mb-10"
           style={{
-            background: "rgba(249,115,22,0.08)",
-            border: "1px solid rgba(249,115,22,0.28)",
+            background: isLight ? "rgba(37,99,235,0.1)" : "rgba(249,115,22,0.08)",
+            border: isLight ? "1px solid rgba(37,99,235,0.28)" : "1px solid rgba(249,115,22,0.28)",
             backdropFilter: "blur(12px)",
           }}>
           <span className="relative flex w-1.5 h-1.5 flex-shrink-0">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full opacity-70" style={{ background: "#F97316" }} />
-            <span className="relative inline-flex rounded-full w-1.5 h-1.5" style={{ background: "#F97316" }} />
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full opacity-70" style={{ background: isLight ? "#2563EB" : "#F97316" }} />
+            <span className="relative inline-flex rounded-full w-1.5 h-1.5" style={{ background: isLight ? "#2563EB" : "#F97316" }} />
           </span>
-          <Calendar style={{ width: 11, height: 11, color: "#FB923C", flexShrink: 0 }} strokeWidth={2} />
-          <span style={{ fontFamily: "monospace", fontSize: 10, textTransform: "uppercase", letterSpacing: "0.26em", color: "#FB923C" }}>
+          <Calendar style={{ width: 11, height: 11, color: isLight ? "#2563EB" : "#FB923C", flexShrink: 0 }} strokeWidth={2} />
+          <span style={{ fontFamily: "monospace", fontSize: 10, textTransform: "uppercase", letterSpacing: "0.26em", color: isLight ? "#2563EB" : "#FB923C" }}>
             Free consultation — no commitment
           </span>
         </div>
@@ -95,14 +101,14 @@ export default function CTABanner() {
           style={{ fontSize: "clamp(40px,7.5vw,100px)", lineHeight: 0.9, letterSpacing: "-0.03em" }}
         >
           {[
-            { line: "Ready to build",   accent: false },
-            { line: "something that",   accent: false },
-            { line: "actually works?",  accent: true  },
-          ].map(({ line, accent }, li) => (
+            { line: "Ready to build",   accent: false, isLight: true },
+            { line: "something that",   accent: false, isLight: true },
+            { line: "actually works?",  accent: true, isLight: false  },
+          ].map(({ line, accent, isLight }, li) => (
             <span key={li} className="block">
               {line.split(" ").map((word, wi) => (
                 <span key={wi} className="inline-block overflow-hidden align-bottom pb-1 mr-[0.18em]">
-                  <span className="cta-word inline-block" style={{ color: accent ? "#F97316" : "#fff" }}>
+                  <span className="cta-word inline-block" style={{ color: accent ? "#F97316" : isLight ? "#0F172A" : "#fff" }}>
                     {word}
                   </span>
                 </span>
@@ -113,7 +119,7 @@ export default function CTABanner() {
 
         {/* Sub-copy */}
         <p className="cta-sub mx-auto mb-12 max-w-xl"
-          style={{ fontSize: "clamp(15px,1.6vw,17px)", color: "rgba(255,255,255,0.62)", fontWeight: 300, lineHeight: 1.78 }}>
+          style={{ fontSize: "clamp(15px,1.6vw,17px)", color: isLight ? "rgba(15, 23, 42, 0.62)" : "rgba(255,255,255,0.62)", fontWeight: 300, lineHeight: 1.78 }}>
           Whether you need IT support, a custom platform, or a full digital overhaul — book a free 30-minute strategy session and let&apos;s talk.
         </p>
 
@@ -154,7 +160,7 @@ export default function CTABanner() {
         <div className="cta-trust flex flex-wrap items-center justify-center gap-x-7 gap-y-3">
           {TRUST.map((item, i) => (
             <span key={i} className="flex items-center gap-2"
-              style={{ fontFamily: "monospace", fontSize: 9.5, textTransform: "uppercase", letterSpacing: "0.18em", color: "rgba(255,255,255,0.35)" }}>
+              style={{ fontFamily: "monospace", fontSize: 10.5, textTransform: "uppercase", letterSpacing: "0.18em", color: isLight ? "rgba(15, 23, 42, 0.50)" : "rgba(255,255,255,0.35)" }}>
               <span style={{ width: 4, height: 4, borderRadius: "50%", background: "#F97316", display: "block", flexShrink: 0 }} />
               {item}
             </span>

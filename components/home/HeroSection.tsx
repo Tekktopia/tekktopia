@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ArrowUpRight, Shield, TrendingUp, Zap, Code2, FolderOpen, Users, CalendarDays, Headphones } from "lucide-react";
+import { useTheme } from "@/context/ThemeContext";
 
 // ─── Data ─────────────────────────────────────────────────────────────────────
 const TICKER = [
@@ -277,6 +278,9 @@ function PacketSnifferCard() {
 
 // ════════════════════════════════════════════════════════════════════════════════
 export default function HeroSection() {
+  const { theme } = useTheme();
+  const isLight = theme === "light";
+
   const sectionRef  = useRef<HTMLElement>(null);
   const canvasRef   = useRef<HTMLCanvasElement>(null);
   const b1 = useRef<HTMLDivElement>(null);
@@ -312,7 +316,7 @@ export default function HeroSection() {
 
     el.style.fontStyle = "normal";
     gsap.to(el, {
-      color: "#ffffff",
+      color: isLight ? "#0F172A" : "#ffffff",
       x: 0, skewX: 0, opacity: 1,
       filter: "brightness(1) contrast(1)",
       textShadow: "0px 0px 0px rgba(0,0,0,0)",
@@ -462,7 +466,7 @@ export default function HeroSection() {
 
   return (
     <section ref={sectionRef} className="relative min-h-[100svh] flex flex-col overflow-hidden"
-      style={{ background:"#04080F" }}>
+    style={{ background: isLight ? "#F8FAFC" : "#04080F" }}>
 
       {/* Particle canvas */}
       <canvas ref={canvasRef} className="absolute inset-0 z-0 pointer-events-none" />
@@ -487,11 +491,16 @@ export default function HeroSection() {
 
       {/* Fine grid */}
       <div aria-hidden className="absolute inset-0 pointer-events-none z-0"
-        style={{ backgroundImage:"linear-gradient(rgba(255,255,255,0.022) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.022) 1px,transparent 1px)", backgroundSize:"64px 64px" }} />
+        style={{ backgroundImage: isLight
+          ? "linear-gradient(rgba(15,23,42,0.06) 1px,transparent 1px),linear-gradient(90deg,rgba(15,23,42,0.06) 1px,transparent 1px)"
+          : "linear-gradient(rgba(255,255,255,0.022) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.022) 1px,transparent 1px)",
+          backgroundSize:"64px 64px" }} />
 
       {/* Bottom fade */}
       <div aria-hidden className="absolute bottom-0 left-0 right-0 h-56 pointer-events-none z-10"
-        style={{ background:"linear-gradient(to top,#04080F 25%,transparent)" }} />
+        style={{ background: isLight
+          ? "linear-gradient(to top,#F8FAFC 25%,transparent)"
+          : "linear-gradient(to top,#04080F 25%,transparent)" }} />
 
       {/* ── Corner circuits ────────────────────────────────────────────────── */}
       <svg className="absolute top-0 left-0 z-10 pointer-events-none" width="250" height="200" fill="none">
@@ -527,12 +536,14 @@ export default function HeroSection() {
           ref={el => { badgeRefs.current[i] = el; }}
           className={`h-badge hidden lg:flex items-center gap-3 absolute z-20 px-4 py-3 cursor-default ${side==="left"?"left-[18%]":"right-[18%]"}`}
           style={{ top,
-            background:"rgba(255,255,255,0.038)",
-            backdropFilter:"blur(20px) saturate(160%)",
-            border:"1px solid rgba(255,255,255,0.08)",
-            borderRadius:16,
-            boxShadow:"0 8px 32px rgba(0,0,0,0.4), 0 0 0 0.5px rgba(255,255,255,0.03) inset",
-            willChange:"transform",
+            background: isLight ? "rgba(15,23,42,0.05)" : "rgba(255,255,255,0.038)",
+            backdropFilter: "blur(20px) saturate(160%)",
+            border: isLight ? "1px solid rgba(15,23,42,0.1)" : "1px solid rgba(255,255,255,0.08)",
+            borderRadius: 16,
+            boxShadow: isLight
+              ? "0 8px 32px rgba(0,0,0,0.1), 0 0 0 0.5px rgba(15,23,42,0.04) inset"
+              : "0 8px 32px rgba(0,0,0,0.4), 0 0 0 0.5px rgba(255,255,255,0.03) inset",
+            willChange: "transform",
           }}
           onMouseEnter={(e) => gsap.to(e.currentTarget, { scale:1.06, y:-3, duration:0.4, ease:"power2.out" })}
           onMouseLeave={(e) => gsap.to(e.currentTarget, { scale:1,    y:0,  duration:0.8, ease:"elastic.out(1,0.35)" })}>
@@ -541,8 +552,8 @@ export default function HeroSection() {
             <Icon style={{ width:16, height:16, color:"#F97316" }} strokeWidth={1.5} />
           </div>
           <div>
-            <p style={{ fontSize:12, fontWeight:600, color:"rgba(255,255,255,0.88)", lineHeight:1, marginBottom:4 }}>{text}</p>
-            <p style={{ fontSize:10, color:"rgba(255,255,255,0.34)", lineHeight:1 }}>{sub}</p>
+            <p style={{ fontSize:12, fontWeight:600, lineHeight:1, marginBottom:4, color: isLight ? "rgba(15,23,42,0.88)" : "rgba(255,255,255,0.88)" }}>{text}</p>
+            <p style={{ fontSize:10, lineHeight:1, color: isLight ? "rgba(15,23,42,0.34)" : "rgba(255,255,255,0.34)" }}>{sub}</p>
           </div>
         </div>
       ))}
@@ -571,9 +582,12 @@ export default function HeroSection() {
             { text: "Limits.", hoverColor: "#60A5FA" },
           ].map(({ text, hoverColor }, i) => (
             <span key={i} className="h-ww inline-block overflow-hidden align-bottom mr-[0.18em]" style={{ lineHeight:1.06 }}>
-              <span className="h-word inline-block text-white cursor-default"
-                onMouseEnter={(e) => handleWordEnter(e, hoverColor)}
-                onMouseLeave={handleWordLeave}>
+              <span
+                className="h-word inline-block cursor-default"
+                style={{ color: isLight ? "#0F172A" : "#ffffff" }}
+                onMouseEnter={e => handleWordEnter(e, hoverColor)}
+                onMouseLeave={handleWordLeave}
+              >
                 {text}
               </span>
             </span>
@@ -582,7 +596,7 @@ export default function HeroSection() {
 
         {/* Sub-copy */}
         <p className="h-sub max-w-[440px] leading-relaxed mb-14"
-          style={{ fontSize:"clamp(15px,1.7vw,17px)", color:"rgba(255,255,255,0.42)", fontWeight:300, lineHeight:1.75 }}>
+          style={{ fontSize:"clamp(15px,1.7vw,17px)", color: isLight ? "rgba(15,23,42,0.55)" : "rgba(255,255,255,0.42)", fontWeight:300, lineHeight:1.75 }}>
           End-to-end technology services for businesses that refuse to stand still.
           Software. Cloud. Security. We build what powers your growth.
         </p>
@@ -614,8 +628,8 @@ export default function HeroSection() {
         {/* Stats bar */}
         <div className="h-stat w-full max-w-2xl"
           style={{
-            background: "rgba(255,255,255,0.03)",
-            border: "1px solid rgba(255,255,255,0.08)",
+            background: isLight ? "rgba(15,23,42,0.04)" : "rgba(255,255,255,0.03)",
+            border: isLight ? "1px solid rgba(15,23,42,0.1)" : "1px solid rgba(255,255,255,0.08)",
             borderRadius: 20,
             backdropFilter: "blur(20px)",
             overflow: "hidden",
@@ -627,7 +641,9 @@ export default function HeroSection() {
               <div key={label}
                 className="group flex flex-col items-center gap-3 px-6 py-7 cursor-default relative"
                 style={{
-                  borderRight: i < 3 ? "1px solid rgba(255,255,255,0.06)" : "none",
+                  borderRight: i < 3
+                    ? (isLight ? "1px solid rgba(15,23,42,0.08)" : "1px solid rgba(255,255,255,0.06)")
+                    : "none",
                   transition: "background 0.3s ease",
                 }}
                 onMouseEnter={e => (e.currentTarget as HTMLElement).style.background = "rgba(249,115,22,0.05)"}
@@ -641,14 +657,14 @@ export default function HeroSection() {
                 </div>
                 {/* Number */}
                 <span className="h-num font-display font-bold"
-                  style={{ fontSize: "clamp(28px,3vw,40px)", color: "#ffffff", lineHeight: 1, transition: "color 0.3s ease" }}
+                  style={{ fontSize: "clamp(28px,3vw,40px)", color: isLight ? "#0F172A" : "#ffffff", lineHeight: 1, transition: "color 0.3s ease" }}
                   data-end={end} data-suf={suf}>
                   0{suf}
                 </span>
                 {/* Label */}
                 <span style={{
                   fontFamily: "monospace", fontSize: 9, textTransform: "uppercase",
-                  letterSpacing: "0.18em", color: "rgba(255,255,255,0.3)", textAlign: "center", lineHeight: 1.4,
+                  letterSpacing: "0.18em", color: isLight ? "rgba(15,23,42,0.4)" : "rgba(255,255,255,0.3)", textAlign: "center", lineHeight: 1.4,
                 }}>
                   {label}
                 </span>
@@ -660,16 +676,24 @@ export default function HeroSection() {
 
       {/* ── Marquee ────────────────────────────────────────────────────────── */}
       <div className="h-marq relative z-20 overflow-hidden flex-shrink-0"
-        style={{ borderTop:"1px solid rgba(255,255,255,0.06)", background:"rgba(4,8,15,0.65)", backdropFilter:"blur(12px)" }}>
-        <div className="absolute left-0 top-0 bottom-0 w-28 pointer-events-none z-10"
-          style={{ background:"linear-gradient(to right,#04080F,transparent)" }} />
-        <div className="absolute right-0 top-0 bottom-0 w-28 pointer-events-none z-10"
-          style={{ background:"linear-gradient(to left,#04080F,transparent)" }} />
+      style={{
+        borderTop: isLight ? "1px solid rgba(15,23,42,0.08)" : "1px solid rgba(255,255,255,0.06)",
+        background: isLight ? "rgba(248,250,252,0.8)" : "rgba(4,8,15,0.65)",
+        backdropFilter: "blur(12px)",
+      }}>
+      <div className="absolute left-0 top-0 bottom-0 w-28 pointer-events-none z-10"
+        style={{ background: isLight
+          ? "linear-gradient(to right,#F8FAFC,transparent)"
+          : "linear-gradient(to right,#04080F,transparent)" }} />
+      <div className="absolute right-0 top-0 bottom-0 w-28 pointer-events-none z-10"
+        style={{ background: isLight
+          ? "linear-gradient(to left,#F8FAFC,transparent)"
+          : "linear-gradient(to left,#04080F,transparent)" }} />
         <div className="flex whitespace-nowrap w-max py-4" style={{ animation:"marquee 38s linear infinite" }}>
           {[...TICKER,...TICKER].map((item, i) => (
             <span key={i}
               className="inline-flex items-center gap-3 px-8"
-              style={{ fontFamily:"monospace", fontSize:11, textTransform:"uppercase", letterSpacing:"0.2em", color:"rgba(255,255,255,0.5)" }}>
+              style={{ fontFamily:"monospace", fontSize:11, textTransform:"uppercase", letterSpacing:"0.2em", color: isLight ? "rgba(15,23,42,0.45)" : "rgba(255,255,255,0.5)", }}>
               <span className="rounded-full flex-shrink-0"
                 style={{ width:6, height:6, background:"#F97316", display:"block" }} />
               {item}

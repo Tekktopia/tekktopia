@@ -5,6 +5,7 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import { Target, Eye, Handshake, Zap } from "lucide-react";
+import { useTheme } from "@/context/ThemeContext";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -41,6 +42,9 @@ const TITLE_LINES = [
 export default function MissionSection() {
   const sectionRef = useRef<HTMLElement>(null);
 
+  const { theme } = useTheme();
+  const isLight = theme === "light";
+
   useGSAP(() => {
     gsap.set(".ms-eyebrow", { autoAlpha: 0, y: 16 });
     gsap.set(".ms-word",    { yPercent: 110 });
@@ -68,12 +72,14 @@ export default function MissionSection() {
       ref={sectionRef}
       aria-label="Who we are"
       className="relative overflow-hidden"
-      style={{ background: "#04080F", paddingTop: 100, paddingBottom: 100 }}
+      style={{ background: isLight ? "#F8FAFC" : "#04080F", paddingTop: 100, paddingBottom: 100 }}
     >
       {/* Grid */}
       <div aria-hidden className="absolute inset-0 pointer-events-none"
         style={{
-          backgroundImage: "linear-gradient(rgba(255,255,255,0.018) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.018) 1px,transparent 1px)",
+          backgroundImage: isLight
+            ? "linear-gradient(rgba(15,23,42,0.06) 1px,transparent 1px),linear-gradient(90deg,rgba(15,23,42,0.06) 1px,transparent 1px)"
+            : "linear-gradient(rgba(255,255,255,0.015) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.015) 1px,transparent 1px)",
           backgroundSize: "64px 64px",
         }} />
 
@@ -92,7 +98,7 @@ export default function MissionSection() {
           <div>
             <div className="ms-eyebrow flex items-center gap-3 mb-6">
               <span style={{ height: 1, width: 24, background: "#F97316", display: "block", borderRadius: 99 }} />
-              <span style={{ fontFamily: "monospace", fontSize: 10, textTransform: "uppercase", letterSpacing: "0.28em", color: "rgba(255,255,255,0.55)" }}>
+              <span style={{ fontFamily: "monospace", fontSize: 11, textTransform: "uppercase", letterSpacing: "0.28em", color: isLight ? "rgba(15,23,42,0.60)" : "rgba(255,255,255,0.55)" }}>
                 Who We Are
               </span>
             </div>
@@ -104,7 +110,7 @@ export default function MissionSection() {
                   {words.map((word, wi) => (
                     <span key={wi} className="inline-block overflow-hidden align-bottom pb-1 mr-[0.14em]">
                       <span className="ms-word inline-block"
-                        style={{ color: accent ? "#F97316" : "#ffffff" }}>
+                        style={{ color: accent ? "#F97316" : isLight ? "#0F172A" : "#ffffff" }}>
                         {word}
                       </span>
                     </span>
@@ -117,11 +123,11 @@ export default function MissionSection() {
           {/* Right — intro paragraph */}
           <div className="flex flex-col gap-4">
             <p className="ms-body"
-              style={{ fontSize: "clamp(14px,1.45vw,16px)", color: "rgba(255,255,255,0.68)", fontWeight: 300, lineHeight: 1.85 }}>
+              style={{ fontSize: "clamp(14px,1.45vw,16px)", color: isLight ? "rgba(15, 23, 42, 0.68)" : "rgba(255,255,255,0.68)", fontWeight: 300, lineHeight: 1.85 }}>
               Tekktopia was born from a simple belief: African businesses deserve world-class technology partners — not vendors who over-promise and under-deliver, but a team that owns every outcome alongside them.
             </p>
             <p className="ms-body"
-              style={{ fontSize: "clamp(14px,1.45vw,16px)", color: "rgba(255,255,255,0.48)", fontWeight: 300, lineHeight: 1.85 }}>
+              style={{ fontSize: "clamp(14px,1.45vw,16px)", color: isLight ? "rgba(15, 23, 42, 0.48)" : "rgba(255,255,255,0.48)", fontWeight: 300, lineHeight: 1.85 }}>
               From Lagos, we've grown into a full-stack tech firm trusted by companies across Nigeria, Canada, and beyond — delivering software, infrastructure, cybersecurity, and strategy that actually works.
             </p>
           </div>
@@ -134,17 +140,17 @@ export default function MissionSection() {
               key={title}
               className="ms-pillar relative p-6 rounded-2xl group"
               style={{
-                background: "rgba(255,255,255,0.025)",
-                border: "1px solid rgba(255,255,255,0.07)",
+                background: isLight ? "rgba(15, 23, 42, 0.02)" : "rgba(255,255,255,0.025)",
+                border: isLight ? "1px solid rgba(15, 23, 42, 0.08)" : "1px solid rgba(255,255,255,0.07)",
                 transition: "border-color 0.3s, background 0.3s",
               }}
               onMouseEnter={e => {
                 (e.currentTarget as HTMLElement).style.borderColor = `${color}30`;
-                (e.currentTarget as HTMLElement).style.background = "rgba(255,255,255,0.04)";
+                (e.currentTarget as HTMLElement).style.background = isLight ? "rgba(15, 23, 42, 0.03)" : "rgba(255,255,255,0.04)";
               }}
               onMouseLeave={e => {
-                (e.currentTarget as HTMLElement).style.borderColor = "rgba(255,255,255,0.07)";
-                (e.currentTarget as HTMLElement).style.background = "rgba(255,255,255,0.025)";
+                (e.currentTarget as HTMLElement).style.borderColor = isLight ? "rgba(15, 23, 42, 0.08)" : "rgba(255,255,255,0.07)";
+                (e.currentTarget as HTMLElement).style.background = isLight ? "rgba(15, 23, 42, 0.02)" : "rgba(255,255,255,0.025)";
               }}
             >
               {/* Top accent */}
@@ -154,8 +160,8 @@ export default function MissionSection() {
                 <Icon style={{ width: 18, height: 18, color }} strokeWidth={1.6} />
               </div>
 
-              <p style={{ fontSize: 15, fontWeight: 700, color: "#fff", marginBottom: 8, letterSpacing: "-0.01em" }}>{title}</p>
-              <p style={{ fontSize: 13.5, color: "rgba(255,255,255,0.55)", lineHeight: 1.75, fontWeight: 300 }}>{body}</p>
+              <p style={{ fontSize: 15, fontWeight: 700, color: isLight ? "#0F172A" : "#fff", marginBottom: 8, letterSpacing: "-0.01em" }}>{title}</p>
+              <p style={{ fontSize: 13.5, color: isLight ? "rgba(15, 23, 42, 0.55)" : "rgba(255,255,255,0.55)", lineHeight: 1.75, fontWeight: 300 }}>{body}</p>
             </div>
           ))}
         </div>
@@ -166,20 +172,20 @@ export default function MissionSection() {
             {
               Icon: Target,
               color: "#F97316",
-              glow: "rgba(249,115,22,0.16)",
+              glow: isLight ? "rgba(15, 23, 42, 0.18)" : "rgba(249,115,22,0.16)",
               label: "Our Mission",
               text: "To empower African businesses with reliable, secure, and scalable technology — delivering end-to-end solutions that remove friction, accelerate growth, and create lasting digital advantage.",
             },
             {
               Icon: Eye,
               color: "#3B82F6",
-              glow: "rgba(59,130,246,0.16)",
+              glow: isLight ? "rgba(15, 23, 42, 0.18)" : "rgba(59,130,246,0.16)",
               label: "Our Vision",
               text: "A future where every African business — from ambitious startup to established enterprise — has access to the same world-class technology that powers global industry leaders.",
             },
           ].map(({ Icon, color, glow, label, text }) => (
             <div key={label} className="ms-card relative p-7 rounded-2xl overflow-hidden"
-              style={{ background: "rgba(255,255,255,0.025)", border: "1px solid rgba(255,255,255,0.07)" }}>
+              style={{ background: isLight ? "rgba(15, 23, 42, 0.02)" : "rgba(255,255,255,0.025)", border: isLight ? "rgba(15, 23, 42, 0.08)" : "1px solid rgba(255,255,255,0.07)" }}>
               {/* Bottom accent */}
               <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, height: 2, background: `linear-gradient(to right, transparent, ${color}55, transparent)` }} />
 
@@ -191,7 +197,7 @@ export default function MissionSection() {
                   <p style={{ fontSize: 10, fontFamily: "monospace", textTransform: "uppercase", letterSpacing: "0.2em", color, marginBottom: 8 }}>
                     {label}
                   </p>
-                  <p style={{ fontSize: 14.5, color: "rgba(255,255,255,0.68)", lineHeight: 1.78, fontWeight: 300 }}>{text}</p>
+                  <p style={{ fontSize: 14.5, color: isLight ? "rgba(15, 23, 42, 0.68)" : "rgba(255,255,255,0.68)", lineHeight: 1.78, fontWeight: 300 }}>{text}</p>
                 </div>
               </div>
             </div>

@@ -6,7 +6,8 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
-import { ArrowUpRight, ChevronDown, X } from "lucide-react";
+import { ArrowUpRight, ChevronDown, X, Sun, Moon } from "lucide-react";
+import { useTheme } from "@/context/ThemeContext";
 
 const NAV_LINKS = [
   { name: "Home",     href: "/"         },
@@ -31,7 +32,7 @@ const SERVICE_LINKS = [
 ];
 
 // ── Wordmark ──────────────────────────────────────────────────────────────────
-function Wordmark() {
+function Wordmark({ theme }: { theme: "dark" | "light" }) {
   return (
     <span className="flex items-center gap-2.5">
       <Image
@@ -50,10 +51,10 @@ function Wordmark() {
           lineHeight: 1,
         }}
       >
-        <span style={{ color: "#F97316" }}>t</span>
-        <span style={{ color: "#ffffff" }}>ekk</span>
-        <span style={{ color: "#3B82F6" }}>t</span>
-        <span style={{ color: "#ffffff" }}>opia</span>
+        <span style={{ color: theme === "dark" ? "#F97316" : "#3B82F6" }}>t</span>
+        <span style={{ color: theme === "dark" ? "#ffffff" : "#0F172A" }}>ekk</span>
+        <span style={{ color: theme === "dark" ? "#3B82F6" : "#F97316" }}>t</span>
+        <span style={{ color: theme === "dark" ? "#ffffff" : "#0F172A" }}>opia</span>
       </span>
     </span>
   );
@@ -69,6 +70,13 @@ export default function Navigation() {
   const [scrolled,            setScrolled]            = useState(false);
   const [servicesOpen,        setServicesOpen]        = useState(false);
   const [mobileServicesOpen,  setMobileServicesOpen]  = useState(false);
+
+  const { theme, toggleTheme } = useTheme();
+
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => { setMounted(true); }, []);
+
+  const isLight = theme === "light";
 
   const pathname = usePathname();
 
@@ -149,8 +157,12 @@ export default function Navigation() {
       {/* ── Header bar ───────────────────────────────────────────────────── */}
       <header
         ref={headerRef}
-        className="sticky top-0 z-50 w-full transition-all duration-300"
-        style={{ background: "#04080F", borderBottom: "none", boxShadow: "none" }}
+        className="fixed top-0 left-0 right-0 z-50 w-full transition-all duration-300"
+        style={{ 
+          background: isLight ? "#F8FAFC" : "#04080F",
+          borderBottom: isLight ? "1px solid #E2E8F0" : "none",
+          boxShadow: "none", 
+        }}
       >
         {/* Fine grid overlay */}
         <div
@@ -175,7 +187,7 @@ export default function Navigation() {
             onMouseEnter={e => (e.currentTarget.style.opacity = "0.82")}
             onMouseLeave={e => (e.currentTarget.style.opacity = "1")}
           >
-            <Wordmark />
+            <Wordmark theme={theme} />
           </Link>
 
           {/* ── Desktop nav ────────────────────────────────────────────── */}
@@ -196,8 +208,12 @@ export default function Navigation() {
                       href={link.href}
                       className="relative inline-flex items-center gap-1 px-4 py-2 rounded-full text-sm font-medium transition-all duration-200"
                       style={{
-                        color: active || servicesOpen ? "#F97316" : "rgba(255,255,255,0.58)",
-                        background: active || servicesOpen ? "rgba(249,115,22,0.08)" : "transparent",
+                        color: active || servicesOpen
+                          ? (isLight ? "#3B82F6" : "#F97316")
+                          : (isLight ? "rgba(15,23,42,0.55)" : "rgba(255,255,255,0.58)"),
+                        background: active || servicesOpen
+                          ? (isLight ? "rgba(59,130,246,0.08)" : "rgba(249,115,22,0.08)")
+                          : "transparent",
                       }}
                     >
                       {link.name}
@@ -215,8 +231,8 @@ export default function Navigation() {
                           className="absolute bottom-1 left-1/2 -translate-x-1/2"
                           style={{
                             width: 4, height: 4, borderRadius: "50%",
-                            background: "#F97316",
-                            boxShadow: "0 0 6px rgba(249,115,22,0.7)",
+                            background: isLight ? "#3B82F6" : "#F97316",
+                            boxShadow: isLight ? "0 0 6px rgba(59,130,246,0.7)" : "0 0 6px rgba(249,115,22,0.7)",
                             display: "block",
                           }}
                         />
@@ -234,10 +250,12 @@ export default function Navigation() {
                           left: "50%",
                           transform: "translateX(-50%)",
                           width: 480,
-                          background: "#0D1520",
-                          border: "1px solid rgba(255,255,255,0.09)",
+                          background: isLight ? "#FFFFFF" : "#0D1520",
+                          border: isLight ? "1px solid #E2E8F0" : "1px solid rgba(255,255,255,0.09)",
                           borderRadius: 16,
-                          boxShadow: "0 24px 64px rgba(0,0,0,0.55), 0 0 0 1px rgba(37,99,235,0.08)",
+                          boxShadow: isLight
+                            ? "0 24px 64px rgba(0,0,0,0.12), 0 0 0 1px rgba(59,130,246,0.08)"
+                            : "0 24px 64px rgba(0,0,0,0.55), 0 0 0 1px rgba(37,99,235,0.08)",
                           padding: "20px 20px 16px",
                           zIndex: 60,
                           animation: "dropIn 0.2s ease forwards",
@@ -253,11 +271,10 @@ export default function Navigation() {
                             transform: "translateX(-50%) rotate(45deg)",
                             width: 11,
                             height: 11,
-                            background: "#0D1520",
-                            border: "1px solid rgba(255,255,255,0.09)",
-                            borderBottom: "none",
-                            borderRight: "none",
-                            borderRadius: "2px 0 0 0",
+                            background: isLight ? "#FFFFFF" : "#0D1520",
+                          border: isLight ? "1px solid #E2E8F0" : "1px solid rgba(255,255,255,0.09)",
+                          borderBottom: "none", borderRight: "none",
+                          borderRadius: "2px 0 0 0",
                           }}
                         />
 
@@ -269,7 +286,7 @@ export default function Navigation() {
                               fontSize: 9,
                               textTransform: "uppercase",
                               letterSpacing: "0.28em",
-                              color: "rgba(255,255,255,0.3)",
+                              color: isLight ? "rgba(15,23,42,0.35)" : "rgba(255,255,255,0.3)",
                             }}
                           >
                             Our Services
@@ -280,7 +297,7 @@ export default function Navigation() {
                               fontSize: 9,
                               textTransform: "uppercase",
                               letterSpacing: "0.2em",
-                              color: "rgba(255,255,255,0.2)",
+                              color: isLight ? "rgba(15,23,42,0.25)" : "rgba(255,255,255,0.2)",
                             }}
                           >
                             {SERVICE_LINKS.length} offerings
@@ -297,15 +314,15 @@ export default function Navigation() {
                               style={{
                                 fontSize: 13,
                                 fontWeight: 500,
-                                color: "rgba(255,255,255,0.65)",
+                                color: isLight ? "rgba(15,23,42,0.6)" : "rgba(255,255,255,0.65)",
                               }}
                               onMouseEnter={e => {
-                                e.currentTarget.style.background = "rgba(255,255,255,0.05)";
-                                e.currentTarget.style.color = "#ffffff";
+                                e.currentTarget.style.background = isLight ? "rgba(15,23,42,0.04)" : "rgba(255,255,255,0.05)";
+                                e.currentTarget.style.color = isLight ? "#0F172A" : "#ffffff";
                               }}
                               onMouseLeave={e => {
                                 e.currentTarget.style.background = "transparent";
-                                e.currentTarget.style.color = "rgba(255,255,255,0.65)";
+                                e.currentTarget.style.color = isLight ? "rgba(15,23,42,0.6)" : "rgba(255,255,255,0.65)";
                               }}
                             >
                               {/* Dot accent */}
@@ -314,7 +331,7 @@ export default function Navigation() {
                                   width: 5,
                                   height: 5,
                                   borderRadius: "50%",
-                                  background: "#F97316",
+                                  background: isLight ? "#3B82F6" : "#F97316",
                                   opacity: 0.5,
                                   flexShrink: 0,
                                   transition: "opacity 0.15s",
@@ -329,27 +346,27 @@ export default function Navigation() {
                         {/* Footer CTA */}
                         <div
                           style={{
-                            marginTop: 14,
-                            paddingTop: 14,
-                            borderTop: "1px solid rgba(255,255,255,0.06)",
+                            marginTop: 14, 
+                            paddingTop: 14, 
+                            borderTop: isLight ? "1px solid #E2E8F0" : "1px solid rgba(255,255,255,0.06)"
                           }}
                         >
                           <Link
                             href="/services"
                             className="group flex items-center justify-center gap-2 w-full rounded-xl py-2.5 text-sm font-semibold transition-all duration-200"
                             style={{
-                              background: "rgba(249,115,22,0.1)",
-                              border: "1px solid rgba(249,115,22,0.2)",
-                              color: "#F97316",
+                              background: isLight ? "rgba(59,130,246,0.1)" : "rgba(249,115,22,0.1)",
+                              border: isLight ? "1px solid rgba(59,130,246,0.2)" : "1px solid rgba(249,115,22,0.2)",
+                              color: isLight ? "#3B82F6" : "#F97316",
                             }}
                             onMouseEnter={e => {
-                              e.currentTarget.style.background = "rgba(249,115,22,0.18)";
-                              e.currentTarget.style.borderColor = "rgba(249,115,22,0.4)";
-                              e.currentTarget.style.boxShadow = "0 0 24px rgba(249,115,22,0.2)";
+                              e.currentTarget.style.background = isLight ? "rgba(59,130,246,0.18)" : "rgba(249,115,22,0.18)";
+                              e.currentTarget.style.borderColor = isLight ? "rgba(59,130,246,0.4)" : "rgba(249,115,22,0.4)";
+                              e.currentTarget.style.boxShadow = isLight ? "0 0 24px rgba(59,130,246,0.2)" : "0 0 24px rgba(249,115,22,0.2)";
                             }}
                             onMouseLeave={e => {
-                              e.currentTarget.style.background = "rgba(249,115,22,0.1)";
-                              e.currentTarget.style.borderColor = "rgba(249,115,22,0.2)";
+                              e.currentTarget.style.background = isLight ? "rgba(59,130,246,0.1)" : "rgba(249,115,22,0.1)";
+                              e.currentTarget.style.borderColor = isLight ? "rgba(59,130,246,0.2)" : "rgba(249,115,22,0.2)";
                               e.currentTarget.style.boxShadow = "none";
                             }}
                           >
@@ -372,32 +389,36 @@ export default function Navigation() {
                   href={link.href}
                   className="relative inline-flex items-center gap-1 px-4 py-2 rounded-full text-sm font-medium transition-all duration-200"
                   style={{
-                    color: active ? "#F97316" : "rgba(255,255,255,0.58)",
-                    background: active ? "rgba(249,115,22,0.08)" : "transparent",
+                    color: active
+                      ? (isLight ? "#3B82F6" : "#F97316")
+                      : (isLight ? "rgba(15,23,42,0.55)" : "rgba(255,255,255,0.58)"),
+                    background: active
+                      ? (isLight ? "rgba(59,130,246,0.08)" : "rgba(249,115,22,0.08)")
+                      : "transparent",
                   }}
                   onMouseEnter={e => {
                     if (!active) {
-                      e.currentTarget.style.color = "#ffffff";
-                      e.currentTarget.style.background = "rgba(255,255,255,0.05)";
+                      e.currentTarget.style.color = isLight ? "#0F172A" : "#ffffff";
+                      e.currentTarget.style.background = isLight ? "rgba(15,23,42,0.05)" : "rgba(255,255,255,0.05)";
                     }
                   }}
                   onMouseLeave={e => {
                     if (!active) {
-                      e.currentTarget.style.color = "rgba(255,255,255,0.58)";
+                      e.currentTarget.style.color = isLight ? "rgba(15,23,42,0.55)" : "rgba(255,255,255,0.58)";
                       e.currentTarget.style.background = "transparent";
                     }
                   }}
                 >
                   {link.name}
                   {active && (
-                    <span
-                      className="absolute bottom-1 left-1/2 -translate-x-1/2"
+                    <span 
+                      className="absolute bottom-1 left-1/2 -translate-x-1/2" 
                       style={{
                         width: 4, height: 4, borderRadius: "50%",
-                        background: "#F97316",
-                        boxShadow: "0 0 6px rgba(249,115,22,0.7)",
+                        background: isLight ? "#3B82F6" : "#F97316",
+                        boxShadow: isLight ? "0 0 6px rgba(59,130,246,0.7)" : "0 0 6px rgba(249,115,22,0.7)",
                         display: "block",
-                      }}
+                      }} 
                     />
                   )}
                 </Link>
@@ -411,26 +432,52 @@ export default function Navigation() {
             <Link
               href="/contact"
               className="hidden md:inline-flex group items-center gap-2 font-semibold text-sm text-white px-5 py-2.5 rounded-full"
-              style={{
-                background: "linear-gradient(135deg,#F97316,#EA6A00)",
-                boxShadow: "0 0 0 1px rgba(249,115,22,0.3),0 4px 18px rgba(249,115,22,0.2)",
-                transition: "box-shadow 0.3s, transform 0.25s",
+              style={{ 
+                background: "linear-gradient(135deg,#F97316,#EA6A00)", 
+                boxShadow: "0 0 0 1px rgba(249,115,22,0.3),0 4px 18px rgba(249,115,22,0.2)", 
+                transition: "box-shadow 0.3s, transform 0.25s" 
+              }} 
+              onMouseEnter={e => { 
+                e.currentTarget.style.boxShadow = "0 0 40px rgba(249,115,22,0.5),0 0 0 1px rgba(249,115,22,0.55)"; 
+                e.currentTarget.style.transform = "translateY(-1px)"; 
+              }} 
+              onMouseLeave={e => { 
+                e.currentTarget.style.boxShadow = "0 0 0 1px rgba(249,115,22,0.3),0 4px 18px rgba(249,115,22,0.2)"; 
+                e.currentTarget.style.transform = "none"; 
               }}
-              onMouseEnter={e => {
-                e.currentTarget.style.boxShadow = "0 0 40px rgba(249,115,22,0.5),0 0 0 1px rgba(249,115,22,0.55)";
-                e.currentTarget.style.transform = "translateY(-1px)";
-              }}
-              onMouseLeave={e => {
-                e.currentTarget.style.boxShadow = "0 0 0 1px rgba(249,115,22,0.3),0 4px 18px rgba(249,115,22,0.2)";
-                e.currentTarget.style.transform = "none";
-              }}
-            >
+              >
               Connect with us
               <ArrowUpRight
                 style={{ width: 14, height: 14 }}
                 className="transition-transform duration-300 group-hover:rotate-45"
               />
             </Link>
+
+            {mounted && (
+              <button
+                onClick={toggleTheme}
+                aria-label={isLight ? "Switch to dark mode" : "Switch to light mode"}
+                className="flex items-center justify-center w-10 h-10 rounded-xl transition-all duration-200"
+                style={{
+                  background: isLight ? "rgba(15,23,42,0.06)" : "rgba(255,255,255,0.05)",
+                  border: isLight ? "1px solid rgba(15,23,42,0.12)" : "1px solid rgba(255,255,255,0.08)",
+                }}
+                onMouseEnter={e => {
+                  e.currentTarget.style.background = isLight ? "rgba(59,130,246,0.1)" : "rgba(249,115,22,0.1)";
+                  e.currentTarget.style.borderColor = isLight ? "rgba(59,130,246,0.25)" : "rgba(249,115,22,0.25)";
+                }}
+                onMouseLeave={e => {
+                  e.currentTarget.style.background = isLight ? "rgba(15,23,42,0.06)" : "rgba(255,255,255,0.05)";
+                  e.currentTarget.style.borderColor = isLight ? "rgba(15,23,42,0.12)" : "rgba(255,255,255,0.08)";
+                }}
+              >
+                {/* Sun icon shown in dark mode (click to go light), Moon shown in light mode (click to go dark) */}
+                {isLight
+                  ? <Moon style={{ width: 16, height: 16, color: "#0F172A" }} />
+                  : <Sun  style={{ width: 16, height: 16, color: "#F97316" }} />
+                }
+              </button>
+            )}
 
             {/* Hamburger */}
             <button
@@ -439,17 +486,21 @@ export default function Navigation() {
               aria-expanded={menuOpen}
               className="md:hidden flex flex-col justify-center items-center w-10 h-10 rounded-xl transition-all duration-200"
               style={{
-                background: menuOpen ? "rgba(249,115,22,0.1)"  : "rgba(255,255,255,0.05)",
-                border:     menuOpen ? "1px solid rgba(249,115,22,0.25)" : "1px solid rgba(255,255,255,0.08)",
+                background: menuOpen
+                  ? (isLight ? "rgba(59,130,246,0.1)" : "rgba(249,115,22,0.1)")
+                  : (isLight ? "rgba(15,23,42,0.06)" : "rgba(255,255,255,0.05)"),
+                border: menuOpen
+                  ? (isLight ? "1px solid rgba(59,130,246,0.25)" : "1px solid rgba(249,115,22,0.25)")
+                  : (isLight ? "1px solid rgba(15,23,42,0.12)" : "1px solid rgba(255,255,255,0.08)"),
               }}
             >
               {menuOpen ? (
-                <X style={{ width: 16, height: 16, color: "#F97316" }} strokeWidth={2} />
+                <X style={{ width: 16, height: 16, color: isLight ? "#3B82F6" : "#F97316" }} strokeWidth={2} />
               ) : (
                 <span className="flex flex-col gap-[5px] items-center">
-                  <span style={{ display: "block", width: 18, height: 1.5, borderRadius: 99, background: "rgba(255,255,255,0.75)" }} />
-                  <span style={{ display: "block", width: 12, height: 1.5, borderRadius: 99, background: "rgba(255,255,255,0.45)" }} />
-                  <span style={{ display: "block", width: 18, height: 1.5, borderRadius: 99, background: "rgba(255,255,255,0.75)" }} />
+                  <span style={{ display: "block", width: 18, height: 1.5, borderRadius: 99, background: isLight ? "rgba(15,23,42,0.7)" : "rgba(255,255,255,0.75)" }} />
+                  <span style={{ display: "block", width: 12, height: 1.5, borderRadius: 99, background: isLight ? "rgba(15,23,42,0.4)" : "rgba(255,255,255,0.45)" }} />
+                  <span style={{ display: "block", width: 18, height: 1.5, borderRadius: 99, background: isLight ? "rgba(15,23,42,0.7)" : "rgba(255,255,255,0.75)" }} />
                 </span>
               )}
             </button>
@@ -479,8 +530,12 @@ export default function Navigation() {
           {/* Drawer */}
           <div
             ref={mobileRef}
-            className="md:hidden fixed top-[68px] left-0 right-0 z-50"
-            style={{ background: "#04080F", borderBottom: "none", boxShadow: "none" }}
+            className="md:hidden fixed top-17 left-0 right-0 z-50"
+            style={{
+              background: isLight ? "#F8FAFC" : "#04080F",
+              borderBottom: isLight ? "1px solid #E2E8F0" : "none",
+              boxShadow: "none",
+            }}
           >
             {/* Fine grid in drawer */}
             <div
@@ -507,13 +562,16 @@ export default function Navigation() {
                         onClick={() => setMobileServicesOpen(p => !p)}
                         className="flex items-center justify-between px-4 py-3.5 rounded-xl text-[15px] font-medium w-full transition-all duration-200"
                         style={{
-                          color: active || mobileServicesOpen ? "#F97316" : "rgba(255,255,255,0.62)",
-                          background: active || mobileServicesOpen ? "rgba(249,115,22,0.07)" : "transparent",
-                          borderLeft: active || mobileServicesOpen ? "2px solid #F97316" : "2px solid transparent",
-                          cursor: "pointer",
-                          border: "none",
-                          textAlign: "left",
-                          borderLeft: active || mobileServicesOpen ? "2px solid #F97316" : "2px solid transparent",
+                          color: active || mobileServicesOpen
+                            ? (isLight ? "#3B82F6" : "#F97316")
+                            : (isLight ? "rgba(15,23,42,0.62)" : "rgba(255,255,255,0.62)"),
+                          background: active || mobileServicesOpen
+                            ? (isLight ? "rgba(59,130,246,0.07)" : "rgba(249,115,22,0.07)")
+                            : "transparent",
+                          borderLeft: active || mobileServicesOpen
+                            ? (isLight ? "2px solid #3B82F6" : "2px solid #F97316")
+                            : "2px solid transparent",
+                          cursor: "pointer", border: "none", textAlign: "left",
                         }}
                       >
                         <span>{link.name}</span>
@@ -521,7 +579,9 @@ export default function Navigation() {
                           style={{
                             width: 15,
                             height: 15,
-                            color: mobileServicesOpen ? "#F97316" : "rgba(255,255,255,0.4)",
+                            color: mobileServicesOpen
+                            ? (isLight ? "#3B82F6" : "#F97316")
+                            : (isLight ? "rgba(15,23,42,0.4)" : "rgba(255,255,255,0.4)"),
                             transition: "transform 0.25s, color 0.2s",
                             transform: mobileServicesOpen ? "rotate(180deg)" : "rotate(0deg)",
                             flexShrink: 0,
@@ -533,7 +593,7 @@ export default function Navigation() {
                       {mobileServicesOpen && (
                         <div
                           className="flex flex-col gap-0.5 mt-1 mb-1 ml-3 pl-3"
-                          style={{ borderLeft: "2px solid rgba(249,115,22,0.25)" }}
+                          style={{ borderLeft: isLight ? "2px solid rgba(59,130,246,0.25)" : "2px solid rgba(249,115,22,0.25)" }}
                         >
                           {SERVICE_LINKS.map(({ label, href }) => (
                             <Link
@@ -541,20 +601,21 @@ export default function Navigation() {
                               href={href}
                               onClick={closeMenu}
                               className="flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-[13px] font-medium transition-all duration-150"
-                              style={{ color: "rgba(255,255,255,0.52)" }}
+                              style={{ color: isLight ? "rgba(15,23,42,0.52)" : "rgba(255,255,255,0.52)" }}
                               onMouseEnter={e => {
-                                e.currentTarget.style.color = "#fff";
-                                e.currentTarget.style.background = "rgba(255,255,255,0.05)";
+                                e.currentTarget.style.color = isLight ? "#0F172A" : "#fff";
+                                e.currentTarget.style.background = isLight ? "rgba(15,23,42,0.04)" : "rgba(255,255,255,0.05)";
                               }}
                               onMouseLeave={e => {
-                                e.currentTarget.style.color = "rgba(255,255,255,0.52)";
+                                e.currentTarget.style.color = isLight ? "rgba(15,23,42,0.52)" : "rgba(255,255,255,0.52)";
                                 e.currentTarget.style.background = "transparent";
                               }}
                             >
                               <span
                                 style={{
                                   width: 4, height: 4, borderRadius: "50%",
-                                  background: "#F97316", opacity: 0.6, flexShrink: 0,
+                                  background: isLight ? "#3B82F6" : "#F97316", 
+                                  opacity: 0.6, flexShrink: 0,
                                 }}
                               />
                               {label}
@@ -567,9 +628,9 @@ export default function Navigation() {
                             onClick={closeMenu}
                             className="flex items-center gap-2 px-3 py-2.5 mt-1 rounded-lg text-[12px] font-semibold"
                             style={{
-                              color: "#F97316",
-                              background: "rgba(249,115,22,0.07)",
-                              borderTop: "1px solid rgba(249,115,22,0.12)",
+                              color: isLight ? "#3B82F6" : "#F97316",
+                              background: isLight ? "rgba(59,130,246,0.07)" : "rgba(249,115,22,0.07)",
+                              borderTop: isLight ? "1px solid rgba(59,130,246,0.12)" : "1px solid rgba(249,115,22,0.12)",
                             }}
                           >
                             <ArrowUpRight style={{ width: 12, height: 12 }} />
@@ -589,19 +650,25 @@ export default function Navigation() {
                     onClick={closeMenu}
                     className="mob-link flex items-center justify-between px-4 py-3.5 rounded-xl text-[15px] font-medium transition-all duration-200"
                     style={{
-                      color: active ? "#F97316" : "rgba(255,255,255,0.62)",
-                      background: active ? "rgba(249,115,22,0.07)" : "transparent",
-                      borderLeft: active ? "2px solid #F97316" : "2px solid transparent",
+                      color: active
+                        ? (isLight ? "#3B82F6" : "#F97316")
+                        : (isLight ? "rgba(15,23,42,0.62)" : "rgba(255,255,255,0.62)"),
+                      background: active
+                        ? (isLight ? "rgba(59,130,246,0.07)" : "rgba(249,115,22,0.07)")
+                        : "transparent",
+                      borderLeft: active
+                        ? (isLight ? "2px solid #3B82F6" : "2px solid #F97316")
+                        : "2px solid transparent",
                     }}
                     onMouseEnter={e => {
                       if (!active) {
-                        e.currentTarget.style.color = "#fff";
-                        e.currentTarget.style.background = "rgba(255,255,255,0.04)";
+                        e.currentTarget.style.color = isLight ? "#0F172A" : "#fff";
+                        e.currentTarget.style.background = isLight ? "rgba(15,23,42,0.04)" : "rgba(255,255,255,0.04)";
                       }
                     }}
                     onMouseLeave={e => {
                       if (!active) {
-                        e.currentTarget.style.color = "rgba(255,255,255,0.62)";
+                        e.currentTarget.style.color = isLight ? "rgba(15,23,42,0.62)" : "rgba(255,255,255,0.62)";
                         e.currentTarget.style.background = "transparent";
                       }
                     }}
@@ -611,8 +678,8 @@ export default function Navigation() {
                       <span
                         style={{
                           width: 6, height: 6, borderRadius: "50%",
-                          background: "#F97316",
-                          boxShadow: "0 0 8px rgba(249,115,22,0.7)",
+                          background: isLight ? "#3B82F6" : "#F97316",
+                          boxShadow: isLight ? "0 0 8px rgba(59,130,246,0.7)" : "0 0 8px rgba(249,115,22,0.7)",
                           display: "inline-block",
                           flexShrink: 0,
                         }}
@@ -625,7 +692,7 @@ export default function Navigation() {
               {/* Divider */}
               <div
                 className="mob-link my-1"
-                style={{ height: 1, background: "rgba(255,255,255,0.06)" }}
+                style={{ height: 1, background: isLight ? "rgba(15,23,42,0.08)" : "rgba(255,255,255,0.06)" }}
               />
 
               {/* Mobile CTA */}

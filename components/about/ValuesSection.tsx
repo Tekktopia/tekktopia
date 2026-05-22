@@ -5,6 +5,7 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import { Zap, Shield, Users, Heart, TrendingUp, Lightbulb } from "lucide-react";
+import { useTheme } from "@/context/ThemeContext";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -44,6 +45,9 @@ const VALUES = [
 export default function ValuesSection() {
   const sectionRef = useRef<HTMLElement>(null);
   const cardRefs   = useRef<(HTMLDivElement | null)[]>([]);
+
+  const { theme } = useTheme();
+  const isLight = theme === "light";
 
   useGSAP(() => {
     gsap.set(".vl-eyebrow", { autoAlpha: 0, y: 16, filter: "blur(5px)" });
@@ -97,12 +101,14 @@ export default function ValuesSection() {
       ref={sectionRef}
       aria-label="Our values"
       className="relative overflow-hidden"
-      style={{ background: "#04080F", paddingTop: 96, paddingBottom: 96 }}
+      style={{ background: isLight ? "#F8FAFC" : "#04080F", paddingTop: 96, paddingBottom: 96 }}
     >
       {/* Grid */}
       <div aria-hidden className="absolute inset-0 pointer-events-none"
         style={{
-          backgroundImage: "linear-gradient(rgba(255,255,255,0.018) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.018) 1px,transparent 1px)",
+          backgroundImage: isLight
+          ? "linear-gradient(rgba(15,23,42,0.06) 1px,transparent 1px),linear-gradient(90deg,rgba(15,23,42,0.06) 1px,transparent 1px)"
+          : "linear-gradient(rgba(255,255,255,0.022) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.022) 1px,transparent 1px)",
           backgroundSize: "64px 64px",
         }} />
 
@@ -116,7 +122,7 @@ export default function ValuesSection() {
         <div className="text-center mb-16">
           <div className="vl-eyebrow flex items-center justify-center gap-3 mb-6">
             <span style={{ height: 1, width: 24, background: "#F97316", display: "block", borderRadius: 99 }} />
-            <span style={{ fontFamily: "monospace", fontSize: 10, textTransform: "uppercase", letterSpacing: "0.28em", color: "rgba(255,255,255,0.55)" }}>
+            <span style={{ fontFamily: "monospace", fontSize: 11, textTransform: "uppercase", letterSpacing: "0.28em", color: isLight ? "rgba(15,23,42,0.55)" : "rgba(255,255,255,0.55)" }}>
               What Drives Us
             </span>
             <span style={{ height: 1, width: 24, background: "#F97316", display: "block", borderRadius: 99 }} />
@@ -125,14 +131,14 @@ export default function ValuesSection() {
             style={{ fontSize: "clamp(32px,4.5vw,58px)", lineHeight: 0.92, letterSpacing: "-0.03em" }}>
             {["Our", "Core", "Values"].map((word, i) => (
               <span key={i} className="inline-block overflow-hidden align-bottom pb-1 mr-[0.18em]">
-                <span className="vl-word inline-block" style={{ color: i === 2 ? "#F97316" : "#ffffff" }}>
+                <span className="vl-word inline-block" style={{ color: i === 2 ? "#F97316" : isLight ? "#0F172A" : "#ffffff" }}>
                   {word}
                 </span>
               </span>
             ))}
           </h2>
           <p className="vl-sub mt-5 mx-auto max-w-lg"
-            style={{ fontSize: "clamp(13px,1.4vw,15px)", color: "rgba(255,255,255,0.48)", lineHeight: 1.8, fontWeight: 300 }}>
+            style={{ fontSize: "clamp(13px,1.4vw,15px)", color: isLight ? "rgba(15,23,42,0.48)" : "rgba(255,255,255,0.48)", lineHeight: 1.8, fontWeight: 300 }}>
             Six principles that govern every decision we make, every product we ship, and every relationship we build.
           </p>
         </div>
@@ -146,8 +152,8 @@ export default function ValuesSection() {
               data-color={color}
               className="relative flex flex-col gap-5 p-7 rounded-2xl overflow-hidden cursor-default"
               style={{
-                background: "rgba(255,255,255,0.025)",
-                border: "1px solid rgba(255,255,255,0.07)",
+                background: isLight ? "rgba(15,23,42,0.04)" : "rgba(255,255,255,0.025)",
+                border: isLight ? "1px solid rgba(15,23,42,0.08)" : "1px solid rgba(255,255,255,0.07)",
                 backdropFilter: "blur(12px)",
                 transition: "border-color 0.35s, box-shadow 0.35s",
               }}
@@ -177,10 +183,10 @@ export default function ValuesSection() {
 
               <div>
                 <h3 className="vl-title font-display font-bold mb-2.5"
-                  style={{ fontSize: 16, color: "#fff", lineHeight: 1.25 }}>
+                  style={{ fontSize: 16, color: isLight ? "#0F172A" : "#fff", lineHeight: 1.25 }}>
                   {title}
                 </h3>
-                <p style={{ fontSize: 13.5, color: "rgba(255,255,255,0.62)", lineHeight: 1.75, fontWeight: 300 }}>
+                <p style={{ fontSize: 13.5, color: isLight ? "rgba(15,23,42,0.62)" : "rgba(255,255,255,0.62)", lineHeight: 1.75, fontWeight: 300 }}>
                   {body}
                 </p>
               </div>

@@ -3,6 +3,8 @@
 import { useRef, useEffect } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useTheme } from "@/context/ThemeContext";
+
 
 if (typeof window !== "undefined") gsap.registerPlugin(ScrollTrigger);
 
@@ -89,6 +91,13 @@ function hexA(hex: string, a: number) {
 
 // ─────────────────────────────────────────────────────────────────────────────
 export default function NetworkGlobe() {
+  const { theme } = useTheme();
+  const isLight = theme === "light";
+
+  const isLightRef = useRef(isLight);
+
+  useEffect(() => { isLightRef.current = isLight; }, [isLight]);
+
   const sectionRef = useRef<HTMLElement>(null);
   const canvasRef  = useRef<HTMLCanvasElement>(null);
   const countElRef = useRef<HTMLSpanElement>(null);
@@ -125,6 +134,8 @@ export default function NetworkGlobe() {
     window.addEventListener("resize", resize);
 
     const draw = () => {
+      const light = isLightRef.current;
+
       frame.current++;
       const W = canvas.width, H = canvas.height;
       const cx = W / 2, cy = H / 2;
@@ -335,7 +346,7 @@ export default function NetworkGlobe() {
             ctx.fillStyle = node.color;
             ctx.fillText("TEKKTOPIA", p.x, p.y - size - 12);
             ctx.font = "9px monospace";
-            ctx.fillStyle = "rgba(255,255,255,0.32)";
+            ctx.fillStyle = light ? "rgba(255,255,255,0.55)" : "rgba(255,255,255,0.32)";
             ctx.fillText("HQ · Lagos, Nigeria", p.x, p.y - size - 24);
           } else {
             ctx.font = "bold 10px monospace";
@@ -463,12 +474,14 @@ export default function NetworkGlobe() {
       ref={sectionRef}
       aria-label="Global Network"
       className="relative flex items-center justify-center overflow-hidden"
-      style={{ height: "100svh", background: "#04080F", overflow: "hidden", opacity: 0, zIndex: 60 }}
+      style={{ height: "100svh", background: isLight ? "#F8FAFC" : "#04080F", overflow: "hidden", opacity: 0, zIndex: 60 }}
     >
       {/* Grid overlay */}
       <div aria-hidden className="absolute inset-0 pointer-events-none"
         style={{
-          backgroundImage: "linear-gradient(rgba(255,255,255,0.018) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.018) 1px,transparent 1px)",
+          backgroundImage: isLight
+          ? "linear-gradient(rgba(15,23,42,0.06) 1px,transparent 1px),linear-gradient(90deg,rgba(15,23,42,0.06) 1px,transparent 1px)"
+          : "linear-gradient(rgba(255,255,255,0.018) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.018) 1px,transparent 1px)",
           backgroundSize: "64px 64px",
         }} />
 
@@ -479,21 +492,21 @@ export default function NetworkGlobe() {
       <div className="absolute top-10 left-1/2 -translate-x-1/2 text-center pointer-events-none z-10">
         <div className="flex items-center justify-center gap-3 mb-3">
           <span style={{ height:1, width:20, background:"#F97316", display:"block", borderRadius:99 }} />
-          <p style={{ fontFamily:"monospace", fontSize:10, textTransform:"uppercase", letterSpacing:"0.28em", color:"rgba(255,255,255,0.5)" }}>
+          <p style={{ fontFamily:"monospace", fontSize:10, textTransform:"uppercase", letterSpacing:"0.28em", color: isLight ? "rgba(15,23,42,0.5)" : "rgba(255,255,255,0.5)", }}>
             Global Network
           </p>
           <span style={{ height:1, width:20, background:"#F97316", display:"block", borderRadius:99 }} />
         </div>
         <h2 className="font-display font-black uppercase"
           style={{ fontSize:"clamp(26px,3.8vw,52px)", letterSpacing:"-0.02em", lineHeight:1 }}>
-          <span style={{ color:"#ffffff" }}>Connected{" "}</span>
+          <span style={{ color: isLight ? "#0F172A" : "#ffffff" }}>Connected{" "}</span>
           <span style={{ color:"#F97316" }}>Worldwide</span>
         </h2>
       </div>
 
       {/* Active connections — top left */}
       <div className="absolute top-10 left-8 xl:left-14 pointer-events-none z-10">
-        <p style={{ fontFamily:"monospace", fontSize:8.5, textTransform:"uppercase", letterSpacing:"0.22em", color:"rgba(255,255,255,0.9)", marginBottom:5 }}>
+        <p style={{ fontFamily:"monospace", fontSize:8.5, textTransform:"uppercase", letterSpacing:"0.22em", color: isLight ? "rgba(15,23,42,0.6)" : "rgba(255,255,255,0.9)", marginBottom:5 }}>
           Active Connections
         </p>
         <span style={{ fontFamily:"monospace", fontSize:28, fontWeight:700, color:"#10B981", lineHeight:1 }}>
@@ -503,7 +516,7 @@ export default function NetworkGlobe() {
 
       {/* Packets counter — top right */}
       <div className="absolute top-10 right-8 xl:right-14 pointer-events-none z-10 text-right">
-        <p style={{ fontFamily:"monospace", fontSize:8.5, textTransform:"uppercase", letterSpacing:"0.22em", color:"rgba(255,255,255,0.9)", marginBottom:5 }}>
+        <p style={{ fontFamily:"monospace", fontSize:8.5, textTransform:"uppercase", letterSpacing:"0.22em", color: isLight ? "rgba(15,23,42,0.6)" : "rgba(255,255,255,0.9)", marginBottom:5 }}>
           Packets Transmitted
         </p>
         <span ref={countElRef} style={{ fontFamily:"monospace", fontSize:28, fontWeight:700, color:"#3B82F6", lineHeight:1 }}>0</span>
@@ -519,7 +532,7 @@ export default function NetworkGlobe() {
         ].map(({ color, label }) => (
           <div key={label} className="flex items-center gap-2">
             <span style={{ width:7, height:7, borderRadius:"50%", background:color, display:"block", boxShadow:`0 0 6px ${color}88`, flexShrink:0 }} />
-            <span style={{ fontFamily:"monospace", fontSize:9, textTransform:"uppercase", letterSpacing:"0.14em", color:"rgba(255,255,255,0.9)" }}>
+            <span style={{ fontFamily:"monospace", fontSize:9, textTransform:"uppercase", letterSpacing:"0.14em", color: isLight ? "rgba(15,23,42,0.7)" : "rgba(255,255,255,0.9)" }}>
               {label}
             </span>
           </div>
@@ -528,7 +541,7 @@ export default function NetworkGlobe() {
 
       {/* Hint — bottom center */}
       <div className="absolute bottom-12 left-1/2 -translate-x-1/2 z-10 pointer-events-none">
-        <p style={{ fontFamily:"monospace", fontSize:9, textTransform:"uppercase", letterSpacing:"0.22em", color:"rgba(255,255,255,0.9)", whiteSpace:"nowrap" }}>
+        <p style={{ fontFamily:"monospace", fontSize:9, textTransform:"uppercase", letterSpacing:"0.22em", color: isLight ? "rgba(15,23,42,0.5)" : "rgba(255,255,255,0.9)" }}>
           Drag to rotate · Hover nodes to explore
         </p>
       </div>

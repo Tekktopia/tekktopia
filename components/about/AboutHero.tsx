@@ -5,6 +5,7 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import Link from "next/link";
 import { ArrowUpRight, MapPin } from "lucide-react";
+import { useTheme } from "@/context/ThemeContext";
 
 // ── Headline: exactly 2 lines ──────────────────────────────────────────────
 // Each word carries its resting colour and its glitch-hover colour
@@ -32,6 +33,9 @@ const STATS = [
 ];
 
 export default function AboutHero() {
+  const { theme } = useTheme();
+  const isLight = theme === "light";
+
   const sectionRef   = useRef<HTMLElement>(null);
   const spotlightRef = useRef<HTMLDivElement>(null);
   const wordGlitchMap = useRef<Map<HTMLElement, gsap.core.Timeline>>(new Map());
@@ -89,7 +93,7 @@ export default function AboutHero() {
 
     el.style.fontStyle = "normal";
     gsap.to(el, {
-      color: originalColor,
+      color: originalColor === "#ffffff" ? (isLight ? "#0F172A" : "#ffffff") : originalColor,
       x: 0, skewX: 0, opacity: 1,
       filter: "brightness(1) contrast(1)",
       textShadow: "0px 0px 0px rgba(0,0,0,0)",
@@ -156,7 +160,7 @@ export default function AboutHero() {
     <section
       ref={sectionRef}
       className="relative flex flex-col"
-      style={{ background: "#04080F", minHeight: "100svh", paddingTop: 100 }}
+      style={{ background: isLight ? "#F8FAFC" : "#04080F", minHeight: "100svh", paddingTop: 100 }}
     >
       {/* Mouse spotlight */}
       <div ref={spotlightRef} aria-hidden className="pointer-events-none absolute inset-0" style={{ zIndex: 1 }} />
@@ -164,9 +168,9 @@ export default function AboutHero() {
       {/* Fine grid */}
       <div aria-hidden className="pointer-events-none absolute inset-0"
         style={{
-          backgroundImage:
-            "linear-gradient(rgba(255,255,255,0.015) 1px,transparent 1px)," +
-            "linear-gradient(90deg,rgba(255,255,255,0.015) 1px,transparent 1px)",
+          backgroundImage: isLight
+            ? "linear-gradient(rgba(15,23,42,0.06) 1px,transparent 1px),linear-gradient(90deg,rgba(15,23,42,0.06) 1px,transparent 1px)"
+            : "linear-gradient(rgba(255,255,255,0.015) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.015) 1px,transparent 1px)",
           backgroundSize: "64px 64px",
         }} />
 
@@ -181,14 +185,17 @@ export default function AboutHero() {
       {/* Ghost watermark */}
       <div aria-hidden className="pointer-events-none absolute inset-0 flex items-center justify-center select-none overflow-hidden">
         <span className="font-display font-black uppercase"
-          style={{ fontSize: "clamp(100px,18vw,260px)", color: "rgba(255,255,255,0.018)", letterSpacing: "-0.05em", lineHeight: 1, whiteSpace: "nowrap" }}>
+          style={{ fontSize: "clamp(100px,18vw,260px)", color: isLight ? "rgba(15,23,42,0.03)" : "rgba(255,255,255,0.018)", letterSpacing: "-0.05em", lineHeight: 1, whiteSpace: "nowrap" }}>
           ABOUT
         </span>
       </div>
 
       {/* Top rule */}
       <div aria-hidden className="absolute top-0 left-0 right-0 h-px"
-        style={{ background: "linear-gradient(to right,transparent,rgba(255,255,255,0.07),transparent)" }} />
+        style={{  background: isLight
+          ? "linear-gradient(to right,transparent,rgba(15,23,42,0.1),transparent)"
+          : "linear-gradient(to right,transparent,rgba(255,255,255,0.07),transparent)",
+      }} />
 
       {/* Side deco lines */}
       <div aria-hidden className="ah-deco-line pointer-events-none absolute hidden lg:block"
@@ -205,9 +212,10 @@ export default function AboutHero() {
 
         {/* Eyebrow */}
         <div className="ah-eyebrow inline-flex items-center gap-2.5 mb-9 px-4 py-2 rounded-full"
-          style={{ background: "rgba(249,115,22,0.07)", border: "1px solid rgba(249,115,22,0.2)" }}>
-          <span style={{ width: 6, height: 6, borderRadius: "50%", background: "#F97316", boxShadow: "0 0 8px #F97316", animation: "ahPulse 2s infinite", display: "inline-block", flexShrink: 0 }} />
-          <span style={{ fontFamily: "monospace", fontSize: 10, textTransform: "uppercase", letterSpacing: "0.3em", color: "rgba(255,255,255,0.52)" }}>
+          style={{ background: isLight ? "rgba(37,99,235,0.1)" : "rgba(249,115,22,0.08)",
+            border: isLight ? "1px solid rgba(37,99,235,0.28)" : "1px solid rgba(249,115,22,0.28)", }}>
+          <span style={{ width: 6, height: 6, borderRadius: "50%", background: isLight ? "#2563EB" : "#F97316", boxShadow: "0 0 8px #F97316", animation: "ahPulse 2s infinite", display: "inline-block", flexShrink: 0 }} />
+          <span style={{ fontFamily: "monospace", fontSize: 10, textTransform: "uppercase", letterSpacing: "0.3em", color: isLight ? "rgba(15,23,42,0.52)" : "rgba(255,255,255,0.52)", }}>
             Our Story · Est. 2022
           </span>
         </div>
@@ -227,7 +235,12 @@ export default function AboutHero() {
                 >
                   <span
                     className="ah-word inline-block cursor-default"
-                    style={{ color, paddingBottom: "0.05em" }}
+                    style={{ 
+                      color: color === "#ffffff"
+                      ? (isLight ? "#0F172A" : "#ffffff")
+                      : color,
+                      paddingBottom: "0.05em" 
+                    }}
                     onMouseEnter={(e) => handleWordEnter(e, hoverColor)}
                     onMouseLeave={(e) => handleWordLeave(e, color)}
                   >
@@ -241,7 +254,7 @@ export default function AboutHero() {
 
         {/* Sub-line */}
         <p className="ah-sub max-w-md mb-10"
-          style={{ fontSize: "clamp(14px,1.4vw,16px)", color: "rgba(255,255,255,0.52)", fontWeight: 300, lineHeight: 1.8 }}>
+          style={{ fontSize: "clamp(14px,1.4vw,16px)", color: isLight ? "rgba(15,23,42,0.52)" : "rgba(255,255,255,0.52)", fontWeight: 300, lineHeight: 1.8 }}>
           From Lagos to the world — we build the software, infrastructure, and systems that ambitious African businesses use to compete globally.
         </p>
 
@@ -257,9 +270,22 @@ export default function AboutHero() {
           </Link>
           <Link href="/projects"
             className="ah-cta group inline-flex items-center gap-2.5 font-medium text-sm px-7 py-3.5 rounded-xl"
-            style={{ color: "rgba(255,255,255,0.62)", background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.1)", transition: "border-color 0.3s,color 0.3s,background 0.3s" }}
-            onMouseEnter={e => { e.currentTarget.style.borderColor = "rgba(255,255,255,0.2)"; e.currentTarget.style.color = "#fff"; e.currentTarget.style.background = "rgba(255,255,255,0.07)"; }}
-            onMouseLeave={e => { e.currentTarget.style.borderColor = "rgba(255,255,255,0.1)"; e.currentTarget.style.color = "rgba(255,255,255,0.62)"; e.currentTarget.style.background = "rgba(255,255,255,0.04)"; }}>
+            style={{ 
+              color: isLight ? "rgba(15,23,42,0.62)" : "rgba(255,255,255,0.62)",
+              background: isLight ? "rgba(15,23,42,0.04)" : "rgba(255,255,255,0.04)",
+              border: isLight ? "1px solid rgba(15,23,42,0.1)" : "1px solid rgba(255,255,255,0.1)", 
+              transition: "border-color 0.3s,color 0.3s,background 0.3s" 
+            }}
+            onMouseEnter={e => {
+              e.currentTarget.style.borderColor = isLight ? "rgba(15,23,42,0.2)" : "rgba(255,255,255,0.2)";
+              e.currentTarget.style.color = isLight ? "#0F172A" : "#fff";
+              e.currentTarget.style.background = isLight ? "rgba(15,23,42,0.07)" : "rgba(255,255,255,0.07)";
+            }}
+            onMouseLeave={e => {
+              e.currentTarget.style.borderColor = isLight ? "rgba(15,23,42,0.1)" : "rgba(255,255,255,0.1)";
+              e.currentTarget.style.color = isLight ? "rgba(15,23,42,0.62)" : "rgba(255,255,255,0.62)";
+              e.currentTarget.style.background = isLight ? "rgba(15,23,42,0.04)" : "rgba(255,255,255,0.04)";
+            }}>
             See our work
             <ArrowUpRight className="w-4 h-4 transition-transform group-hover:rotate-45" />
           </Link>
@@ -267,29 +293,34 @@ export default function AboutHero() {
 
         {/* Location badge */}
         <div className="ah-badge inline-flex items-center gap-2 px-3.5 py-2 rounded-full"
-          style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.09)" }}>
-          <MapPin style={{ width: 11, height: 11, color: "#F97316", flexShrink: 0 }} strokeWidth={2} />
-          <span style={{ fontFamily: "monospace", fontSize: 10, letterSpacing: "0.22em", textTransform: "uppercase", color: "rgba(255,255,255,0.38)" }}>
+          style={{ 
+            background: isLight ? "rgba(15,23,42,0.04)" : "rgba(255,255,255,0.04)",
+            border: isLight ? "1px solid rgba(15,23,42,0.09)" : "1px solid rgba(255,255,255,0.09)",
+          }}>
+          <MapPin style={{ width: 11.5, height: 11.5, color: isLight ? "#2563EB" : "#F97316", flexShrink: 0 }} strokeWidth={2} />
+          <span style={{ fontFamily: "monospace", fontSize: 12, letterSpacing: "0.22em", textTransform: "uppercase", color: isLight ? "rgba(15,23,42,0.38)" : "rgba(255,255,255,0.38)", }}>
             Lagos, Nigeria
           </span>
         </div>
       </div>
 
       {/* ── Stats strip ──────────────────────────────────────────────────── */}
-      <div className="relative" style={{ borderTop: "1px solid rgba(255,255,255,0.07)", zIndex: 2 }}>
+      <div className="relative" style={{ borderTop: isLight ? "1px solid rgba(15,23,42,0.08)" : "1px solid rgba(255,255,255,0.07)", zIndex: 2 }}>
         <div className="ah-divider absolute top-0 left-0 h-px w-full"
           style={{ background: "linear-gradient(to right,transparent,#F97316,rgba(249,115,22,0))" }} />
         <div className="max-w-7xl mx-auto px-5 sm:px-8 md:px-12">
           <div className="grid grid-cols-2 lg:grid-cols-4">
             {STATS.map(({ value, label, sub }, i) => (
               <div key={label} className="ah-stat py-8 px-4 sm:px-6"
-                style={{ borderRight: i < STATS.length - 1 ? "1px solid rgba(255,255,255,0.06)" : "none" }}>
+                style={{ borderRight: i < STATS.length - 1
+                  ? (isLight ? "1px solid rgba(15,23,42,0.07)" : "1px solid rgba(255,255,255,0.06)")
+                  : "none" }}>
                 <p className="font-display font-black"
-                  style={{ fontSize: "clamp(28px,3vw,42px)", color: "#fff", lineHeight: 1, letterSpacing: "-0.03em", marginBottom: 6 }}>
+                  style={{ fontSize: "clamp(28px,3vw,42px)", color: isLight ? "#0F172A" : "#fff", lineHeight: 1, letterSpacing: "-0.03em", marginBottom: 6 }}>
                   {value}
                 </p>
-                <p style={{ fontSize: 12.5, fontWeight: 600, color: "rgba(255,255,255,0.62)", marginBottom: 3 }}>{label}</p>
-                <p style={{ fontSize: 11, fontFamily: "monospace", color: "rgba(255,255,255,0.32)", letterSpacing: "0.06em" }}>{sub}</p>
+                <p style={{ fontSize: 12.5, fontWeight: 600, color: isLight ? "rgba(15,23,42,0.62)" : "rgba(255,255,255,0.62)", marginBottom: 3 }}>{label}</p>
+                <p style={{ fontSize: 11, fontFamily: "monospace", color: isLight ? "rgba(15,23,42,0.32)" : "rgba(255,255,255,0.32)", letterSpacing: "0.06em" }}>{sub}</p>
               </div>
             ))}
           </div>
@@ -298,7 +329,7 @@ export default function AboutHero() {
 
       {/* Scroll hint */}
       <div className="ah-scroll absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 pointer-events-none" style={{ zIndex: 2 }}>
-        <span style={{ fontSize: 10, fontFamily: "monospace", letterSpacing: "0.22em", textTransform: "uppercase", color: "rgba(255,255,255,0.2)" }}>Scroll</span>
+        <span style={{ fontSize: 10, fontFamily: "monospace", letterSpacing: "0.22em", textTransform: "uppercase", color: isLight ? "rgba(15,23,42,0.2)" : "rgba(255,255,255,0.2)" }}>Scroll</span>
         <div style={{ width: 1, height: 30, background: "linear-gradient(to bottom,rgba(249,115,22,0.5),transparent)" }} />
       </div>
 

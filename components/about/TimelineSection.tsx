@@ -4,6 +4,7 @@ import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
+import { useTheme } from "@/context/ThemeContext";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -70,6 +71,9 @@ export default function TimelineSection() {
   const sectionRef  = useRef<HTMLElement>(null);
   const itemRefs    = useRef<(HTMLDivElement | null)[]>([]);
 
+  const { theme } = useTheme();
+  const isLight = theme === "light";
+
   useGSAP(() => {
     gsap.set(".tl-eyebrow", { autoAlpha: 0, y: 16, filter: "blur(5px)" });
     gsap.set(".tl-word",    { yPercent: 110 });
@@ -107,12 +111,14 @@ export default function TimelineSection() {
       ref={sectionRef}
       aria-label="Company timeline"
       className="relative overflow-hidden"
-      style={{ background: "#04080F", paddingTop: 96, paddingBottom: 96 }}
+      style={{ background: isLight ? "#F8FAFC" : "#04080F", paddingTop: 96, paddingBottom: 96 }}
     >
       {/* Grid */}
       <div aria-hidden className="absolute inset-0 pointer-events-none"
         style={{
-          backgroundImage: "linear-gradient(rgba(255,255,255,0.018) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.018) 1px,transparent 1px)",
+          backgroundImage: isLight
+            ? "linear-gradient(rgba(15,23,42,0.06) 1px,transparent 1px),linear-gradient(90deg,rgba(15,23,42,0.06) 1px,transparent 1px)"
+            : "linear-gradient(rgba(255,255,255,0.015) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.015) 1px,transparent 1px)",
           backgroundSize: "64px 64px",
         }} />
 
@@ -125,8 +131,8 @@ export default function TimelineSection() {
         {/* Header */}
         <div className="text-center mb-20">
           <div className="tl-eyebrow flex items-center justify-center gap-3 mb-6">
-            <span style={{ height: 1, width: 24, background: "#F97316", display: "block", borderRadius: 99 }} />
-            <span style={{ fontFamily: "monospace", fontSize: 10, textTransform: "uppercase", letterSpacing: "0.28em", color: "rgba(255,255,255,0.55)" }}>
+            <span style={{ height: 1, width: 24, background:  "#F97316", display: "block", borderRadius: 99 }} />
+            <span style={{ fontFamily: "monospace", fontSize: 11, textTransform: "uppercase", letterSpacing: "0.28em", color: isLight ? "rgba(15, 23, 42, 0.55)" : "rgba(255,255,255,0.55)" }}>
               Our Journey
             </span>
             <span style={{ height: 1, width: 24, background: "#F97316", display: "block", borderRadius: 99 }} />
@@ -135,14 +141,14 @@ export default function TimelineSection() {
             style={{ fontSize: "clamp(32px,4.5vw,58px)", lineHeight: 0.92, letterSpacing: "-0.03em" }}>
             {["From", "Idea", "to", "Impact."].map((word, i) => (
               <span key={i} className="inline-block overflow-hidden align-bottom pb-1 mr-[0.18em]">
-                <span className="tl-word inline-block" style={{ color: i >= 2 ? "#F97316" : "#ffffff" }}>
+                <span className="tl-word inline-block" style={{ color: i >= 2 ? "#F97316" : isLight ? "#0F172A" : "#ffffff" }}>
                   {word}
                 </span>
               </span>
             ))}
           </h2>
           <p className="tl-sub mt-5 mx-auto max-w-lg"
-            style={{ fontSize: "clamp(13px,1.4vw,15px)", color: "rgba(255,255,255,0.48)", lineHeight: 1.8, fontWeight: 300 }}>
+            style={{ fontSize: "clamp(13px,1.4vw,15px)", color: isLight ? "rgba(15,23,42,0.48)" : "rgba(255,255,255,0.48)", lineHeight: 1.8, fontWeight: 300 }}>
             Every milestone is a testament to the trust our clients place in us — and the relentless drive of the team behind every delivery.
           </p>
         </div>
@@ -169,8 +175,8 @@ export default function TimelineSection() {
                     ref={el => { itemRefs.current[i] = el; }}
                     className={`lg:col-start-${isLeft ? "1" : "2"} relative p-7 rounded-2xl`}
                     style={{
-                      background: "rgba(255,255,255,0.025)",
-                      border: "1px solid rgba(255,255,255,0.07)",
+                      background: isLight ? "rgba(15,23,42,0.04)" : "rgba(255,255,255,0.025)",
+                      border: isLight ? "1px solid rgba(15,23,42,0.08)" : "1px solid rgba(255,255,255,0.07)",
                       backdropFilter: "blur(12px)",
                       position: "relative",
                       overflow: "hidden",
@@ -191,16 +197,16 @@ export default function TimelineSection() {
                       }}>
                         {year}
                       </span>
-                      <span style={{ fontFamily: "monospace", fontSize: 10, color: "rgba(255,255,255,0.35)", textTransform: "uppercase", letterSpacing: "0.16em" }}>
+                      <span style={{ fontFamily: "monospace", fontSize: 10, color: isLight ? "rgba(15,23,42,0.40)" : "rgba(255,255,255,0.35)", textTransform: "uppercase", letterSpacing: "0.16em" }}>
                         {quarter}
                       </span>
                     </div>
 
                     <h3 className="font-display font-bold mb-3"
-                      style={{ fontSize: "clamp(15px,1.6vw,18px)", color: "#fff", lineHeight: 1.25 }}>
+                      style={{ fontSize: "clamp(15px,1.6vw,18px)", color: isLight ? "#0F172A" : "#fff", lineHeight: 1.25 }}>
                       {title}
                     </h3>
-                    <p style={{ fontSize: 13.5, color: "rgba(255,255,255,0.6)", lineHeight: 1.75, fontWeight: 300 }}>
+                    <p style={{ fontSize: 13.5, color: isLight ? "rgba(15,23,42,0.48)" : "rgba(255,255,255,0.6)", lineHeight: 1.75, fontWeight: 300 }}>
                       {body}
                     </p>
                   </div>
@@ -219,7 +225,7 @@ export default function TimelineSection() {
               display: "flex", flexDirection: "column", alignItems: "center", gap: 6,
             }}>
               <div style={{ width: 14, height: 14, borderRadius: "50%", background: "#F97316", boxShadow: "0 0 18px rgba(249,115,22,0.8)" }} />
-              <span style={{ fontFamily: "monospace", fontSize: 10, color: "rgba(255,255,255,0.35)", textTransform: "uppercase", letterSpacing: "0.2em" }}>Present</span>
+              <span style={{ fontFamily: "monospace", fontSize: 10, color: isLight ? "rgba(15,23,42,0.35)" : "rgba(255,255,255,0.35)", textTransform: "uppercase", letterSpacing: "0.2em" }}>Present</span>
             </div>
           </div>
 

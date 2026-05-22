@@ -10,6 +10,7 @@ import {
   FaInstagram,
 } from "react-icons/fa6";
 import { useForm, ValidationError } from "@formspree/react";
+import { useTheme } from "@/context/ThemeContext";
 
 // ─── Replace with your Formspree newsletter form ID ───────────────────────────
 // 1. Go to formspree.io → New Form → name it "Newsletter"
@@ -19,6 +20,8 @@ const NEWSLETTER_FORM_ID = "mojrvwyy";
 
 function NewsletterForm() {
   const [state, handleSubmit] = useForm(NEWSLETTER_FORM_ID);
+  const { theme } = useTheme();
+  const isLight = theme === "light";
 
   if (state.succeeded) {
     return (
@@ -37,7 +40,7 @@ function NewsletterForm() {
           style={{
             fontSize: 13,
             fontWeight: 500,
-            color: "rgba(255,255,255,0.82)",
+            color: isLight ? "rgba(15,23,42,0.82)" : "rgba(255,255,255,0.82)",
             lineHeight: 1.6,
           }}
         >
@@ -46,7 +49,7 @@ function NewsletterForm() {
         <p
           style={{
             fontSize: 11,
-            color: "rgba(255,255,255,0.38)",
+            color: isLight ? "rgba(15,23,42,0.38)" : "rgba(255,255,255,0.38)",
             fontFamily: "monospace",
           }}
         >
@@ -66,20 +69,20 @@ function NewsletterForm() {
         placeholder="your@email.com"
         style={{
           width: "100%",
-          background: "rgba(255,255,255,0.04)",
-          border: "1px solid rgba(255,255,255,0.09)",
+          background: isLight ? "rgba(15,23,42,0.04)" : "rgba(255,255,255,0.04)",
+          border: isLight ? "1px solid rgba(15,23,42,0.12)" : "1px solid rgba(255,255,255,0.09)",
           borderRadius: 12,
           padding: "11px 14px",
           fontSize: 13,
-          color: "#fff",
+          color: isLight ? "#0F172A" : "#fff",
           outline: "none",
           transition: "border-color 0.25s",
         }}
         onFocus={(e) =>
-          (e.currentTarget.style.borderColor = "rgba(249,115,22,0.45)")
+          (e.currentTarget.style.borderColor = isLight ? "rgba(59,130,246,0.45)" : "rgba(249,115,22,0.45)")
         }
-        onBlur={(e) =>
-          (e.currentTarget.style.borderColor = "rgba(255,255,255,0.09)")
+        onBlur={e =>
+          (e.currentTarget.style.borderColor = isLight ? "rgba(15,23,42,0.12)" : "rgba(255,255,255,0.09)")
         }
       />
 
@@ -104,11 +107,10 @@ function NewsletterForm() {
         }}
         onMouseEnter={(e) => {
           if (state.submitting) return;
-          (e.currentTarget as HTMLElement).style.boxShadow =
-            "0 0 32px rgba(249,115,22,0.45)";
+          (e.currentTarget as HTMLElement).style.boxShadow = "0 0 32px rgba(249,115,22,0.45)";
           (e.currentTarget as HTMLElement).style.transform = "translateY(-1px)";
         }}
-        onMouseLeave={(e) => {
+        onMouseLeave={e => {
           (e.currentTarget as HTMLElement).style.boxShadow = "none";
           (e.currentTarget as HTMLElement).style.transform = "none";
         }}
@@ -192,13 +194,15 @@ const LEGAL_LINKS = [
 
 export default function Footer() {
   const year = new Date().getFullYear();
+  const { theme } = useTheme();
+  const isLight = theme === "light";
 
   return (
     <footer
       aria-label="Site footer"
       style={{
-        background: "#04080F",
-        borderTop: "1px solid rgba(255,255,255,0.06)",
+        background: isLight ? "#F8FAFC" : "#04080F",
+        borderTop: isLight ? "1px solid #E2E8F0" : "1px solid rgba(255,255,255,0.06)",
       }}
     >
       {/* Fine grid */}
@@ -248,10 +252,10 @@ export default function Footer() {
                 letterSpacing: "-0.02em",
               }}
             >
-              <span style={{ color: "#F97316" }}>t</span>
-              <span style={{ color: "#FFFFFF" }}>ekk</span>
-              <span style={{ color: "#3B82F6" }}>t</span>
-              <span style={{ color: "#FFFFFF" }}>opia</span>
+              <span style={{ color: isLight ? "#3B82F6" : "#F97316" }}>t</span>
+              <span style={{ color: isLight ? "#0F172A" : "#FFFFFF" }}>ekk</span>
+              <span style={{ color: isLight ? "#F97316" : "#3B82F6" }}>t</span>
+              <span style={{ color: isLight ? "#0F172A" : "#FFFFFF" }}>opia</span>
             </span>
           </Link>
 
@@ -259,7 +263,7 @@ export default function Footer() {
           <p
             style={{
               fontSize: 13.5,
-              color: "rgba(255,255,255,0.55)",
+              color: isLight ? "rgba(15,23,42,0.55)" : "rgba(255,255,255,0.55)",
               fontWeight: 300,
               lineHeight: 1.78,
               maxWidth: 300,
@@ -278,7 +282,7 @@ export default function Footer() {
               style={{
                 fontSize: 13,
                 fontWeight: 500,
-                color: "#F97316",
+                color: isLight ? "#3B82F6" : "#F97316",
                 transition: "opacity 0.2s",
               }}
               onMouseEnter={(e) => (e.currentTarget.style.opacity = "0.75")}
@@ -296,15 +300,11 @@ export default function Footer() {
               style={{
                 fontSize: 13,
                 fontWeight: 400,
-                color: "rgba(255,255,255,0.45)",
+                color: isLight ? "rgba(15,23,42,0.45)" : "rgba(255,255,255,0.45)",
                 transition: "color 0.2s",
               }}
-              onMouseEnter={(e) =>
-                (e.currentTarget.style.color = "rgba(255,255,255,0.85)")
-              }
-              onMouseLeave={(e) =>
-                (e.currentTarget.style.color = "rgba(255,255,255,0.45)")
-              }
+              onMouseEnter={e => (e.currentTarget.style.color = isLight ? "rgba(15,23,42,0.85)" : "rgba(255,255,255,0.85)")}
+              onMouseLeave={e => (e.currentTarget.style.color = isLight ? "rgba(15,23,42,0.45)" : "rgba(255,255,255,0.45)")}
             >
               <Phone
                 style={{ width: 14, height: 14, flexShrink: 0 }}
@@ -350,24 +350,23 @@ export default function Footer() {
                   width: 36,
                   height: 36,
                   borderRadius: 9,
-                  background: "rgba(255,255,255,0.04)",
-                  border: "1px solid rgba(255,255,255,0.08)",
-                  color: "rgba(255,255,255,0.42)",
-                  transition:
-                    "background 0.25s, border-color 0.25s, color 0.25s, box-shadow 0.25s",
+                  background: isLight ? "rgba(15,23,42,0.04)" : "rgba(255,255,255,0.04)",
+                  border: isLight ? "1px solid rgba(15,23,42,0.08)" : "1px solid rgba(255,255,255,0.08)",
+                  color: isLight ? "rgba(15,23,42,0.42)" : "rgba(255,255,255,0.42)",
+                  transition: "background 0.25s, border-color 0.25s, color 0.25s, box-shadow 0.25s",
                 }}
                 onMouseEnter={(e) => {
                   const el = e.currentTarget as HTMLElement;
-                  el.style.background = "rgba(249,115,22,0.12)";
-                  el.style.borderColor = "rgba(249,115,22,0.3)";
-                  el.style.color = "#F97316";
-                  el.style.boxShadow = "0 0 16px rgba(249,115,22,0.18)";
+                  el.style.background = isLight ? "rgba(59,130,246,0.12)" : "rgba(249,115,22,0.12)";
+                  el.style.borderColor = isLight ? "rgba(59,130,246,0.3)" : "rgba(249,115,22,0.3)";
+                  el.style.color = isLight ? "#3B82F6" : "#F97316";
+                  el.style.boxShadow = isLight ? "0 0 16px rgba(59,130,246,0.18)" : "0 0 16px rgba(249,115,22,0.18)";
                 }}
-                onMouseLeave={(e) => {
+                onMouseLeave={e => {
                   const el = e.currentTarget as HTMLElement;
-                  el.style.background = "rgba(255,255,255,0.04)";
-                  el.style.borderColor = "rgba(255,255,255,0.08)";
-                  el.style.color = "rgba(255,255,255,0.42)";
+                  el.style.background = isLight ? "rgba(15,23,42,0.04)" : "rgba(255,255,255,0.04)";
+                  el.style.borderColor = isLight ? "rgba(15,23,42,0.08)" : "rgba(255,255,255,0.08)";
+                  el.style.color = isLight ? "rgba(15,23,42,0.42)" : "rgba(255,255,255,0.42)";
                   el.style.boxShadow = "none";
                 }}
               >
@@ -385,7 +384,7 @@ export default function Footer() {
               fontSize: 10,
               textTransform: "uppercase",
               letterSpacing: "0.28em",
-              color: "rgba(255,255,255,0.35)",
+              color: isLight ? "rgba(15,23,42,0.35)" : "rgba(255,255,255,0.35)",
               marginBottom: 20,
             }}
           >
@@ -397,16 +396,11 @@ export default function Footer() {
                 <Link
                   href={href}
                   style={{
-                    fontSize: 13,
-                    color: "rgba(255,255,255,0.52)",
-                    transition: "color 0.2s",
+                    fontSize: 13,transition: "color 0.2s",
+                    color: isLight ? "rgba(15,23,42,0.52)" : "rgba(255,255,255,0.52)",
                   }}
-                  onMouseEnter={(e) =>
-                    (e.currentTarget.style.color = "rgba(255,255,255,0.9)")
-                  }
-                  onMouseLeave={(e) =>
-                    (e.currentTarget.style.color = "rgba(255,255,255,0.52)")
-                  }
+                  onMouseEnter={e => (e.currentTarget.style.color = isLight ? "rgba(15,23,42,0.9)" : "rgba(255,255,255,0.9)")}
+                  onMouseLeave={e => (e.currentTarget.style.color = isLight ? "rgba(15,23,42,0.52)" : "rgba(255,255,255,0.52)")}
                 >
                   {label}
                 </Link>
@@ -423,7 +417,7 @@ export default function Footer() {
               fontSize: 10,
               textTransform: "uppercase",
               letterSpacing: "0.28em",
-              color: "rgba(255,255,255,0.35)",
+              color: isLight ? "rgba(15,23,42,0.35)" : "rgba(255,255,255,0.35)",
               marginBottom: 20,
             }}
           >
@@ -436,15 +430,11 @@ export default function Footer() {
                   href={href}
                   style={{
                     fontSize: 13,
-                    color: "rgba(255,255,255,0.52)",
+                    color: isLight ? "rgba(15,23,42,0.52)" : "rgba(255,255,255,0.52)",
                     transition: "color 0.2s",
                   }}
-                  onMouseEnter={(e) =>
-                    (e.currentTarget.style.color = "rgba(255,255,255,0.9)")
-                  }
-                  onMouseLeave={(e) =>
-                    (e.currentTarget.style.color = "rgba(255,255,255,0.52)")
-                  }
+                  onMouseEnter={e => (e.currentTarget.style.color = isLight ? "rgba(15,23,42,0.9)" : "rgba(255,255,255,0.9)")}
+                  onMouseLeave={e => (e.currentTarget.style.color = isLight ? "rgba(15,23,42,0.52)" : "rgba(255,255,255,0.52)")}
                 >
                   {label}
                 </Link>
@@ -461,7 +451,7 @@ export default function Footer() {
               fontSize: 10,
               textTransform: "uppercase",
               letterSpacing: "0.28em",
-              color: "rgba(255,255,255,0.35)",
+              color: isLight ? "rgba(15,23,42,0.35)" : "rgba(255,255,255,0.35)",
               marginBottom: 20,
             }}
           >
@@ -470,7 +460,7 @@ export default function Footer() {
           <p
             style={{
               fontSize: 13,
-              color: "rgba(255,255,255,0.52)",
+              color: isLight ? "rgba(15,23,42,0.52)" : "rgba(255,255,255,0.52)",
               lineHeight: 1.72,
               marginBottom: 18,
             }}
@@ -483,7 +473,7 @@ export default function Footer() {
           {/* Company credentials */}
           <div
             className="flex flex-col gap-2 mt-5 pt-5"
-            style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}
+            style={{ borderTop: isLight ? "1px solid rgba(15,23,42,0.08)" : "1px solid rgba(255,255,255,0.06)" }}
           >
             {[
               { label: "RC Number",           value: "7466800"    },
@@ -497,7 +487,7 @@ export default function Footer() {
                     fontSize: 9,
                     textTransform: "uppercase",
                     letterSpacing: "0.16em",
-                    color: "rgba(255,255,255,0.28)",
+                    color: isLight ? "rgba(15,23,42,0.28)" : "rgba(255,255,255,0.28)",
                   }}
                 >
                   {label}
@@ -507,7 +497,7 @@ export default function Footer() {
                     fontFamily: "monospace",
                     fontSize: 9,
                     letterSpacing: "0.1em",
-                    color: "rgba(255,255,255,0.48)",
+                    color: isLight ? "rgba(15,23,42,0.48)" : "rgba(255,255,255,0.48)",
                   }}
                 >
                   {value}
@@ -521,7 +511,7 @@ export default function Footer() {
       {/* ── Bottom bar ── */}
       <div
         style={{
-          borderTop: "1px solid rgba(255,255,255,0.06)",
+          borderTop: isLight ? "1px solid #E2E8F0" : "1px solid rgba(255,255,255,0.06)",
           position: "relative",
           overflow: "hidden",
         }}
@@ -536,7 +526,7 @@ export default function Footer() {
             className="font-display font-black uppercase"
             style={{
               fontSize: "clamp(60px,12vw,160px)",
-              color: "rgba(255,255,255,0.022)",
+              color: isLight ? "rgba(15,23,42,0.03)" : "rgba(255,255,255,0.022)",
               letterSpacing: "-0.04em",
               whiteSpace: "nowrap",
               lineHeight: 1,
@@ -551,7 +541,7 @@ export default function Footer() {
             <p
               style={{
                 fontSize: 11,
-                color: "rgba(255,255,255,0.32)",
+                color: isLight ? "rgba(15,23,42,0.32)" : "rgba(255,255,255,0.32)",
                 fontFamily: "monospace",
               }}
             >
@@ -560,7 +550,7 @@ export default function Footer() {
             <p
               style={{
                 fontSize: 11,
-                color: "rgba(255,255,255,0.2)",
+                color: isLight ? "rgba(15,23,42,0.2)" : "rgba(255,255,255,0.2)",
                 fontFamily: "monospace",
               }}
             >
@@ -575,15 +565,11 @@ export default function Footer() {
                 style={{
                   fontSize: 11,
                   fontFamily: "monospace",
-                  color: "rgba(255,255,255,0.32)",
+                  color: isLight ? "rgba(15,23,42,0.32)" : "rgba(255,255,255,0.32)",
                   transition: "color 0.2s",
                 }}
-                onMouseEnter={(e) =>
-                  (e.currentTarget.style.color = "rgba(255,255,255,0.72)")
-                }
-                onMouseLeave={(e) =>
-                  (e.currentTarget.style.color = "rgba(255,255,255,0.32)")
-                }
+                onMouseEnter={e => (e.currentTarget.style.color = isLight ? "rgba(15,23,42,0.72)" : "rgba(255,255,255,0.72)")}
+                onMouseLeave={e => (e.currentTarget.style.color = isLight ? "rgba(15,23,42,0.32)" : "rgba(255,255,255,0.32)")}
               >
                 {label}
               </Link>
