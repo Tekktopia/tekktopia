@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import SERVICES from "@/lib/services-data";
+import { useTheme } from "@/context/ThemeContext";
 
 if (typeof window !== "undefined") gsap.registerPlugin(ScrollTrigger);
 
@@ -67,11 +68,19 @@ function rrect(
 type Pt = { sx: number; sy: number };
 
 export default function ServiceConstellation() {
+  const { theme } = useTheme();
+  const isLight = theme === "light";
+
+  const isLightRef = useRef(isLight);
+  useEffect(() => { isLightRef.current = isLight; }, [isLight]);
+
   const sectionRef = useRef<HTMLElement>(null);
   const canvasRef  = useRef<HTMLCanvasElement>(null);
   const router     = useRouter();
 
   useEffect(() => {
+    gsap.set(sectionRef.current, { opacity: 0 });
+
     const canvas = canvasRef.current!;
     if (!canvas) return;
     const ctx = canvas.getContext("2d")!;
@@ -172,10 +181,10 @@ export default function ServiceConstellation() {
       const padY  = 0.07; // vertical gap
 
       // ── Floor-separator bands (dark concrete strips between floors) ──
-      ctx.fillStyle = "rgba(0,0,0,0.50)";
-      for (let r = 0; r <= rows; r++) {
-        ctx.fillRect(0, r * cellH - cellH * padY * 0.6, 1, cellH * padY * 1.2);
-      }
+      // ctx.fillStyle = "rgba(0,0,0,0.0)";
+      // for (let r = 0; r <= rows; r++) {
+      //   ctx.fillRect(0, r * cellH - cellH * padY * 0.6, 1, cellH * padY * 1.2);
+      // }
 
       // ── Window panes ──
       for (let r = 0; r < rows; r++) {
@@ -304,13 +313,13 @@ export default function ServiceConstellation() {
       };
 
       /* ── 1. Ground shadow ── */
-      const gc   = proj(bx, 0, bz);
-      const srad = SC * (hw + hd) * 3.2;
-      const sgr  = ctx.createRadialGradient(gc.sx, gc.sy, 0, gc.sx, gc.sy, srad);
-      sgr.addColorStop(0, "rgba(0,0,0,0.45)");
-      sgr.addColorStop(1, "rgba(0,0,0,0)");
-      ctx.fillStyle = sgr;
-      ctx.beginPath(); ctx.arc(gc.sx, gc.sy, srad, 0, Math.PI * 2); ctx.fill();
+      // const gc   = proj(bx, 0, bz);
+      // const srad = SC * (hw + hd) * 3.2;
+      // const sgr  = ctx.createRadialGradient(gc.sx, gc.sy, 0, gc.sx, gc.sy, srad);
+      // sgr.addColorStop(0, "rgba(0,0,0,0.45)");
+      // sgr.addColorStop(1, "rgba(0,0,0,0)");
+      // ctx.fillStyle = sgr;
+      // ctx.beginPath(); ctx.arc(gc.sx, gc.sy, srad, 0, Math.PI * 2); ctx.fill();
 
       /* ── 2. Window-row configuration ── */
       // Use base height (not animated) so window count stays stable
@@ -503,6 +512,7 @@ export default function ServiceConstellation() {
     function draw() {
       raf    = requestAnimationFrame(draw);
       gAlpha = Math.min(1, gAlpha + 0.013);
+      const light = isLightRef.current;
 
       // Animate building heights on hover
       BDATA.forEach((_b, i) => {
@@ -515,7 +525,7 @@ export default function ServiceConstellation() {
       ctx.clearRect(0, 0, W, H);
 
       // Background fill
-      ctx.fillStyle = "#04080F";
+      ctx.fillStyle = light ? "#F8FAFC" : "#04080F";
       ctx.fillRect(0, 0, W, H);
 
       // Subtle ambient blue radial
@@ -526,8 +536,10 @@ export default function ServiceConstellation() {
       ctx.fillRect(0, 0, W, H);
 
       // Ground grid
-      ctx.strokeStyle = `rgba(255,255,255,${0.042 * gAlpha})`;
-      ctx.lineWidth   = 0.5;
+      ctx.strokeStyle = light
+      ? `rgba(15,23,42,${0.2 * gAlpha})`
+      : `rgba(255,255,255,${0.042 * gAlpha})`;
+      ctx.lineWidth   = 1.65;
       for (let g = -5; g <= 5; g++) {
         const a = proj(-5, 0, g), b2 = proj(5, 0, g);
         ctx.beginPath(); ctx.moveTo(a.sx, a.sy); ctx.lineTo(b2.sx, b2.sy); ctx.stroke();
@@ -550,11 +562,11 @@ export default function ServiceConstellation() {
       ctx.fillStyle  = "rgba(249,115,22,0.82)";
       ctx.font       = "bold 11px monospace";
       ctx.fillText("TEKKTOPIA TECH CITY", 24, 34);
-      ctx.fillStyle  = "rgba(255,255,255,0.22)";
+      ctx.fillStyle  = light ? "rgba(15,23,42,0.38)" : "rgba(255,255,255,0.22)";
       ctx.font       = "9px monospace";
       ctx.fillText("DRAG TO ROTATE  ·  HOVER & CLICK ANY BUILDING", 24, 50);
       ctx.textAlign  = "right";
-      ctx.fillStyle  = "rgba(255,255,255,0.22)";
+      ctx.fillStyle  = light ? "rgba(15,23,42,0.38)" : "rgba(255,255,255,0.22)";
       ctx.font       = "9px monospace";
       ctx.fillText(`${SERVICES.length} SERVICES  ·  ALWAYS ON`, W - 24, 34);
       ctx.fillText("24 / 7  SUPPORT", W - 24, 50);
@@ -627,17 +639,17 @@ export default function ServiceConstellation() {
       ref={sectionRef}
       aria-label="Interactive tech city"
       className="relative"
-      style={{ height: "100svh", background: "#04080F", overflow: "hidden", opacity: 0 }}
+      style={{ height: "100svh", overflow: "hidden"}}
     >
       {/* Subtle grid overlay */}
       <div
         aria-hidden
         className="absolute inset-0 pointer-events-none"
         style={{
-          backgroundImage:
-            "linear-gradient(rgba(255,255,255,0.014) 1px,transparent 1px)," +
-            "linear-gradient(90deg,rgba(255,255,255,0.014) 1px,transparent 1px)",
-          backgroundSize: "64px 64px",
+          backgroundImage: isLight
+          ? "linear-gradient(rgba(15,23,42,0.06) 1px,transparent 1px),linear-gradient(90deg,rgba(15,23,42,0.06) 1px,transparent 1px)"
+          : "linear-gradient(rgba(255,255,255,0.022) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.022) 1px,transparent 1px)",
+          backgroundSize: "128px 128px",
         }}
       />
 
@@ -651,7 +663,7 @@ export default function ServiceConstellation() {
       <div className="absolute top-10 left-1/2 -translate-x-1/2 text-center pointer-events-none z-10">
         <div className="flex items-center justify-center gap-3 mb-3">
           <span style={{ height: 1, width: 24, background: "#F97316", display: "block", borderRadius: 99 }} />
-          <span style={{ fontFamily: "monospace", fontSize: 10, textTransform: "uppercase", letterSpacing: "0.3em", color: "rgba(255,255,255,0.38)" }}>
+          <span style={{ fontFamily: "monospace", fontSize: 10, textTransform: "uppercase", letterSpacing: "0.3em", color: isLight ? "rgba(15,23,42,0.38)" : "rgba(255,255,255,0.38)" }}>
             The Full Stack
           </span>
           <span style={{ height: 1, width: 24, background: "#F97316", display: "block", borderRadius: 99 }} />
@@ -660,14 +672,14 @@ export default function ServiceConstellation() {
           className="font-display font-black uppercase"
           style={{ fontSize: "clamp(22px,3vw,42px)", letterSpacing: "-0.03em", lineHeight: 1 }}
         >
-          <span style={{ color: "#ffffff" }}>Every Service. </span>
+          <span style={{ color: isLight ? "#0F172A" : "#ffffff" }}>Every Service. </span>
           <span style={{ color: "#F97316" }}>One Team.</span>
         </h2>
       </div>
 
       {/* Bottom hint */}
       <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1.5 pointer-events-none z-10">
-        <span style={{ fontSize: 9, fontFamily: "monospace", letterSpacing: "0.24em", textTransform: "uppercase", color: "rgba(255,255,255,0.2)" }}>
+        <span style={{ fontSize: 9, fontFamily: "monospace", letterSpacing: "0.24em", textTransform: "uppercase", color: isLight ? "rgba(15,23,42,0.2)" : "rgba(255,255,255,0.2)" }}>
           Drag to rotate · Hover &amp; click any building
         </span>
         <div style={{ width: 1, height: 24, background: "linear-gradient(to bottom,rgba(249,115,22,0.45),transparent)" }} />

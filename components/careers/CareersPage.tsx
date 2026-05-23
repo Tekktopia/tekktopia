@@ -6,10 +6,14 @@ import gsap from "gsap";
 import { Mail, Heart, Zap, Globe, Users } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { CTABanner } from "@/components/home";
+import { useTheme } from "@/context/ThemeContext";
 
 const HR_EMAIL = "hr@tekktopia.com";
 
 export default function CareersPage() {
+  const { theme } = useTheme();
+  const isLight = theme === "light";
+
   const pageRef = useRef<HTMLElement>(null);
 
   useGSAP(() => {
@@ -29,26 +33,30 @@ export default function CareersPage() {
 
   return (
     <>
-      <main ref={pageRef} style={{ background: "#04080F", minHeight: "100vh" }}>
+      <main ref={pageRef} style={{ background: isLight ? "#F8FAFC" : "#04080F", minHeight: "100vh" }}>
 
         {/* ── decorative bg ── */}
         <div aria-hidden className="fixed inset-0 pointer-events-none overflow-hidden">
           <div style={{
             position: "absolute", width: 800, height: 800, borderRadius: "50%",
             top: "10%", left: "50%", transform: "translateX(-50%)",
-            background: "radial-gradient(ellipse,rgba(37,99,235,0.09) 0%,transparent 65%)",
+            background: isLight
+                ? "radial-gradient(ellipse, rgba(37,99,235,0.05) 0%, transparent 70%)"
+                : "radial-gradient(ellipse, rgba(37,99,235,0.09) 0%, transparent 65%)",
             filter: "blur(80px)",
           }} />
           <div style={{
             position: "absolute", width: 500, height: 500, borderRadius: "50%",
             bottom: "5%", right: "-5%",
-            background: "radial-gradient(circle,rgba(249,115,22,0.07) 0%,transparent 65%)",
+            background: isLight
+                ? "radial-gradient(circle, rgba(249,115,22,0.055) 0%, transparent 74%)"
+                : "radial-gradient(circle, rgba(249,115,22,0.07) 0%, transparent 65%)",
             filter: "blur(80px)",
           }} />
           <div aria-hidden className="absolute inset-0" style={{
-            backgroundImage:
-              "linear-gradient(rgba(255,255,255,0.015) 1px,transparent 1px)," +
-              "linear-gradient(90deg,rgba(255,255,255,0.015) 1px,transparent 1px)",
+            backgroundImage: isLight
+            ? "linear-gradient(rgba(15,23,42,0.06) 1px,transparent 1px),linear-gradient(90deg,rgba(15,23,42,0.06) 1px,transparent 1px)"
+            : "linear-gradient(rgba(255,255,255,0.022) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.022) 1px,transparent 1px)",
             backgroundSize: "64px 64px",
           }} />
         </div>
@@ -67,7 +75,7 @@ export default function CareersPage() {
             {/* Eyebrow */}
             <div className="cp-eyebrow flex items-center justify-center gap-3 mb-7">
               <span style={{ height: 1, width: 24, background: "#F97316", display: "block", borderRadius: 99 }} />
-              <span style={{ fontFamily: "monospace", fontSize: 10, textTransform: "uppercase", letterSpacing: "0.28em", color: "rgba(255,255,255,0.45)" }}>
+              <span style={{ fontFamily: "monospace", fontSize: 10.5, textTransform: "uppercase", letterSpacing: "0.28em", color: isLight ? "rgba(15, 23, 42, 0.45 )" : "rgba(255,255,255,0.45)" }}>
                 Join Our Team
               </span>
               <span style={{ height: 1, width: 24, background: "#F97316", display: "block", borderRadius: 99 }} />
@@ -86,7 +94,7 @@ export default function CareersPage() {
                 <span key={i} className="inline-block overflow-hidden align-bottom pb-1 mr-[0.15em]">
                   <span
                     className="cp-word inline-block"
-                    style={{ color: orange ? "#F97316" : "#ffffff" }}
+                    style={{ color: orange ? "#F97316" : isLight ? "#0F172A" : "#ffffff" }}
                   >
                     {word}
                   </span>
@@ -99,7 +107,7 @@ export default function CareersPage() {
               className="cp-body mt-8 mx-auto"
               style={{
                 fontSize: "clamp(15px,1.7vw,19px)",
-                color: "rgba(255,255,255,0.60)",
+                color: isLight ? "rgba(15, 23, 42, 0.60)" : "rgba(255,255,255,0.60)",
                 fontWeight: 300,
                 lineHeight: 1.9,
                 maxWidth: 540,
@@ -113,14 +121,14 @@ export default function CareersPage() {
 
             {/* Divider */}
             <div className="cp-body flex items-center gap-4 my-10 justify-center">
-              <span style={{ height: 1, flex: 1, maxWidth: 80, background: "rgba(255,255,255,0.08)" }} />
+              <span style={{ height: 1, flex: 1, maxWidth: 80, background:  isLight ? "rgba(15, 23, 42, 0.25)" : "rgba(255,255,255,0.08)" }} />
               <Heart style={{ width: 14, height: 14, color: "#F97316", opacity: 0.7 }} />
-              <span style={{ height: 1, flex: 1, maxWidth: 80, background: "rgba(255,255,255,0.08)" }} />
+              <span style={{ height: 1, flex: 1, maxWidth: 80, background:  isLight ? "rgba(15, 23, 42, 0.25)" : "rgba(255,255,255,0.08)" }} />
             </div>
 
             {/* Email CTA */}
             <div className="cp-cta flex flex-col items-center gap-4">
-              <p style={{ fontSize: 13, color: "rgba(255,255,255,0.38)", fontFamily: "monospace", letterSpacing: "0.08em", textTransform: "uppercase" }}>
+              <p style={{ fontSize: 13, color:  isLight ? "rgba(15, 23, 42, 0.38)" : "rgba(255,255,255,0.38)", fontFamily: "monospace", letterSpacing: "0.08em", textTransform: "uppercase" }}>
                 Want to reach out anyway?
               </p>
               <a
@@ -147,7 +155,7 @@ export default function CareersPage() {
                 <Mail className="w-4 h-4 transition-transform duration-300 group-hover:-translate-y-0.5" />
                 {HR_EMAIL}
               </a>
-              <p style={{ fontSize: 12, color: "rgba(255,255,255,0.25)", fontFamily: "monospace" }}>
+              <p style={{ fontSize: 12, color:  isLight ? "rgba(15, 23, 42, 0.30)" : "rgba(255,255,255,0.25)", fontFamily: "monospace" }}>
                 We read every email and respond to all genuine enquiries.
               </p>
             </div>
@@ -159,7 +167,9 @@ export default function CareersPage() {
           <div className="max-w-4xl mx-auto px-5 sm:px-8">
 
             <div aria-hidden className="h-px mb-14"
-              style={{ background: "linear-gradient(to right,transparent,rgba(255,255,255,0.06),transparent)" }} />
+              style={{background: isLight
+                ? "linear-gradient(to right, transparent, rgba(15,23,42,0.12), transparent)"
+                : "linear-gradient(to right, transparent, rgba(255,255,255,0.06), transparent)", }} />
 
             <p style={{
               fontFamily: "monospace", fontSize: 10, textTransform: "uppercase",
@@ -169,7 +179,7 @@ export default function CareersPage() {
               — Why people love working here
             </p>
 
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-8">
               {(
                 [
                   {
@@ -196,8 +206,8 @@ export default function CareersPage() {
                   key={title}
                   className="cp-card relative p-7 rounded-2xl"
                   style={{
-                    background: "rgba(255,255,255,0.028)",
-                    border: "1px solid rgba(255,255,255,0.07)",
+                    background: isLight ? "rgba(15, 23, 42, 0.04)" : "rgba(255,255,255,0.028)",
+                    border: isLight ? "1px solid rgba(15, 23, 42, 0.08)" : "1px solid rgba(255,255,255,0.07)",
                     backdropFilter: "blur(12px)",
                   }}
                 >
@@ -217,11 +227,11 @@ export default function CareersPage() {
                   </div>
                   <h3
                     className="font-display font-bold mb-2"
-                    style={{ fontSize: 16, color: "#fff", letterSpacing: "-0.01em" }}
+                    style={{ fontSize: 16, color: isLight ? "#0F172A" : "#fff", letterSpacing: "-0.01em" }}
                   >
                     {title}
                   </h3>
-                  <p style={{ fontSize: 13.5, color: "rgba(255,255,255,0.55)", lineHeight: 1.75, fontWeight: 300 }}>
+                  <p style={{ fontSize: 13.5, color: isLight ? "rgba(15, 23, 42, 0.55)" : "rgba(255,255,255,0.55)", lineHeight: 1.75, fontWeight: 300 }}>
                     {body}
                   </p>
                 </div>

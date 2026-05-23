@@ -8,10 +8,13 @@ import Link from "next/link";
 import { ArrowUpRight, ArrowLeft, CheckCircle2 } from "lucide-react";
 import SERVICES from "@/lib/services-data";
 import { CTABanner } from "@/components/home";
+import { useTheme } from "@/context/ThemeContext";
 
 gsap.registerPlugin(ScrollTrigger);
 
 export default function ServicePageTemplate({ slug }: { slug: string }) {
+  const { theme } = useTheme();
+  const isLight = theme === "light";
   const svc = SERVICES.find(s => s.slug === slug)!;
   const Icon = svc.icon;
   const pageRef = useRef<HTMLDivElement>(null);
@@ -34,7 +37,7 @@ export default function ServicePageTemplate({ slug }: { slug: string }) {
   }, { scope: pageRef });
 
   return (
-    <div ref={pageRef} style={{ background: "#04080F" }}>
+    <div ref={pageRef} style={{ background: isLight ? "#F8FAFC" : "#04080F" }}>
 
       {/* ── Hero ── */}
       <section className="relative overflow-hidden"
@@ -43,8 +46,10 @@ export default function ServicePageTemplate({ slug }: { slug: string }) {
         {/* Grid */}
         <div aria-hidden className="absolute inset-0 pointer-events-none"
           style={{
-            backgroundImage: "linear-gradient(rgba(255,255,255,0.016) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.016) 1px,transparent 1px)",
-            backgroundSize: "64px 64px",
+            backgroundImage: isLight
+              ? "linear-gradient(rgba(15,23,42,0.06) 1px,transparent 1px),linear-gradient(90deg,rgba(15,23,42,0.06) 1px,transparent 1px)"
+              : "linear-gradient(rgba(255,255,255,0.022) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.022) 1px,transparent 1px)",
+              backgroundSize: "64px 64px",
           }} />
 
         {/* Aurora */}
@@ -62,9 +67,9 @@ export default function ServicePageTemplate({ slug }: { slug: string }) {
           {/* Back link */}
           <Link href="/services"
             className="sp-eyebrow inline-flex items-center gap-2 mb-10 group"
-            style={{ fontSize: 13, color: "rgba(255,255,255,0.45)", fontFamily: "monospace", transition: "color 0.2s" }}
-            onMouseEnter={e => e.currentTarget.style.color = "#fff"}
-            onMouseLeave={e => e.currentTarget.style.color = "rgba(255,255,255,0.45)"}
+            style={{ fontSize: 13, color: isLight ? "rgba(15, 23, 42, 0.48)" : "rgba(255,255,255,0.45)", fontFamily: "monospace", transition: "color 0.2s" }}
+            onMouseEnter={e => e.currentTarget.style.color = isLight ? "#0F172A" : "#fff"}
+            onMouseLeave={e => e.currentTarget.style.color = isLight ? "rgba(15, 23, 42, 0.45)" : "rgba(255,255,255,0.45)"}
           >
             <ArrowLeft className="w-3.5 h-3.5 transition-transform group-hover:-translate-x-1" />
             All Services
@@ -75,7 +80,7 @@ export default function ServicePageTemplate({ slug }: { slug: string }) {
               {/* Eyebrow */}
               <div className="sp-eyebrow flex items-center gap-3 mb-6">
                 <span style={{ height: 1, width: 24, background: svc.color, display: "block", borderRadius: 99 }} />
-                <span style={{ fontFamily: "monospace", fontSize: 10, textTransform: "uppercase", letterSpacing: "0.28em", color: "rgba(255,255,255,0.45)" }}>
+                <span style={{ fontFamily: "monospace", fontSize: 10, textTransform: "uppercase", letterSpacing: "0.28em", color: isLight ? "rgba(15, 23, 43, 0.45)" : "rgba(255,255,255,0.45)" }}>
                   {svc.num} — Our Services
                 </span>
               </div>
@@ -86,7 +91,7 @@ export default function ServicePageTemplate({ slug }: { slug: string }) {
                 {svc.name.split(" ").map((word, i, arr) => (
                   <span key={i} className="inline-block overflow-hidden align-bottom pb-1 mr-[0.14em]">
                     <span className="sp-word inline-block"
-                      style={{ color: i >= Math.ceil(arr.length / 2) ? svc.color : "#ffffff" }}>
+                      style={{ color: i >= Math.ceil(arr.length / 2) ? svc.color : isLight ? "#0F172A" : "#ffffff" }}>
                       {word}
                     </span>
                   </span>
@@ -95,7 +100,7 @@ export default function ServicePageTemplate({ slug }: { slug: string }) {
 
               {/* Tagline */}
               <p className="sp-tagline mb-6"
-                style={{ fontSize: "clamp(16px,1.8vw,22px)", color: "rgba(255,255,255,0.7)", fontWeight: 300, lineHeight: 1.6, fontStyle: "italic" }}>
+                style={{ fontSize: "clamp(16px,1.8vw,22px)", color: isLight ? "rgba(15, 23, 42, 0.7)" : "rgba(255,255,255,0.7)", fontWeight: 300, lineHeight: 1.6, fontStyle: "italic" }}>
                 {svc.tagline}
               </p>
 
@@ -104,9 +109,9 @@ export default function ServicePageTemplate({ slug }: { slug: string }) {
                 {svc.tags.map(tag => (
                   <span key={tag} className="sp-tag"
                     style={{
-                      fontFamily: "monospace", fontSize: 10, padding: "4px 12px",
+                      fontFamily: "monospace", fontSize: 10, padding: "5px 13px",
                       borderRadius: 99, border: `1px solid ${svc.color}30`,
-                      color: "rgba(255,255,255,0.6)", background: `${svc.color}0d`,
+                      color: isLight ? "rgba(15, 23, 42, 0.6)" : "rgba(255,255,255,0.6)", background: `${svc.color}0d`,
                       textTransform: "uppercase", letterSpacing: "0.1em",
                     }}>
                     {tag}
@@ -126,9 +131,9 @@ export default function ServicePageTemplate({ slug }: { slug: string }) {
                 </Link>
                 <Link href="/services"
                   className="group inline-flex items-center gap-2.5 font-medium text-sm px-7 py-3.5 rounded-xl"
-                  style={{ color: "rgba(255,255,255,0.6)", background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.1)", transition: "border-color 0.3s,color 0.3s" }}
-                  onMouseEnter={e => { e.currentTarget.style.borderColor = "rgba(255,255,255,0.2)"; e.currentTarget.style.color = "#fff"; }}
-                  onMouseLeave={e => { e.currentTarget.style.borderColor = "rgba(255,255,255,0.1)"; e.currentTarget.style.color = "rgba(255,255,255,0.6)"; }}
+                  style={{ color: isLight ? "rgba(15, 23, 42, 0.6)" : "rgba(255,255,255,0.6)", background: isLight ? "rgba(15, 23, 43, 0.06)" : "rgba(255,255,255,0.04)", border: isLight ? "1px solid rgba(15, 23, 42, 0.1)" : "1px solid rgba(255,255,255,0.1)", transition: "border-color 0.3s,color 0.3s" }}
+                  onMouseEnter={e => { e.currentTarget.style.borderColor = isLight ? "rgba(15, 23, 42, 0.2)" : "rgba(255,255,255,0.2)"; e.currentTarget.style.color = isLight ? "#0F172A" : "#fff"; }}
+                  onMouseLeave={e => { e.currentTarget.style.borderColor = isLight ? "rgba(15, 23, 42, 0.1)" : "rgba(255,255,255,0.1)"; e.currentTarget.style.color = isLight ? "rgba(15, 23, 42, 0.6)" : "rgba(255,255,255,0.6)"; }}
                 >
                   All services
                 </Link>
@@ -139,9 +144,17 @@ export default function ServicePageTemplate({ slug }: { slug: string }) {
             <div className="sp-icon-wrap hidden lg:flex items-center justify-center"
               style={{
                 width: 140, height: 140, borderRadius: 32, flexShrink: 0,
-                background: `radial-gradient(135deg at 30% 30%, ${svc.color}25, ${svc.color}08)`,
-                border: `1px solid ${svc.color}30`,
-                boxShadow: `0 0 60px ${svc.color}20`,
+                background: isLight
+                  ? `radial-gradient(circle at 30% 30%, ${svc.color}18, ${svc.color}05)`
+                  : `radial-gradient(circle at 30% 30%, ${svc.color}25, ${svc.color}08)`,
+
+                border: isLight
+                  ? `1px solid ${svc.color}45`
+                  : `1px solid ${svc.color}30`,
+
+                boxShadow: isLight
+                  ? `0 0 40px ${svc.color}12`
+                  : `0 0 60px ${svc.color}20`,
               }}>
               <Icon style={{ width: 60, height: 60, color: svc.color }} strokeWidth={1.3} />
             </div>
@@ -152,7 +165,7 @@ export default function ServicePageTemplate({ slug }: { slug: string }) {
       {/* ── Overview ── */}
       <Section label="Overview" color={svc.color}>
         <div className="grid grid-cols-1 lg:grid-cols-[1.2fr_0.8fr] gap-12 items-center">
-          <p style={{ fontSize: "clamp(16px,1.6vw,20px)", color: "rgba(255,255,255,0.7)", fontWeight: 300, lineHeight: 1.85 }}>
+          <p style={{ fontSize: "clamp(16px,1.6vw,20px)", color: isLight ? "rgba(15, 23, 42, 0.7)" : "rgba(255,255,255,0.7)", fontWeight: 300, lineHeight: 1.85 }}>
             {svc.overview}
           </p>
           <div className="grid grid-cols-2 gap-4">
@@ -163,8 +176,8 @@ export default function ServicePageTemplate({ slug }: { slug: string }) {
               { label: "Support",      value: "24/7" },
             ].map(({ label, value }) => (
               <div key={label} className="p-5 rounded-xl"
-                style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.07)" }}>
-                <p style={{ fontSize: 10, fontFamily: "monospace", textTransform: "uppercase", letterSpacing: "0.18em", color: "rgba(255,255,255,0.35)", marginBottom: 6 }}>{label}</p>
+                style={{ background: isLight ? "rgba(15, 23, 42, 0.04)" : "rgba(255,255,255,0.03)", border: isLight ? "1px solid rgba(15, 23, 42, 0.08)" : "1px solid rgba(255,255,255,0.07)" }}>
+                <p style={{ fontSize: 10, fontFamily: "monospace", textTransform: "uppercase", letterSpacing: "0.18em", color: isLight ? "rgba(15, 23, 42, 0.35)" : "rgba(255,255,255,0.35)", marginBottom: 6 }}>{label}</p>
                 <p className="font-display font-black" style={{ fontSize: 28, color: svc.color, lineHeight: 1, letterSpacing: "-0.02em" }}>{value}</p>
               </div>
             ))}
@@ -188,7 +201,8 @@ export default function ServicePageTemplate({ slug }: { slug: string }) {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mt-10">
           {svc.process.map(({ step, title, body }, i) => (
             <div key={step} className="relative p-7 rounded-2xl"
-              style={{ background: "rgba(255,255,255,0.025)", border: "1px solid rgba(255,255,255,0.07)" }}>
+              style={{ background: isLight ? "rgba(15,23,42,0.04)" : "rgba(255,255,255,0.025)",
+                border: isLight ? "1px solid rgba(15,23,42,0.08)" : "1px solid rgba(255,255,255,0.07)" }}>
               {/* Connector line */}
               {i < svc.process.length - 1 && (
                 <div className="hidden lg:block absolute top-10 left-full w-5 h-px z-10"
@@ -197,8 +211,8 @@ export default function ServicePageTemplate({ slug }: { slug: string }) {
               <div className="absolute top-0 left-0 right-0 h-0.5 rounded-t-2xl"
                 style={{ background: `linear-gradient(to right,${svc.color},transparent)` }} />
               <span style={{ fontFamily: "monospace", fontSize: 11, color: svc.color, letterSpacing: "0.18em", display: "block", marginBottom: 16 }}>{step}</span>
-              <h3 style={{ fontSize: 16, fontWeight: 700, color: "#fff", marginBottom: 10 }}>{title}</h3>
-              <p style={{ fontSize: 13.5, color: "rgba(255,255,255,0.58)", lineHeight: 1.75, fontWeight: 300 }}>{body}</p>
+              <h3 style={{ fontSize: 16, fontWeight: 700, color: isLight ? "#0F172A" : "#fff", marginBottom: 10 }}>{title}</h3>
+              <p style={{ fontSize: 13.5, color: isLight ? "rgba(15,23,42,0.58)" : "rgba(255,255,255,0.58)", lineHeight: 1.75, fontWeight: 300 }}>{body}</p>
             </div>
           ))}
         </div>
@@ -210,9 +224,10 @@ export default function ServicePageTemplate({ slug }: { slug: string }) {
         <div className="flex flex-wrap gap-3 mt-10">
           {svc.stack.map(tech => (
             <div key={tech} className="flex items-center gap-2.5 px-5 py-3 rounded-xl"
-              style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.08)" }}>
+              style={{  background: isLight ? "rgba(15,23,42,0.04)" : "rgba(255,255,255,0.03)",
+                border: isLight ? "1px solid rgba(15,23,42,0.08)" : "1px solid rgba(255,255,255,0.08)" }}>
               <CheckCircle2 style={{ width: 13, height: 13, color: svc.color, flexShrink: 0 }} />
-              <span style={{ fontSize: 13, fontWeight: 500, color: "rgba(255,255,255,0.75)", fontFamily: "monospace" }}>{tech}</span>
+              <span style={{ fontSize: 13, fontWeight: 500, color: isLight ? "rgba(15,23,42,0.75)" : "rgba(255,255,255,0.75)", fontFamily: "monospace" }}>{tech}</span>
             </div>
           ))}
         </div>
@@ -228,6 +243,10 @@ function Section({ label, color, alt, children }: {
   label: string; color: string; alt?: boolean; children: React.ReactNode;
 }) {
   const ref = useRef<HTMLElement>(null);
+
+  const { theme } = useTheme();
+  const isLight = theme === "light";
+
   useGSAP(() => {
     gsap.set(ref.current, { autoAlpha: 0, y: 30 });
     gsap.to(ref.current, {
@@ -236,9 +255,18 @@ function Section({ label, color, alt, children }: {
     });
   }, { scope: ref });
   return (
-    <section ref={ref} style={{ background: alt ? "#060C15" : "#04080F", paddingTop: 80, paddingBottom: 80, position: "relative" }}>
+    <section ref={ref} style={{ 
+      background: isLight
+      ? (alt ? "#F1F5F9" : "#F8FAFC")
+      : (alt ? "#060C15" : "#04080F"), 
+      paddingTop: 80, 
+      paddingBottom: 80, 
+      position: "relative" }}>
       <div aria-hidden className="absolute top-0 left-0 right-0 h-px"
-        style={{ background: "linear-gradient(to right,transparent,rgba(255,255,255,0.06),transparent)" }} />
+        style={{ background: isLight
+          ? "linear-gradient(to right,transparent,rgba(15,23,42,0.08),transparent)"
+          : "linear-gradient(to right,transparent,rgba(255,255,255,0.06),transparent)",
+      }} />
       <div className="max-w-7xl mx-auto px-5 sm:px-8 md:px-12">
         <p style={{ fontFamily: "monospace", fontSize: 10, textTransform: "uppercase", letterSpacing: "0.28em", color: color, opacity: 0.8, marginBottom: 32 }}>
           — {label}
@@ -250,10 +278,13 @@ function Section({ label, color, alt, children }: {
 }
 
 function SectionTitle({ white, orange }: { white: string; orange: string }) {
+  const { theme } = useTheme();
+  const isLight = theme === "light";
+
   return (
     <h2 className="font-display font-black uppercase"
       style={{ fontSize: "clamp(28px,3.5vw,48px)", lineHeight: 0.92, letterSpacing: "-0.03em" }}>
-      <span style={{ color: "#fff" }}>{white} </span>
+      <span style={{ color: isLight ? "#0F172A" : "#fff" }}>{white} </span>
       <span style={{ color: "#F97316" }}>{orange}</span>
     </h2>
   );
@@ -261,6 +292,10 @@ function SectionTitle({ white, orange }: { white: string; orange: string }) {
 
 function FeatureCard({ title, body, color, index }: { title: string; body: string; color: string; index: number }) {
   const ref = useRef<HTMLDivElement>(null);
+
+  const { theme } = useTheme();
+  const isLight = theme === "light";
+
   useGSAP(() => {
     gsap.set(ref.current, { autoAlpha: 0, y: 36, filter: "blur(6px)" });
     gsap.to(ref.current, {
@@ -273,18 +308,26 @@ function FeatureCard({ title, body, color, index }: { title: string; body: strin
   return (
     <div ref={ref} className="group relative p-7 rounded-2xl cursor-default"
       style={{
-        background: "rgba(255,255,255,0.025)",
-        border: "1px solid rgba(255,255,255,0.07)",
+        background: isLight ? "rgba(15,23,42,0.04)" : "rgba(255,255,255,0.025)",
+        border: isLight ? "1px solid rgba(15,23,42,0.08)" : "1px solid rgba(255,255,255,0.07)",
         transition: "border-color 0.3s,box-shadow 0.3s,transform 0.3s",
       }}
-      onMouseEnter={e => { e.currentTarget.style.borderColor = color + "44"; e.currentTarget.style.boxShadow = `0 0 30px ${color}18`; e.currentTarget.style.transform = "translateY(-4px)"; }}
-      onMouseLeave={e => { e.currentTarget.style.borderColor = "rgba(255,255,255,0.07)"; e.currentTarget.style.boxShadow = "none"; e.currentTarget.style.transform = "none"; }}
+      onMouseEnter={e => {
+        e.currentTarget.style.borderColor = color + "44";
+        e.currentTarget.style.boxShadow = `0 0 30px ${color}18`;
+        e.currentTarget.style.transform = "translateY(-4px)";
+      }}
+      onMouseLeave={e => {
+        e.currentTarget.style.borderColor = isLight ? "rgba(15,23,42,0.08)" : "rgba(255,255,255,0.07)";
+        e.currentTarget.style.boxShadow = "none";
+        e.currentTarget.style.transform = "none";
+      }}
     >
       <div className="absolute top-0 left-0 right-0 h-0.5 rounded-t-2xl"
         style={{ background: `linear-gradient(to right,${color}66,transparent)` }} />
       <CheckCircle2 style={{ width: 22, height: 22, color, marginBottom: 16 }} />
-      <h3 style={{ fontSize: 15, fontWeight: 700, color: "#fff", marginBottom: 8, letterSpacing: "-0.01em" }}>{title}</h3>
-      <p style={{ fontSize: 13.5, color: "rgba(255,255,255,0.58)", lineHeight: 1.75, fontWeight: 300 }}>{body}</p>
+      <h3 style={{ fontSize: 15, fontWeight: 700, color: isLight ? "#0F172A" : "#fff", marginBottom: 8, letterSpacing: "-0.01em" }}>{title}</h3>
+      <p style={{ fontSize: 13.5, color: isLight ? "rgba(15, 23, 42, 0.58)" : "rgba(255,255,255,0.58)", lineHeight: 1.75, fontWeight: 300 }}>{body}</p>
     </div>
   );
 }

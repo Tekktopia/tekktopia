@@ -28,7 +28,7 @@ export default function HomePage() {
   return (
     <>
       <HeroSection />
-      <div className="dark light" aria-hidden style={{ height: 96, position: "relative" }}>
+      <div aria-hidden style={{ height: 96, position: "relative" }}>
         <div style={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%,-50%)", width: "60%", height: 1, background: "linear-gradient(to right, transparent, rgba(37,99,235,0.35), transparent)" }} />
       </div>
       <NetworkGlobe />

@@ -4,6 +4,7 @@ import { useRef, useState } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { CTABanner } from "@/components/home";
+import { useTheme } from "@/context/ThemeContext";
 
 const CATEGORIES = ["All", "Web App", "Mobile", "Cloud", "AI / ML", "Design"];
 
@@ -77,6 +78,9 @@ const PROJECTS = [
 ];
 
 export default function ProjectsPage() {
+  const { theme } = useTheme();
+  const isLight = theme === "light";
+
   const pageRef = useRef<HTMLElement>(null);
   const [active, setActive] = useState("All");
 
@@ -106,7 +110,7 @@ export default function ProjectsPage() {
 
   return (
     <>
-      <main ref={pageRef} style={{ background: "#04080F", minHeight: "100vh" }}>
+      <main ref={pageRef} style={{ background: isLight ? "#F8FAFC" : "#04080F", minHeight: "100vh" }}>
         {/* ── Decorative bg ── */}
         <div
           aria-hidden
@@ -121,8 +125,9 @@ export default function ProjectsPage() {
               top: "0%",
               left: "50%",
               transform: "translateX(-50%)",
-              background:
-                "radial-gradient(ellipse,rgba(37,99,235,0.09) 0%,transparent 65%)",
+              background: isLight
+                ? "radial-gradient(ellipse, rgba(37,99,235,0.05) 0%, transparent 70%)"
+                : "radial-gradient(ellipse, rgba(37,99,235,0.09) 0%, transparent 65%)",
               filter: "blur(80px)",
             }}
           />
@@ -134,17 +139,18 @@ export default function ProjectsPage() {
               borderRadius: "50%",
               bottom: "10%",
               right: "-5%",
-              background:
-                "radial-gradient(circle,rgba(249,115,22,0.07) 0%,transparent 65%)",
+              background: isLight
+                ? "radial-gradient(circle, rgba(249,115,22,0.055) 0%, transparent 74%)"
+                : "radial-gradient(circle, rgba(249,115,22,0.07) 0%, transparent 65%)",
               filter: "blur(80px)",
             }}
           />
           <div
             className="absolute inset-0"
             style={{
-              backgroundImage:
-                "linear-gradient(rgba(255,255,255,0.015) 1px,transparent 1px)," +
-                "linear-gradient(90deg,rgba(255,255,255,0.015) 1px,transparent 1px)",
+              backgroundImage: isLight
+              ? "linear-gradient(rgba(15,23,42,0.06) 1px,transparent 1px),linear-gradient(90deg,rgba(15,23,42,0.06) 1px,transparent 1px)"
+              : "linear-gradient(rgba(255,255,255,0.022) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.022) 1px,transparent 1px)",
               backgroundSize: "64px 64px",
             }}
           />
@@ -159,8 +165,9 @@ export default function ProjectsPage() {
             aria-hidden
             className="absolute top-0 left-0 right-0 h-px"
             style={{
-              background:
-                "linear-gradient(to right,transparent,rgba(255,255,255,0.07),transparent)",
+              background: isLight
+                ? "linear-gradient(to right, transparent, rgba(15,23,42,0.12), transparent)"
+                : "linear-gradient(to right, transparent, rgba(255,255,255,0.07), transparent)",
             }}
           />
 
@@ -179,10 +186,10 @@ export default function ProjectsPage() {
               <span
                 style={{
                   fontFamily: "monospace",
-                  fontSize: 10,
+                  fontSize: 10.5,
                   textTransform: "uppercase",
                   letterSpacing: "0.28em",
-                  color: "rgba(255,255,255,0.45)",
+                  color: isLight ? "rgba(15, 23, 42, 0.50)" : "rgba(255,255,255,0.45)",
                 }}
               >
                 Our Work
@@ -217,7 +224,7 @@ export default function ProjectsPage() {
                 >
                   <span
                     className="pp-word inline-block"
-                    style={{ color: orange ? "#F97316" : "#ffffff" }}
+                    style={{ color: orange ? "#F97316" : isLight ? "#0F172A" :  "#ffffff" }}
                   >
                     {word}
                   </span>
@@ -229,7 +236,7 @@ export default function ProjectsPage() {
               className="pp-body mt-8 mx-auto"
               style={{
                 fontSize: "clamp(15px,1.7vw,19px)",
-                color: "rgba(255,255,255,0.60)",
+                color: isLight ? "rgba(15, 23, 42, 0.60)" :  "rgba(255,255,255,0.60)",
                 fontWeight: 300,
                 lineHeight: 1.9,
                 maxWidth: 540,
@@ -258,13 +265,25 @@ export default function ProjectsPage() {
                   border:
                     active === cat
                       ? "1px solid rgba(249,115,22,0.5)"
-                      : "1px solid rgba(255,255,255,0.1)",
+                      : isLight
+                        ? "1px solid rgba(15,23,42,0.12)"
+                        : "1px solid rgba(255,255,255,0.1)",
+
                   background:
                     active === cat
-                      ? "rgba(249,115,22,0.12)"
-                      : "rgba(255,255,255,0.03)",
+                      ? isLight
+                        ? "rgba(249,115,22,0.08)"
+                        : "rgba(249,115,22,0.12)"
+                      : isLight
+                        ? "rgba(15,23,42,0.03)"
+                        : "rgba(255,255,255,0.03)",
+
                   color:
-                    active === cat ? "#F97316" : "rgba(255,255,255,0.55)",
+                    active === cat
+                      ? "#F97316"
+                      : isLight
+                        ? "rgba(15,23,42,0.68)"
+                        : "rgba(255,255,255,0.55)",
                 }}
               >
                 {cat}
@@ -285,7 +304,7 @@ export default function ProjectsPage() {
             ) : (
               <div className="flex flex-col items-center justify-center py-24 text-center">
                 <p
-                  style={{ color: "rgba(255,255,255,0.35)", fontSize: 15 }}
+                  style={{ color: isLight ? "rgba(15, 23, 42, 0.35)" : "rgba(255,255,255,0.35)", fontSize: 15 }}
                 >
                   No projects in this category yet. Check back soon.
                 </p>
@@ -302,6 +321,9 @@ export default function ProjectsPage() {
 type Project = (typeof PROJECTS)[0];
 
 function ProjectCard({ project }: { project: Project }) {
+  const { theme } = useTheme();
+  const isLight = theme === "light";
+
   const [hovered, setHovered] = useState(false);
 
   return (
@@ -311,8 +333,8 @@ function ProjectCard({ project }: { project: Project }) {
       style={{
         position: "relative",
         borderRadius: 20,
-        background: "rgba(255,255,255,0.028)",
-        border: `1px solid ${hovered ? `${project.color}35` : "rgba(255,255,255,0.07)"}`,
+        background: isLight ? "rgba(15, 23, 42, 0.04)" : "rgba(255,255,255,0.028)",
+        border: hovered ? `1px solid ${project.color}35` : isLight ? "1px solid rgba(15,23,42,0.12)" : "1px solid rgba(255,255,255,0.07)",
         backdropFilter: "blur(12px)",
         overflow: "hidden",
         transition: "border-color 0.3s, box-shadow 0.3s, transform 0.3s",
@@ -329,7 +351,7 @@ function ProjectCard({ project }: { project: Project }) {
           right: 0,
           height: 2,
           borderRadius: "20px 20px 0 0",
-          background: `linear-gradient(to right,${project.color}cc,transparent)`,
+          background: isLight ? `linear-gradient(to right, ${project.color}80, transparent)` : `linear-gradient(to right, ${project.color}cc, transparent)`,
         }}
       />
 
@@ -337,8 +359,8 @@ function ProjectCard({ project }: { project: Project }) {
       <div
         style={{
           height: 180,
-          background: `linear-gradient(135deg,${project.color}18 0%,${project.color}06 100%)`,
-          borderBottom: "1px solid rgba(255,255,255,0.05)",
+          background: isLight ? `linear-gradient(135deg, ${project.color}12 0%, rgba(15,23,42,0.02) 100%)` : `linear-gradient(135deg, ${project.color}18 0%, ${project.color}06 100%)`,
+          borderBottom: isLight ? "1px solid rgba(15, 23, 42, 0.08)" : "1px solid rgba(255,255,255,0.05)",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
@@ -352,8 +374,8 @@ function ProjectCard({ project }: { project: Project }) {
             width: 90,
             height: 90,
             borderRadius: "50%",
-            background: `radial-gradient(circle,${project.color}35,${project.color}06)`,
-            border: `1px solid ${project.color}30`,
+            background: isLight ? `radial-gradient(circle, ${project.color}22, ${project.color}05)` : `radial-gradient(circle, ${project.color}35, ${project.color}06)`,
+            border: isLight ? `1px solid ${project.color}45` : `1px solid ${project.color}30`,
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
@@ -378,7 +400,7 @@ function ProjectCard({ project }: { project: Project }) {
             right: 16,
             fontFamily: "monospace",
             fontSize: 10,
-            color: "rgba(255,255,255,0.28)",
+            color: isLight ? "rgba(15, 23, 42, 0.28)" : "rgba(255,255,255,0.28)",
             letterSpacing: "0.12em",
           }}
         >
@@ -407,7 +429,7 @@ function ProjectCard({ project }: { project: Project }) {
           className="font-display font-bold mb-3"
           style={{
             fontSize: 18,
-            color: "#fff",
+            color: isLight ? "#0F172A" : "#fff",
             letterSpacing: "-0.02em",
             lineHeight: 1.3,
           }}
@@ -418,7 +440,7 @@ function ProjectCard({ project }: { project: Project }) {
         <p
           style={{
             fontSize: 13.5,
-            color: "rgba(255,255,255,0.52)",
+            color: isLight ? "rgba(15, 23, 42, 0.52)" : "rgba(255,255,255,0.52)",
             lineHeight: 1.78,
             fontWeight: 300,
             marginBottom: 20,
@@ -437,9 +459,9 @@ function ProjectCard({ project }: { project: Project }) {
                 fontFamily: "monospace",
                 padding: "4px 10px",
                 borderRadius: 99,
-                background: "rgba(255,255,255,0.05)",
-                border: "1px solid rgba(255,255,255,0.08)",
-                color: "rgba(255,255,255,0.45)",
+                background: isLight ? "rgba(15, 23, 42, 0.08)" :  "rgba(255,255,255,0.05)",
+                border: isLight ? "1px solid rgba(15, 23, 42, 0.10)" :  "1px solid rgba(255,255,255,0.08)",
+                color: isLight ? "rgba(15, 23, 42, 0.45)" :  "rgba(255,255,255,0.45)",
               }}
             >
               {tag}

@@ -7,6 +7,7 @@ import ScrollTrigger from "gsap/ScrollTrigger";
 import { ExternalLink, AtSign, ArrowUpRight } from "lucide-react";
 import Link from "next/link";
 import { CTABanner } from "@/components/home";
+import { useTheme } from "@/context/ThemeContext";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -74,6 +75,9 @@ const TEAM = [
 ];
 
 export default function OurTeamPage() {
+  const { theme } = useTheme();
+  const isLight = theme === "light";
+
   const pageRef  = useRef<HTMLElement>(null);
   const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
 
@@ -122,7 +126,7 @@ export default function OurTeamPage() {
 
   return (
     <>
-      <main ref={pageRef} style={{ background: "#04080F" }}>
+      <main ref={pageRef} style={{ background: isLight ? "#F8FAFC" : "#04080F" }}>
 
         {/* ── Background decoration ── */}
         <div aria-hidden className="absolute inset-0 pointer-events-none overflow-hidden">
@@ -135,14 +139,16 @@ export default function OurTeamPage() {
           <div style={{
             position: "absolute", width: 600, height: 600, borderRadius: "50%",
             bottom: "10%", right: "-5%",
-            background: "radial-gradient(circle,rgba(37,99,235,0.09) 0%,transparent 65%)",
+            background: isLight
+                ? "radial-gradient(ellipse, rgba(37,99,235,0.05) 0%, transparent 70%)"
+                : "radial-gradient(ellipse, rgba(37,99,235,0.09) 0%, transparent 65%)",
             filter: "blur(80px)",
           }} />
           <div className="absolute inset-0" style={{
-            backgroundImage:
-              "linear-gradient(rgba(255,255,255,0.016) 1px,transparent 1px)," +
-              "linear-gradient(90deg,rgba(255,255,255,0.016) 1px,transparent 1px)",
-            backgroundSize: "64px 64px",
+           backgroundImage: isLight
+           ? "linear-gradient(rgba(15,23,42,0.06) 1px,transparent 1px),linear-gradient(90deg,rgba(15,23,42,0.06) 1px,transparent 1px)"
+           : "linear-gradient(rgba(255,255,255,0.022) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.022) 1px,transparent 1px)",
+           backgroundSize: "64px 64px",
           }} />
         </div>
 
@@ -159,7 +165,7 @@ export default function OurTeamPage() {
             {/* Eyebrow */}
             <div className="otp-eyebrow flex items-center justify-center gap-3 mb-7">
               <span style={{ height: 1, width: 24, background: "#F97316", display: "block", borderRadius: 99 }} />
-              <span style={{ fontFamily: "monospace", fontSize: 10, textTransform: "uppercase", letterSpacing: "0.28em", color: "rgba(255,255,255,0.45)" }}>
+              <span style={{ fontFamily: "monospace", fontSize: 10.5, textTransform: "uppercase", letterSpacing: "0.28em", color: isLight ? "rgba(15, 23, 42, 0.45)" : "rgba(255,255,255,0.45)" }}>
                 The People
               </span>
               <span style={{ height: 1, width: 24, background: "#F97316", display: "block", borderRadius: 99 }} />
@@ -171,12 +177,12 @@ export default function OurTeamPage() {
               style={{ fontSize: "clamp(40px,6vw,82px)", lineHeight: 0.9, letterSpacing: "-0.04em" }}
             >
               {[
-                { word: "Meet",  orange: false },
-                { word: "the",   orange: false },
-                { word: "Team.", orange: true  },
-              ].map(({ word, orange }, i) => (
+                { word: "Meet",  orange: false, isLight: true },
+                { word: "the",   orange: false, isLight: true },
+                { word: "Team.", orange: true, isLight: false },
+              ].map(({ word, orange, isLight }, i) => (
                 <span key={i} className="inline-block overflow-hidden align-bottom pb-1 mr-[0.15em]">
-                  <span className="otp-word inline-block" style={{ color: orange ? "#F97316" : "#ffffff" }}>
+                  <span className="otp-word inline-block" style={{ color: orange ? "#F97316" : isLight ? "#0F172A" : "#ffffff" }}>
                     {word}
                   </span>
                 </span>
@@ -185,7 +191,7 @@ export default function OurTeamPage() {
 
             {/* Sub */}
             <p className="otp-sub mt-6 mx-auto max-w-2xl"
-              style={{ fontSize: "clamp(14px,1.5vw,17px)", color: "rgba(255,255,255,0.55)", fontWeight: 300, lineHeight: 1.85 }}>
+              style={{ fontSize: "clamp(14px,1.5vw,17px)", color: isLight ? "rgba(15, 42, 43, 0.55)" : "rgba(255,255,255,0.55)", fontWeight: 300, lineHeight: 1.85 }}>
               A focused, battle-tested team of engineers, designers, and strategists — each one hand-picked for their craft and their character.
             </p>
 
@@ -200,11 +206,11 @@ export default function OurTeamPage() {
                 <div key={label} className="otp-pill" style={{
                   display: "flex", alignItems: "center", gap: 8,
                   padding: "7px 16px", borderRadius: 99,
-                  background: "rgba(255,255,255,0.04)",
-                  border: "1px solid rgba(255,255,255,0.08)",
+                  background: isLight ? "rgba(15, 42, 43, 0.08)" : "rgba(255,255,255,0.04)",
+                  border: isLight ? "1px solid rgba(15, 42, 43, 0.10)" : "1px solid rgba(255,255,255,0.08)",
                 }}>
                   <span style={{ width: 6, height: 6, borderRadius: "50%", background: color, flexShrink: 0 }} />
-                  <span style={{ fontSize: 12, color: "rgba(255,255,255,0.6)", fontFamily: "monospace", letterSpacing: "0.06em" }}>
+                  <span style={{ fontSize: 12, color: isLight ? "rgba(15, 42, 43, 0.6)" : "rgba(255,255,255,0.6)", fontFamily: "monospace", letterSpacing: "0.06em" }}>
                     {label}
                   </span>
                 </div>
@@ -228,8 +234,8 @@ export default function OurTeamPage() {
                   data-color={accent}
                   className="relative flex flex-col rounded-2xl overflow-hidden cursor-default"
                   style={{
-                    background: "rgba(255,255,255,0.025)",
-                    border: "1px solid rgba(255,255,255,0.07)",
+                    background:  isLight ? "rgba(15, 42, 43, 0.04)" : "rgba(255,255,255,0.025)",
+                    border: isLight ? "rgba(15, 42, 43, 0.09)" : "1px solid rgba(255,255,255,0.07)",
                     transition: "border-color 0.35s, box-shadow 0.35s",
                   }}
                 >
@@ -267,14 +273,14 @@ export default function OurTeamPage() {
                   {/* ── Info ── */}
                   <div className="flex flex-col flex-1 p-6">
                     <div className="mb-3">
-                      <p style={{ fontSize: 16, fontWeight: 700, color: "#fff", lineHeight: 1.2, marginBottom: 4 }}>
+                      <p style={{ fontSize: 16, fontWeight: 700, color: isLight ? "#0F172A" : "#fff", lineHeight: 1.2, marginBottom: 4 }}>
                         {name}
                       </p>
                       <p style={{ fontSize: 10, color: accent, fontFamily: "monospace", textTransform: "uppercase", letterSpacing: "0.14em" }}>
                         {role}
                       </p>
                     </div>
-                    <p style={{ fontSize: 13.5, color: "rgba(255,255,255,0.55)", lineHeight: 1.78, fontWeight: 300, flexGrow: 1, marginBottom: 18 }}>
+                    <p style={{ fontSize: 13.5, color: isLight ? "rgba(15, 42, 43, 0.55)" : "rgba(255,255,255,0.55)", lineHeight: 1.78, fontWeight: 300, flexGrow: 1, marginBottom: 18 }}>
                       {bio}
                     </p>
 
@@ -291,9 +297,9 @@ export default function OurTeamPage() {
                           className="flex items-center justify-center rounded-lg transition-all duration-200"
                           style={{
                             width: 34, height: 34,
-                            background: "rgba(255,255,255,0.05)",
-                            border: "1px solid rgba(255,255,255,0.08)",
-                            color: "rgba(255,255,255,0.38)",
+                            background: isLight ? "rgba(15, 42, 43, 0.08)" : "rgba(255,255,255,0.05)",
+                            border: isLight ? "1px solid rgba(15, 42, 43, 0.10)" : "1px solid rgba(255,255,255,0.08)",
+                            color: isLight ? "rgba(15, 42, 43, 0.538)" : "rgba(255,255,255,0.38)",
                           }}
                           onMouseEnter={e => {
                             e.currentTarget.style.color = accent;
@@ -301,9 +307,9 @@ export default function OurTeamPage() {
                             e.currentTarget.style.background = accent + "14";
                           }}
                           onMouseLeave={e => {
-                            e.currentTarget.style.color = "rgba(255,255,255,0.38)";
-                            e.currentTarget.style.borderColor = "rgba(255,255,255,0.08)";
-                            e.currentTarget.style.background = "rgba(255,255,255,0.05)";
+                            e.currentTarget.style.color =  isLight ? "rgba(15, 42, 43, 0.38)" : "rgba(255,255,255,0.38)";
+                            e.currentTarget.style.borderColor =  isLight ? "rgba(15, 42, 43, 0.10)" : "rgba(255,255,255,0.08)";
+                            e.currentTarget.style.background =  isLight ? "rgba(15, 42, 43, 0.08)" : "rgba(255,255,255,0.05)";
                           }}
                         >
                           <Icon style={{ width: 13, height: 13 }} />
@@ -324,14 +330,16 @@ export default function OurTeamPage() {
             {/* ── Join CTA ── */}
             <div className="mt-16 text-center">
               <div aria-hidden className="h-px mb-12"
-                style={{ background: "linear-gradient(to right,transparent,rgba(255,255,255,0.06),transparent)" }} />
+                style={{ background: isLight
+                  ? "linear-gradient(to right, transparent, rgba(15,23,42,0.12), transparent)"
+                  : "linear-gradient(to right, transparent, rgba(255,255,255,0.06), transparent)", }} />
               <p style={{
                 fontFamily: "monospace", fontSize: 10, textTransform: "uppercase",
-                letterSpacing: "0.28em", color: "rgba(255,255,255,0.35)", marginBottom: 16,
+                letterSpacing: "0.28em", color: isLight ? "rgba(15, 42, 43, 0.35)" : "rgba(255,255,255,0.35)", marginBottom: 16,
               }}>
                 — Want to join us?
               </p>
-              <p style={{ fontSize: "clamp(14px,1.5vw,17px)", color: "rgba(255,255,255,0.5)", fontWeight: 300, marginBottom: 28, maxWidth: 420, margin: "0 auto 28px" }}>
+              <p style={{ fontSize: "clamp(14px,1.5vw,17px)", color:  isLight ? "rgba(15, 42, 43, 0.5)" : "rgba(255,255,255,0.5)", fontWeight: 300, marginBottom: 28, maxWidth: 420, margin: "0 auto 28px" }}>
                 We&apos;re not hiring right now, but we&apos;d love to hear from talented people.
               </p>
               <Link
@@ -339,21 +347,21 @@ export default function OurTeamPage() {
                 className="group inline-flex items-center gap-2 font-semibold text-sm"
                 style={{
                   padding: "12px 28px", borderRadius: 12,
-                  background: "rgba(255,255,255,0.04)",
-                  border: "1px solid rgba(255,255,255,0.10)",
-                  color: "rgba(255,255,255,0.75)",
+                  background:  isLight ? "rgba(15, 42, 43, 0.08)" : "rgba(255,255,255,0.04)",
+                  border: isLight ? "1px solid rgba(15, 42, 43, 0.10)" :  "1px solid rgba(255,255,255,0.10)",
+                  color: isLight ? "rgba(15, 42, 43, 0.75)" :  "rgba(255,255,255,0.75)",
                   textDecoration: "none",
                   transition: "border-color 0.25s, color 0.25s, background 0.25s",
                 }}
                 onMouseEnter={e => {
-                  e.currentTarget.style.borderColor = "rgba(249,115,22,0.45)";
-                  e.currentTarget.style.color = "#fff";
-                  e.currentTarget.style.background = "rgba(249,115,22,0.07)";
+                  e.currentTarget.style.borderColor =  isLight ? "rgba(15, 42, 43, 0.45)" : "rgba(249,115,22,0.45)";
+                  e.currentTarget.style.color =  isLight ? "#0F172A" : "#fff";
+                  e.currentTarget.style.background =  isLight ? "rgba(15, 42, 43, 0.08)" : "rgba(249,115,22,0.07)";
                 }}
                 onMouseLeave={e => {
-                  e.currentTarget.style.borderColor = "rgba(255,255,255,0.10)";
-                  e.currentTarget.style.color = "rgba(255,255,255,0.75)";
-                  e.currentTarget.style.background = "rgba(255,255,255,0.04)";
+                  e.currentTarget.style.borderColor = isLight ? "rgba(15, 42, 43, 0.10)" :  "rgba(255,255,255,0.10)";
+                  e.currentTarget.style.color = isLight ? "rgba(15, 42, 43, 0.75)" :  "rgba(255,255,255,0.75)";
+                  e.currentTarget.style.background =  isLight ? "rgba(15, 42, 43, 0.08)" : "rgba(255,255,255,0.04)";
                 }}
               >
                 View careers page

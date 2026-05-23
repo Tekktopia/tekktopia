@@ -9,10 +9,14 @@ import { ArrowUpRight } from "lucide-react";
 import SERVICES from "@/lib/services-data";
 import { CTABanner } from "@/components/home";
 import ServiceConstellation from "@/components/services/ServiceConstellation";
+import { useTheme } from "@/context/ThemeContext";
 
 gsap.registerPlugin(ScrollTrigger);
 
 export default function ServicesPage() {
+  const { theme } = useTheme();
+  const isLight = theme === "light";
+
   const sectionRef = useRef<HTMLElement>(null);
   const [hovered, setHovered] = useState<string | null>(null);
 
@@ -39,13 +43,15 @@ export default function ServicesPage() {
 
   return (
     <>
-      <main ref={sectionRef} style={{ background: "#04080F", overflowX: "hidden" }}>
+      <main ref={sectionRef} style={{ background: isLight ? "#F8FAFC" : "#04080F", overflowX: "hidden" }}>
 
         {/* ── Hero ── */}
         <section className="relative overflow-hidden" style={{ paddingTop: 128, paddingBottom: 80 }}>
           <div aria-hidden className="absolute inset-0 pointer-events-none"
             style={{
-              backgroundImage: "linear-gradient(rgba(255,255,255,0.016) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.016) 1px,transparent 1px)",
+              backgroundImage: isLight
+              ? "linear-gradient(rgba(15,23,42,0.06) 1px,transparent 1px),linear-gradient(90deg,rgba(15,23,42,0.06) 1px,transparent 1px)"
+              : "linear-gradient(rgba(255,255,255,0.022) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.022) 1px,transparent 1px)",
               backgroundSize: "64px 64px",
             }} />
           <div aria-hidden className="absolute pointer-events-none" style={{ width: 900, height: 600, borderRadius: "50%", top: "-20%", left: "50%", transform: "translateX(-50%)", background: "radial-gradient(ellipse,rgba(37,99,235,0.12) 0%,transparent 65%)", filter: "blur(80px)" }} />
@@ -56,7 +62,7 @@ export default function ServicesPage() {
           <div className="relative max-w-7xl mx-auto px-5 sm:px-8 md:px-12 text-center">
             <div className="svp-eyebrow flex items-center justify-center gap-3 mb-7">
               <span style={{ height: 1, width: 24, background: "#F97316", display: "block", borderRadius: 99 }} />
-              <span style={{ fontFamily: "monospace", fontSize: 10, textTransform: "uppercase", letterSpacing: "0.28em", color: "rgba(255,255,255,0.45)" }}>
+              <span style={{ fontFamily: "monospace", fontSize: 11, textTransform: "uppercase", letterSpacing: "0.28em", color: isLight ? "rgba(15, 23, 42, 0.45)" : "rgba(255,255,255,0.45)" }}>
                 What We Do
               </span>
               <span style={{ height: 1, width: 24, background: "#F97316", display: "block", borderRadius: 99 }} />
@@ -67,7 +73,7 @@ export default function ServicesPage() {
               {["End-to-End", "Tech", "Services"].map((word, i) => (
                 <span key={i} className="inline-block overflow-hidden align-bottom pb-1 mr-[0.15em]">
                   <span className="svp-word inline-block"
-                    style={{ color: i === 2 ? "#F97316" : "#ffffff" }}>
+                    style={{ color: i === 2 ? "#F97316" : isLight ? "#0F172A" : "#ffffff" }}>
                     {word}
                   </span>
                 </span>
@@ -75,7 +81,7 @@ export default function ServicesPage() {
             </h1>
 
             <p className="svp-sub mt-6 mx-auto max-w-2xl"
-              style={{ fontSize: "clamp(14px,1.5vw,17px)", color: "rgba(255,255,255,0.55)", fontWeight: 300, lineHeight: 1.85 }}>
+              style={{ fontSize: "clamp(14px,1.5vw,17px)", color: isLight ? "rgba(15, 23, 42, 0.55)" : "rgba(255,255,255,0.55)", fontWeight: 300, lineHeight: 1.85 }}>
               Ten specialisations. One team. We design, build, secure, and support every layer of your technology — so you can focus on your business.
             </p>
 
@@ -89,10 +95,10 @@ export default function ServicesPage() {
               ].map(({ label, color }) => (
                 <div key={label} style={{
                   display: "flex", alignItems: "center", gap: 8, padding: "7px 16px", borderRadius: 99,
-                  background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)",
+                  background: isLight ? "rgba(15, 23, 42, 0.06)" : "rgba(255,255,255,0.04)", border: isLight ? "1px solid rgba(15,23,43,0.10)" : "1px solid rgba(255,255,255,0.08)",
                 }}>
                   <span style={{ width: 6, height: 6, borderRadius: "50%", background: color, flexShrink: 0 }} />
-                  <span style={{ fontSize: 12, color: "rgba(255,255,255,0.6)", fontFamily: "monospace", letterSpacing: "0.06em" }}>{label}</span>
+                  <span style={{ fontSize: 12, color: isLight ? "rgba(15, 23, 42, 0.6)" : "rgba(255,255,255,0.6)", fontFamily: "monospace", letterSpacing: "0.06em" }}>{label}</span>
                 </div>
               ))}
             </div>
@@ -112,8 +118,8 @@ export default function ServicesPage() {
                     href={`/services/${svc.slug}`}
                     className="svp-card group relative flex flex-col p-7 rounded-2xl"
                     style={{
-                      background: "rgba(255,255,255,0.028)",
-                      border: `1px solid ${isHovered ? svc.color + "50" : "rgba(255,255,255,0.07)"}`,
+                      background: isLight ? "rgba(15, 23. 42. 0.04)" : "rgba(255,255,255,0.028)",
+                      border: `1px solid ${isHovered ? `{svc.color}50` : isLight ? "rgba(15, 23, 42, 0.08)" : "rgba(255,255,255,0.07)"}`,
                       backdropFilter: "blur(12px)",
                       boxShadow: isHovered ? `0 0 0 1px ${svc.color}1a,0 20px 60px ${svc.glow}` : "none",
                       transform: isHovered ? "translateY(-5px)" : "none",
@@ -145,12 +151,12 @@ export default function ServicesPage() {
 
                     {/* Name */}
                     <h2 className="font-display font-bold mb-3"
-                      style={{ fontSize: "clamp(17px,1.5vw,20px)", color: "#fff", lineHeight: 1.15, letterSpacing: "-0.01em" }}>
+                      style={{ fontSize: "clamp(17px,1.5vw,20px)", color: isLight ? "#0F172A" : "#fff", lineHeight: 1.15, letterSpacing: "-0.01em" }}>
                       {svc.name}
                     </h2>
 
                     {/* Desc */}
-                    <p style={{ fontSize: 13.5, color: "rgba(255,255,255,0.6)", lineHeight: 1.72, marginBottom: 20, flex: 1 }}>
+                    <p style={{ fontSize: 13.5, color: isLight ? "rgba(15, 23, 42, 0.6)" : "rgba(255,255,255,0.6)", lineHeight: 1.72, marginBottom: 20, flex: 1 }}>
                       {svc.desc}
                     </p>
 
@@ -160,7 +166,7 @@ export default function ServicesPage() {
                         <span key={tag} style={{
                           fontFamily: "monospace", fontSize: 9, padding: "3px 8px",
                           borderRadius: 100, border: `1px solid ${svc.color}28`,
-                          color: "rgba(255,255,255,0.55)", background: `${svc.color}0d`,
+                          color: isLight ? "rgba(15, 23, 43, 0.55)" : "rgba(255,255,255,0.55)", background: `${svc.color}0d`,
                           textTransform: "uppercase", letterSpacing: "0.1em",
                         }}>
                           {tag}

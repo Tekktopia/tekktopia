@@ -3,9 +3,13 @@
 import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
+import { useTheme } from "@/context/ThemeContext";
 
 export default function ServicesHero() {
   const sectionRef = useRef<HTMLElement>(null);
+  
+  const { theme } = useTheme();
+  const isLight = theme === "light";
 
   useGSAP(() => {
     gsap.set(".sh-eyebrow", { autoAlpha: 0, y: 18 });
@@ -26,14 +30,14 @@ export default function ServicesHero() {
     <section
       ref={sectionRef}
       className="relative overflow-hidden"
-      style={{ background: "#04080F", paddingTop: 148, paddingBottom: 96 }}
+      style={{ background: isLight ? "#F8FAFC" : "#04080F", paddingTop: 148, paddingBottom: 96 }}
     >
       {/* Fine grid */}
       <div aria-hidden className="pointer-events-none absolute inset-0"
         style={{
-          backgroundImage:
-            "linear-gradient(rgba(255,255,255,0.015) 1px,transparent 1px)," +
-            "linear-gradient(90deg,rgba(255,255,255,0.015) 1px,transparent 1px)",
+          backgroundImage: isLight
+          ? "linear-gradient(rgba(15,23,42,0.06) 1px,transparent 1px),linear-gradient(90deg,rgba(15,23,42,0.06) 1px,transparent 1px)"
+          : "linear-gradient(rgba(255,255,255,0.022) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.022) 1px,transparent 1px)",
           backgroundSize: "64px 64px",
         }} />
 
