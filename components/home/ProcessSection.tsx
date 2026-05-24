@@ -84,8 +84,8 @@ export default function ProcessSection() {
         duration: 0.65, ease: "power3.out",
         scrollTrigger: {
           trigger: row,
-          start: "top 88%",
-          end: "top 30%",
+          start: "top 75%",
+          end: "top 45%",
           toggleActions: "play reverse play reverse",
         },
       });
