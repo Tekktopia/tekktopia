@@ -247,7 +247,7 @@ export default function Footer() {
             <span
               style={{
                 fontFamily: "'GT Walsheim Pro', 'Space Grotesk', sans-serif",
-                fontWeight: 700,
+                fontWeight: 500,
                 fontSize: "1.2rem",
                 letterSpacing: "-0.02em",
               }}
@@ -547,7 +547,7 @@ export default function Footer() {
             >
               © {year} Tekktopia Limited. All rights reserved.
             </p>
-            <p
+            {/* <p
               style={{
                 fontSize: 11,
                 color: isLight ? "rgba(15,23,42,0.2)" : "rgba(255,255,255,0.2)",
@@ -555,7 +555,7 @@ export default function Footer() {
               }}
             >
               Registered in England &amp; Wales.
-            </p>
+            </p> */}
           </div>
           <div className="flex flex-wrap gap-x-6 gap-y-2">
             {LEGAL_LINKS.map(({ label, href }) => (

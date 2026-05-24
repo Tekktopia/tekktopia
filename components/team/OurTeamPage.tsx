@@ -145,10 +145,10 @@ export default function OurTeamPage() {
             filter: "blur(80px)",
           }} />
           <div className="absolute inset-0" style={{
-           backgroundImage: isLight
-           ? "linear-gradient(rgba(15,23,42,0.06) 1px,transparent 1px),linear-gradient(90deg,rgba(15,23,42,0.06) 1px,transparent 1px)"
-           : "linear-gradient(rgba(255,255,255,0.022) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.022) 1px,transparent 1px)",
-           backgroundSize: "64px 64px",
+            backgroundImage: isLight
+              ? "linear-gradient(rgba(15,23,42,0.06) 1px,transparent 1px),linear-gradient(90deg,rgba(15,23,42,0.06) 1px,transparent 1px)"
+              : "linear-gradient(rgba(255,255,255,0.022) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.022) 1px,transparent 1px)",
+            backgroundSize: "64px 64px",
           }} />
         </div>
 
@@ -177,12 +177,12 @@ export default function OurTeamPage() {
               style={{ fontSize: "clamp(40px,6vw,82px)", lineHeight: 0.9, letterSpacing: "-0.04em" }}
             >
               {[
-                { word: "Meet",  orange: false, isLight: true },
-                { word: "the",   orange: false, isLight: true },
-                { word: "Team.", orange: true, isLight: false },
-              ].map(({ word, orange, isLight }, i) => (
+                { word: "Meet",  orange: false},
+                { word: "the",   orange: false},
+                { word: "Team.", orange: true },
+              ].map(({ word, orange }, i) => (
                 <span key={i} className="inline-block overflow-hidden align-bottom pb-1 mr-[0.15em]">
-                  <span className="otp-word inline-block" style={{ color: orange ? "#F97316" : isLight ? "#0F172A" : "#ffffff" }}>
+                  <span className="otp-word inline-block" style={{ color: orange ? "#F97316" : isLight ? "#0F172A" : "#fff" }}>
                     {word}
                   </span>
                 </span>

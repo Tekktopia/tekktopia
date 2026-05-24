@@ -101,10 +101,10 @@ export default function CTABanner() {
           style={{ fontSize: "clamp(40px,7.5vw,100px)", lineHeight: 0.9, letterSpacing: "-0.03em" }}
         >
           {[
-            { line: "Ready to build",   accent: false, isLight: true },
-            { line: "something that",   accent: false, isLight: true },
-            { line: "actually works?",  accent: true, isLight: false  },
-          ].map(({ line, accent, isLight }, li) => (
+            { line: "Ready to build",   accent: false, },
+            { line: "something that",   accent: false, },
+            { line: "actually works?",  accent: true,   },
+          ].map(({ line, accent }, li) => (
             <span key={li} className="block">
               {line.split(" ").map((word, wi) => (
                 <span key={wi} className="inline-block overflow-hidden align-bottom pb-1 mr-[0.18em]">

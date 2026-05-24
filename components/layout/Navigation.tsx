@@ -45,7 +45,7 @@ function Wordmark({ theme }: { theme: "dark" | "light" }) {
       <span
         style={{
           fontFamily: "'GT Walsheim Pro', 'Space Grotesk', sans-serif",
-          fontWeight: 700,
+          fontWeight: 500,
           fontSize: "1.15rem",
           letterSpacing: "-0.02em",
           lineHeight: 1,
@@ -457,7 +457,7 @@ export default function Navigation() {
               <button
                 onClick={toggleTheme}
                 aria-label={isLight ? "Switch to dark mode" : "Switch to light mode"}
-                className="flex items-center justify-center w-10 h-10 rounded-xl transition-all duration-200"
+                className="flex items-center justify-center w-10 h-10 rounded-xl transition-all duration-200 cursor-pointer"
                 style={{
                   background: isLight ? "rgba(15,23,42,0.06)" : "rgba(255,255,255,0.05)",
                   border: isLight ? "1px solid rgba(15,23,42,0.12)" : "1px solid rgba(255,255,255,0.08)",

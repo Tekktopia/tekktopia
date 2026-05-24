@@ -8,6 +8,8 @@ import {
   Mail, Phone, MapPin, Clock,
   Send, CheckCircle, ArrowUpRight,
 } from "lucide-react";
+import { useTheme } from "@/context/ThemeContext";
+import Link from "next/link";
 
 // ─── Replace with your Formspree form ID ──────────────────────────────────────
 // Create a free form at https://formspree.io → copy the 8-char ID from the
@@ -61,6 +63,9 @@ const SERVICES_LIST = [
 ];
 
 export default function ContactPage() {
+  const { theme } = useTheme();
+  const isLight = theme === "light";
+
   const pageRef  = useRef<HTMLElement>(null);
   const [state, handleSubmit] = useForm(FORMSPREE_ID);
 
@@ -83,7 +88,7 @@ export default function ContactPage() {
     <>
       <main
         ref={pageRef}
-        style={{ background: "#04080F", minHeight: "100vh" }}
+        style={{ background: isLight ? "#F8FAFC" : "#04080F", minHeight: "100vh" }}
       >
         {/* ── Background decoration ── */}
         <div aria-hidden className="fixed inset-0 pointer-events-none overflow-hidden">
@@ -100,10 +105,10 @@ export default function ContactPage() {
             filter: "blur(80px)",
           }} />
           <div className="absolute inset-0" style={{
-            backgroundImage:
-              "linear-gradient(rgba(255,255,255,0.015) 1px,transparent 1px)," +
-              "linear-gradient(90deg,rgba(255,255,255,0.015) 1px,transparent 1px)",
-            backgroundSize: "64px 64px",
+            backgroundImage: isLight
+            ? "linear-gradient(rgba(15,23,42,0.06) 1px,transparent 1px),linear-gradient(90deg,rgba(15,23,42,0.06) 1px,transparent 1px)"
+            : "linear-gradient(rgba(255,255,255,0.015) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.015) 1px,transparent 1px)",
+          backgroundSize: "64px 64px",
           }} />
         </div>
 
@@ -113,12 +118,15 @@ export default function ContactPage() {
           style={{ paddingTop: 140, paddingBottom: 72 }}
         >
           <div aria-hidden className="absolute top-0 left-0 right-0 h-px"
-            style={{ background: "linear-gradient(to right,transparent,rgba(255,255,255,0.07),transparent)" }} />
+            style={{ background: isLight
+              ? "linear-gradient(to right,transparent,rgba(15,23,42,0.08),transparent)"
+              : "linear-gradient(to right,transparent,rgba(255,255,255,0.07),transparent)",
+          }} />
 
           <div className="relative max-w-7xl mx-auto px-5 sm:px-8 md:px-12 text-center">
             <div className="ctp-eyebrow flex items-center justify-center gap-3 mb-7">
               <span style={{ height: 1, width: 24, background: "#F97316", display: "block", borderRadius: 99 }} />
-              <span style={{ fontFamily: "monospace", fontSize: 10, textTransform: "uppercase", letterSpacing: "0.28em", color: "rgba(255,255,255,0.45)" }}>
+              <span style={{ fontFamily: "monospace", fontSize: 10, textTransform: "uppercase", letterSpacing: "0.28em", color: isLight ? "rgba(15, 23, 42, 0.45)" : "rgba(255,255,255,0.45)" }}>
                 Get In Touch
               </span>
               <span style={{ height: 1, width: 24, background: "#F97316", display: "block", borderRadius: 99 }} />
@@ -134,7 +142,7 @@ export default function ContactPage() {
                 { word: "Tech.",  orange: true  },
               ].map(({ word, orange }, i) => (
                 <span key={i} className="inline-block overflow-hidden align-bottom pb-1 mr-[0.15em]">
-                  <span className="ctp-word inline-block" style={{ color: orange ? "#F97316" : "#ffffff" }}>
+                  <span className="ctp-word inline-block" style={{ color: orange ? "#F97316" : isLight ? "#0F172A" : "#ffffff" }}>
                     {word}
                   </span>
                 </span>
@@ -142,7 +150,7 @@ export default function ContactPage() {
             </h1>
 
             <p className="ctp-sub mt-6 mx-auto max-w-xl"
-              style={{ fontSize: "clamp(14px,1.5vw,17px)", color: "rgba(255,255,255,0.55)", fontWeight: 300, lineHeight: 1.85 }}>
+              style={{ fontSize: "clamp(14px,1.5vw,17px)", color: isLight ? "rgba(15, 23, 42, 0.55)" : "rgba(255,255,255,0.55)", fontWeight: 300, lineHeight: 1.85 }}>
               Tell us about your project. We read every message and respond within
               24 hours on business days.
             </p>
@@ -158,7 +166,7 @@ export default function ContactPage() {
               <div>
                 <p style={{
                   fontFamily: "monospace", fontSize: 10, textTransform: "uppercase",
-                  letterSpacing: "0.28em", color: "#F97316", opacity: 0.8, marginBottom: 28,
+                  letterSpacing: "0.28em", color: isLight ? "#2563EB" : "#F97316", opacity: 0.8, marginBottom: 28,
                 }}>
                   — Contact details
                 </p>
@@ -169,8 +177,8 @@ export default function ContactPage() {
                       key={label}
                       className="ctp-info flex items-center gap-4 p-5 rounded-2xl"
                       style={{
-                        background: "rgba(255,255,255,0.028)",
-                        border: "1px solid rgba(255,255,255,0.07)",
+                        background: isLight ? "rgba(15, 23, 43, 0.04)" : "rgba(255,255,255,0.028)",
+                        border: isLight ? "1px solid rgba(15, 23, 42, 0.08)" : "1px solid rgba(255,255,255,0.07)",
                       }}
                     >
                       <div style={{
@@ -181,20 +189,20 @@ export default function ContactPage() {
                         <Icon style={{ width: 18, height: 18, color }} strokeWidth={1.6} />
                       </div>
                       <div>
-                        <p style={{ fontSize: 10, fontFamily: "monospace", textTransform: "uppercase", letterSpacing: "0.14em", color: "rgba(255,255,255,0.35)", marginBottom: 3 }}>
+                        <p style={{ fontSize: 10, fontFamily: "monospace", textTransform: "uppercase", letterSpacing: "0.14em", color: isLight ? "rgba(15, 23, 42, 0.35)" : "rgba(255,255,255,0.35)", marginBottom: 3 }}>
                           {label}
                         </p>
                         {href && href !== "#" ? (
                           <a
                             href={href}
-                            style={{ fontSize: 14, fontWeight: 500, color: "#fff", textDecoration: "none", transition: "color 0.2s" }}
+                            style={{ fontSize: 14, fontWeight: 500, color: isLight ? "#0F172A" : "#fff", textDecoration: "none", transition: "color 0.2s" }}
                             onMouseEnter={e => (e.currentTarget.style.color = color)}
-                            onMouseLeave={e => (e.currentTarget.style.color = "#fff")}
+                            onMouseLeave={e => (e.currentTarget.style.color = isLight ? "#0F172A" : "#fff")}
                           >
                             {value}
                           </a>
                         ) : (
-                          <span style={{ fontSize: 14, fontWeight: 500, color: "#fff" }}>{value}</span>
+                          <span style={{ fontSize: 14, fontWeight: 500, color: isLight ? "#0F172A" : "#fff" }}>{value}</span>
                         )}
                       </div>
                     </div>
@@ -203,14 +211,14 @@ export default function ContactPage() {
 
                 {/* Quick response badge */}
                 <div className="ctp-info mt-8 p-5 rounded-2xl"
-                  style={{ background: "rgba(249,115,22,0.06)", border: "1px solid rgba(249,115,22,0.18)" }}>
+                  style={{ background: isLight ? "rgba(15, 23, 42, 0.08)" : "rgba(249,115,22,0.06)", border: isLight ? "1px solid rgba(15, 23, 42, 0.18)" : "1px solid rgba(249,115,22,0.18)" }}>
                   <div className="flex items-center gap-2.5 mb-2">
                     <span style={{ width: 7, height: 7, borderRadius: "50%", background: "#10B981", flexShrink: 0, boxShadow: "0 0 6px #10B98166" }} />
                     <span style={{ fontSize: 11, fontFamily: "monospace", textTransform: "uppercase", letterSpacing: "0.16em", color: "#10B981" }}>
                       Fast response
                     </span>
                   </div>
-                  <p style={{ fontSize: 13, color: "rgba(255,255,255,0.50)", lineHeight: 1.7, fontWeight: 300 }}>
+                  <p style={{ fontSize: 13, color: isLight ? "rgba(15, 23, 42, 0.50)" : "rgba(255,255,255,0.50)", lineHeight: 1.7, fontWeight: 300 }}>
                     We typically respond within a few hours — never more than one business day.
                   </p>
                 </div>
@@ -220,8 +228,8 @@ export default function ContactPage() {
               <div
                 className="ctp-form relative rounded-2xl p-8 sm:p-10"
                 style={{
-                  background: "rgba(255,255,255,0.028)",
-                  border: "1px solid rgba(255,255,255,0.08)",
+                  background: isLight ? "rgba(15, 23, 42, 0.04)" : "rgba(255,255,255,0.028)",
+                  border: isLight ? "1px solid rgba(15, 23, 42, 0.10)" : "1px solid rgba(255,255,255,0.08)",
                   backdropFilter: "blur(12px)",
                 }}
               >
@@ -237,49 +245,50 @@ export default function ContactPage() {
                   <div className="flex flex-col items-center justify-center text-center py-12 gap-5">
                     <div style={{
                       width: 64, height: 64, borderRadius: "50%",
-                      background: "rgba(16,185,129,0.12)", border: "1px solid rgba(16,185,129,0.3)",
+                      background: isLight ? "rgba(16,185,129,0.08)" : "rgba(16,185,129,0.12)",
+                      border: isLight ? "1px solid rgba(16,185,129,0.25)" : "1px solid rgba(16,185,129,0.3)",
                       display: "flex", alignItems: "center", justifyContent: "center",
                     }}>
                       <CheckCircle style={{ width: 28, height: 28, color: "#10B981" }} strokeWidth={1.5} />
                     </div>
-                    <h2 className="font-display font-bold" style={{ fontSize: 22, color: "#fff", letterSpacing: "-0.02em" }}>
+                    <h2 className="font-display font-bold" style={{ fontSize: 22, color: isLight ? "#0F172A" : "#fff", letterSpacing: "-0.02em" }}>
                       Message sent!
                     </h2>
-                    <p style={{ fontSize: 14, color: "rgba(255,255,255,0.55)", lineHeight: 1.8, maxWidth: 360 }}>
+                    <p style={{ fontSize: 14, color: isLight ? "rgba(15,23,42,0.55)" : "rgba(255,255,255,0.55)", lineHeight: 1.8, maxWidth: 360 }}>
                       Thanks for reaching out. We&apos;ll be in touch within one business day.
                     </p>
-                    <a
+                    <Link
                       href="/"
                       className="inline-flex items-center gap-2 font-semibold text-sm"
                       style={{ color: "#F97316", borderBottom: "1px solid rgba(249,115,22,0.4)", paddingBottom: 1 }}
                     >
                       Back to home <ArrowUpRight className="w-3.5 h-3.5" />
-                    </a>
+                    </Link>
                   </div>
                 ) : (
                   /* ── Form ── */
                   <form onSubmit={handleSubmit} noValidate className="flex flex-col gap-5">
-                    <p style={{ fontFamily: "monospace", fontSize: 10, textTransform: "uppercase", letterSpacing: "0.22em", color: "rgba(255,255,255,0.35)", marginBottom: 4 }}>
+                    <p style={{ fontFamily: "monospace", fontSize: 10, textTransform: "uppercase", letterSpacing: "0.22em", color: isLight ? "rgba(15,23,42,0.35)" : "rgba(255,255,255,0.35)", marginBottom: 4 }}>
                       — Send us a message
                     </p>
 
                     {/* Name + Email row */}
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                      <Field id="name" label="Full name" type="text" name="name" placeholder="Ada Okonkwo" required state={state} />
-                      <Field id="email" label="Email address" type="email" name="email" placeholder="ada@company.com" required state={state} />
+                      <Field id="name"    label="Full name"      type="text"  name="name"    placeholder="Ada Okonkwo"          required state={state} isLight={isLight} />
+                      <Field id="email"   label="Email address"  type="email" name="email"   placeholder="ada@company.com"       required state={state} isLight={isLight} />
                     </div>
 
                     {/* Company + Phone row */}
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                      <Field id="company" label="Company" type="text" name="company" placeholder="Acme Ltd" state={state} />
-                      <Field id="phone" label="Phone (optional)" type="tel" name="phone" placeholder="+234 800 000 0000" state={state} />
+                      <Field id="company" label="Company"        type="text"  name="company" placeholder="Acme Ltd"                       state={state} isLight={isLight} />
+                      <Field id="phone"   label="Phone (optional)" type="tel" name="phone"   placeholder="+234 800 000 0000"              state={state} isLight={isLight} />
                     </div>
 
                     {/* Service interest */}
                     <div className="flex flex-col gap-1.5">
                       <label
                         htmlFor="service"
-                        style={{ fontSize: 11, fontFamily: "monospace", textTransform: "uppercase", letterSpacing: "0.14em", color: "rgba(255,255,255,0.45)" }}
+                        style={{ fontSize: 11, fontFamily: "monospace", textTransform: "uppercase", letterSpacing: "0.14em", color: isLight ? "rgba(15,23,42,0.45)" : "rgba(255,255,255,0.45)" }}
                       >
                         Service of interest
                       </label>
@@ -287,23 +296,23 @@ export default function ContactPage() {
                         id="service"
                         name="service"
                         style={{
-                          background: "rgba(255,255,255,0.04)",
-                          border: "1px solid rgba(255,255,255,0.10)",
+                          background: isLight ? "rgba(15,23,42,0.04)" : "rgba(255,255,255,0.04)",
+                          border: isLight ? "1px solid rgba(15,23,42,0.10)" : "1px solid rgba(255,255,255,0.10)",
                           borderRadius: 10,
                           padding: "11px 14px",
                           fontSize: 14,
-                          color: "rgba(255,255,255,0.80)",
+                          color: isLight ? "rgba(15,23,42,0.80)" : "rgba(255,255,255,0.80)",
                           outline: "none",
                           width: "100%",
                           appearance: "none",
                           cursor: "pointer",
                         }}
-                        onFocus={e => (e.currentTarget.style.borderColor = "rgba(249,115,22,0.55)")}
-                        onBlur={e  => (e.currentTarget.style.borderColor = "rgba(255,255,255,0.10)")}
+                        onFocus={e => (e.currentTarget.style.borderColor = isLight ? "rgba(15,23,42,0.45)" : "rgba(249,115,22,0.55)")}
+                        onBlur={e  => (e.currentTarget.style.borderColor = isLight ? "rgba(15,23,42,0.10)" : "rgba(255,255,255,0.10)")}
                       >
-                        <option value="" style={{ background: "#04080F" }}>Select a service…</option>
+                        <option value="" style={{ background: isLight ? "#F8FAFC" : "#04080F" }}>Select a service…</option>
                         {SERVICES_LIST.map(s => (
-                          <option key={s} value={s} style={{ background: "#04080F" }}>{s}</option>
+                          <option key={s} value={s} style={{ background: isLight ? "#F8FAFC" : "#04080F" }}>{s}</option>
                         ))}
                       </select>
                     </div>
@@ -312,7 +321,7 @@ export default function ContactPage() {
                     <div className="flex flex-col gap-1.5">
                       <label
                         htmlFor="message"
-                        style={{ fontSize: 11, fontFamily: "monospace", textTransform: "uppercase", letterSpacing: "0.14em", color: "rgba(255,255,255,0.45)" }}
+                        style={{ fontSize: 11, fontFamily: "monospace", textTransform: "uppercase", letterSpacing: "0.14em", color: isLight ? "rgba(15,23,42,0.45)" : "rgba(255,255,255,0.45)" }}
                       >
                         Message <span style={{ color: "#F97316" }}>*</span>
                       </label>
@@ -323,20 +332,20 @@ export default function ContactPage() {
                         rows={5}
                         placeholder="Tell us about your project, timeline, and budget…"
                         style={{
-                          background: "rgba(255,255,255,0.04)",
-                          border: "1px solid rgba(255,255,255,0.10)",
+                          background: isLight ? "rgba(15,23,42,0.04)" : "rgba(255,255,255,0.04)",
+                          border: isLight ? "1px solid rgba(15,23,42,0.10)" : "1px solid rgba(255,255,255,0.10)",
                           borderRadius: 10,
                           padding: "11px 14px",
                           fontSize: 14,
-                          color: "rgba(255,255,255,0.80)",
+                          color: isLight ? "rgba(15,23,42,0.80)" : "rgba(255,255,255,0.80)",
                           outline: "none",
                           resize: "vertical",
                           fontFamily: "inherit",
                           lineHeight: 1.7,
                           transition: "border-color 0.2s",
                         }}
-                        onFocus={e => (e.currentTarget.style.borderColor = "rgba(249,115,22,0.55)")}
-                        onBlur={e  => (e.currentTarget.style.borderColor = "rgba(255,255,255,0.10)")}
+                        onFocus={e => (e.currentTarget.style.borderColor = isLight ? "rgba(15,23,42,0.45)" : "rgba(249,115,22,0.55)")}
+                        onBlur={e  => (e.currentTarget.style.borderColor = isLight ? "rgba(15,23,42,0.10)" : "rgba(255,255,255,0.10)")}
                       />
                       <ValidationError field="message" prefix="Message" errors={state.errors}
                         className="text-red-400 text-xs mt-0.5" />
@@ -375,7 +384,7 @@ export default function ContactPage() {
                       {state.submitting ? "Sending…" : "Send message"}
                     </button>
 
-                    <p style={{ fontSize: 11, color: "rgba(255,255,255,0.25)", textAlign: "center", fontFamily: "monospace" }}>
+                    <p style={{ fontSize: 11, color: isLight ? "rgba(15,23,42,0.25)" : "rgba(255,255,255,0.25)", textAlign: "center", fontFamily: "monospace" }}>
                       We&apos;ll never share your information with third parties.
                     </p>
                   </form>
@@ -391,7 +400,7 @@ export default function ContactPage() {
 
 /* ── Reusable field component ──────────────────────────────────────────────── */
 function Field({
-  id, label, type, name, placeholder, required, state,
+  id, label, type, name, placeholder, required, state, isLight
 }: {
   id: string;
   label: string;
@@ -401,6 +410,7 @@ function Field({
   required?: boolean;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   state: any;
+  isLight: boolean;
 }) {
   return (
     <div className="flex flex-col gap-1.5">
@@ -408,7 +418,7 @@ function Field({
         htmlFor={id}
         style={{
           fontSize: 11, fontFamily: "monospace", textTransform: "uppercase",
-          letterSpacing: "0.14em", color: "rgba(255,255,255,0.45)",
+          letterSpacing: "0.14em", color: isLight ? "rgba(15,23,42,0.45)" : "rgba(255,255,255,0.45)",
         }}
       >
         {label} {required && <span style={{ color: "#F97316" }}>*</span>}
@@ -420,18 +430,14 @@ function Field({
         required={required}
         placeholder={placeholder}
         style={{
-          background: "rgba(255,255,255,0.04)",
-          border: "1px solid rgba(255,255,255,0.10)",
-          borderRadius: 10,
-          padding: "11px 14px",
-          fontSize: 14,
-          color: "rgba(255,255,255,0.80)",
-          outline: "none",
-          width: "100%",
-          transition: "border-color 0.2s",
+          background: isLight ? "rgba(15,23,42,0.04)" : "rgba(255,255,255,0.04)",
+          border: isLight ? "1px solid rgba(15,23,42,0.10)" : "1px solid rgba(255,255,255,0.10)",
+          borderRadius:10, padding:"11px 14px", fontSize:14,
+          color: isLight ? "rgba(15,23,42,0.80)" : "rgba(255,255,255,0.80)",
+          outline:"none", width:"100%", transition:"border-color 0.2s",
         }}
-        onFocus={e => (e.currentTarget.style.borderColor = "rgba(249,115,22,0.55)")}
-        onBlur={e  => (e.currentTarget.style.borderColor = "rgba(255,255,255,0.10)")}
+        onFocus={e => (e.currentTarget.style.borderColor = isLight ? "rgba(15,23,42,0.45)" : "rgba(249,115,22,0.55)")}
+        onBlur={e  => (e.currentTarget.style.borderColor = isLight ? "rgba(15,23,42,0.10)" : "rgba(255,255,255,0.10)")}
       />
       <ValidationError
         field={name}
