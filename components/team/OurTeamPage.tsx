@@ -43,7 +43,7 @@ const TEAM = [
     twitter: "#",
   },
   {
-    name: "Coming Soon",
+    name: "Adetayo Adeniyi",
     role: "Head, Legal & Compliance",
     dept: "Legal",
     accent: "#8B5CF6",
