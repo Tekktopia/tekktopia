@@ -324,6 +324,51 @@ export default function HeroSection() {
     });
   };
 
+  // ── Ambient auto-glitch ───────────────────────────────────────────────────
+  // Fire the same vintage flicker on a random headline word every 5–7s so the
+  // effect plays on its own, not only on hover. Skips any word the user is
+  // actively hovering (hover owns that element) and self-resets after each burst.
+  useEffect(() => {
+    const words = sectionRef.current?.querySelectorAll<HTMLElement>(".h-word");
+    if (!words || !words.length) return;
+    let dead = false;
+    let timer: ReturnType<typeof setTimeout>;
+    const baseColor = isLight ? "#0F172A" : "#ffffff";
+
+    const burst = (el: HTMLElement) => {
+      if (wordGlitchMap.current.has(el)) return; // hover is driving this one
+      gsap.killTweensOf(el);
+      el.style.fontStyle = "italic";
+      gsap.timeline({
+        onComplete: () => {
+          el.style.fontStyle = "normal";
+          gsap.set(el, {
+            x: 0, skewX: 0, opacity: 1,
+            filter: "brightness(1) contrast(1)",
+            textShadow: "0px 0px 0px rgba(0,0,0,0)",
+            color: baseColor,
+          });
+        },
+      })
+        .to(el, { x: -5, skewX: -6, filter: "brightness(1.7) contrast(1.3)", textShadow: "5px 0 rgba(255,40,40,0.9), -5px 0 rgba(0,220,255,0.9)", opacity: 0.75, duration: 0.04, ease: "none" })
+        .to(el, { x: 6,  skewX: 4,  filter: "brightness(0.6) contrast(1.8)", textShadow: "-4px 0 rgba(255,40,40,0.95), 4px 0 rgba(0,220,255,0.95)", opacity: 1, duration: 0.04, ease: "none" })
+        .to(el, { x: -3, skewX: -2, filter: "brightness(1.3)", textShadow: "2px 0 rgba(255,40,40,0.55), -2px 0 rgba(0,220,255,0.55)", opacity: 0.88, duration: 0.05, ease: "none" })
+        .to(el, { x: 0,  skewX: 0,  filter: "brightness(1) contrast(1)", textShadow: "0px 0px 0px rgba(0,0,0,0)", opacity: 1, duration: 0.2, ease: "power2.out" });
+    };
+
+    const schedule = () => {
+      timer = setTimeout(() => {
+        if (dead) return;
+        burst(words[Math.floor(Math.random() * words.length)]);
+        schedule();
+      }, 5000 + Math.random() * 2000); // 5–7s
+    };
+    // Wait out the entrance animation before the first ambient flicker.
+    timer = setTimeout(schedule, 4000);
+
+    return () => { dead = true; clearTimeout(timer); };
+  }, [isLight]);
+
   // ── Particle canvas ─────────────────────────────────────────────────────────
   useEffect(() => {
     const canvas = canvasRef.current!;
