@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Mail, Phone, ArrowUpRight, CheckCircle, Loader2 } from "lucide-react";
@@ -191,6 +192,45 @@ const LEGAL_LINKS = [
   { label: "Terms of Use", href: "/terms" },
   { label: "Cookie Policy", href: "/cookies" },
 ];
+
+// ─── Footer "Projects" section: a live product and one still in the works ──────
+function ComingSoonItem({ label, isLight }: { label: string; isLight: boolean }) {
+  const [show, setShow] = useState(false);
+  return (
+    <button
+      type="button"
+      onClick={() => setShow(true)}
+      className="inline-flex items-center gap-2"
+      style={{
+        background: "none",
+        border: "none",
+        padding: 0,
+        cursor: "pointer",
+        fontSize: 13,
+        color: isLight ? "rgba(15,23,42,0.52)" : "rgba(255,255,255,0.52)",
+      }}
+    >
+      <span>{label}</span>
+      <span
+        style={{
+          fontFamily: "monospace",
+          fontSize: 9,
+          textTransform: "uppercase",
+          letterSpacing: "0.1em",
+          padding: "2px 7px",
+          borderRadius: 99,
+          whiteSpace: "nowrap",
+          background: show ? "rgba(16,185,129,0.12)" : "rgba(249,115,22,0.12)",
+          color: show ? "#10B981" : "#F97316",
+          border: show ? "1px solid rgba(16,185,129,0.3)" : "1px solid rgba(249,115,22,0.3)",
+          transition: "background 0.25s, color 0.25s, border-color 0.25s",
+        }}
+      >
+        {show ? "Coming soon" : "Soon"}
+      </span>
+    </button>
+  );
+}
 
 export default function Footer() {
   const year = new Date().getFullYear();
@@ -440,6 +480,42 @@ export default function Footer() {
                 </Link>
               </li>
             ))}
+          </ul>
+
+          {/* Projects */}
+          <h3
+            style={{
+              fontFamily: "monospace",
+              fontSize: 10,
+              textTransform: "uppercase",
+              letterSpacing: "0.28em",
+              color: isLight ? "rgba(15,23,42,0.35)" : "rgba(255,255,255,0.35)",
+              marginTop: 32,
+              marginBottom: 20,
+            }}
+          >
+            Projects
+          </h3>
+          <ul className="flex flex-col gap-3">
+            <li>
+              <a
+                href="https://cribxpert.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  fontSize: 13,
+                  color: isLight ? "rgba(15,23,42,0.52)" : "rgba(255,255,255,0.52)",
+                  transition: "color 0.2s",
+                }}
+                onMouseEnter={e => (e.currentTarget.style.color = isLight ? "rgba(15,23,42,0.9)" : "rgba(255,255,255,0.9)")}
+                onMouseLeave={e => (e.currentTarget.style.color = isLight ? "rgba(15,23,42,0.52)" : "rgba(255,255,255,0.52)")}
+              >
+                CribXpert
+              </a>
+            </li>
+            <li>
+              <ComingSoonItem label="Topia Desk" isLight={isLight} />
+            </li>
           </ul>
         </div>
 

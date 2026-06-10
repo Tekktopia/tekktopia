@@ -539,9 +539,10 @@ export default function NetworkGlobe() {
         ))}
       </div>
 
-      {/* Hint — bottom center */}
-      <div className="absolute bottom-12 left-1/2 -translate-x-1/2 z-10 pointer-events-none">
-        <p style={{ fontFamily:"monospace", fontSize:9, textTransform:"uppercase", letterSpacing:"0.22em", color: isLight ? "rgba(15,23,42,0.5)" : "rgba(255,255,255,0.9)" }}>
+      {/* Hint — bottom right on mobile (keeps clear of the bottom-left legend),
+          bottom center on larger screens */}
+      <div className="absolute bottom-12 right-6 max-w-[42%] text-right z-10 pointer-events-none sm:left-1/2 sm:right-auto sm:max-w-none sm:-translate-x-1/2 sm:text-center">
+        <p style={{ fontFamily:"monospace", fontSize:9, textTransform:"uppercase", letterSpacing:"0.22em", color: isLight ? "rgba(15,23,42,0.5)" : "rgba(255,255,255,0.9)", lineHeight:1.6 }}>
           Drag to rotate · Hover nodes to explore
         </p>
       </div>

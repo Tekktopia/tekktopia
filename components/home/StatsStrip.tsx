@@ -19,7 +19,7 @@ type Stat = {
 };
 
 const stats: Stat[] = [
-  { icon: Briefcase, label: "Projects Delivered",  value: "50+",    sub: "Across 10+ industries",         counter: { from: 0, to: 50, suffix: "+" } },
+  { icon: Briefcase, label: "Projects Delivered",  value: "2+",     sub: "Across 10+ industries",         counter: { from: 0, to: 2, suffix: "+" } },
   { icon: Users,     label: "Client Satisfaction", value: "98%",    sub: "Post-project reviews",           counter: { from: 0, to: 98, suffix: "%" } },
   { icon: Clock,     label: "Support Response",    value: "< 1 hr", sub: "Guaranteed first response",      counter: { from: 24, to: 1, prefix: "< ", suffix: " hr" } },
   { icon: Trophy,    label: "Uptime Guarantee",    value: "99.9%",  sub: "SLA-backed reliability",         typewriter: true },

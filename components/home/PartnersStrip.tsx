@@ -214,15 +214,13 @@ export default function PartnersStrip() {
       },
     });
 
-    gsap.to(track2Ref.current, {
-      x: `+=${W2 / 2}`,
-      duration: 36,
-      ease: "none",
-      repeat: -1,
-      modifiers: {
-        x: gsap.utils.unitize(x => parseFloat(x) % (W2 / 2)),
-      },
-    });
+    // Reverse direction (left → right) but still seamless: run from one full
+    // set-width offset back to 0 and loop. Because the track is duplicated,
+    // x = -W2/2 lines up pixel-perfect with x = 0, so the repeat has no break.
+    gsap.fromTo(track2Ref.current,
+      { x: -(W2 / 2) },
+      { x: 0, duration: 36, ease: "none", repeat: -1 },
+    );
   }, { scope: sectionRef });
 
   return (
@@ -289,7 +287,7 @@ export default function PartnersStrip() {
           maskImage: "linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%)",
           WebkitMaskImage: "linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%)",
         }}>
-        <div ref={track2Ref} className="flex items-stretch py-1" style={{ width: "max-content", transform: "translateX(-15%)" }}>
+        <div ref={track2Ref} className="flex items-stretch py-1" style={{ width: "max-content" }}>
           {TRACK.map((p, i) => <PartnerCard key={i} {...p} isLight={isLight} />)}
         </div>
       </div>

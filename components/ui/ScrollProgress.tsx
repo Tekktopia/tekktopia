@@ -1,10 +1,6 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import gsap from "gsap";
-import ScrollTrigger from "gsap/ScrollTrigger";
-
-gsap.registerPlugin(ScrollTrigger);
 
 export default function ScrollProgress() {
   const barRef = useRef<HTMLDivElement>(null);
@@ -13,16 +9,29 @@ export default function ScrollProgress() {
     const bar = barRef.current;
     if (!bar) return;
 
-    gsap.to(bar, {
-      scaleX: 1,
-      ease: "none",
-      scrollTrigger: {
-        trigger: document.documentElement,
-        start: "top top",
-        end: "bottom bottom",
-        scrub: 0.3,
-      },
-    });
+    // Measure scroll progress directly from the document on every scroll/resize.
+    // This guarantees the bar hits 100% at the true bottom even on mobile, where
+    // the collapsing address bar changes the viewport height (ScrollTrigger's
+    // cached end value would otherwise fall short of the real page end).
+    let raf = 0;
+    const update = () => {
+      raf = 0;
+      const doc = document.documentElement;
+      const max = doc.scrollHeight - doc.clientHeight;
+      const scrolled = window.scrollY || doc.scrollTop;
+      const p = max > 0 ? Math.min(1, Math.max(0, scrolled / max)) : 0;
+      bar.style.transform = `scaleX(${p})`;
+    };
+    const onScroll = () => { if (!raf) raf = requestAnimationFrame(update); };
+
+    update();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+      if (raf) cancelAnimationFrame(raf);
+    };
   }, []);
 
   return (

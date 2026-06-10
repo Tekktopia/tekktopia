@@ -11,7 +11,7 @@ gsap.registerPlugin(ScrollTrigger);
 const STATS = [
   { value: "2022", label: "Year Founded",        suffix: "",  accent: "#F97316" },
   { value: "50",   label: "Clients Served",       suffix: "+", accent: "#3B82F6" },
-  { value: "120",  label: "Projects Delivered",   suffix: "+", accent: "#10B981" },
+  { value: "2",    label: "Projects Delivered",   suffix: "+", accent: "#10B981" },
   { value: "25",   label: "Team Specialists",     suffix: "+", accent: "#8B5CF6" },
   { value: "99",   label: "Uptime SLA",           suffix: "%", accent: "#06B6D4" },
   { value: "24",   label: "Support Hours",        suffix: "/7", accent: "#F59E0B" },

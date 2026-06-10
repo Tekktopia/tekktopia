@@ -13,9 +13,9 @@ const TICKER = [
   "AI & Emerging Tech","Product Design","IT Consulting","Mobile & Web Dev","IT Support",
 ];
 const STATS = [
-  { end:50,  suf:"+",    label:"Projects Delivered", icon:FolderOpen  },
+  { end:2,   suf:"+",    label:"Projects Delivered", icon:FolderOpen  },
   { end:98,  suf:"%",    label:"Client Retention",   icon:Users       },
-  { end:8,   suf:"+",    label:"Years in Market",    icon:CalendarDays },
+  { end:2,   suf:"+",    label:"Years in Market",    icon:CalendarDays },
   { end:24,  suf:"/7",   label:"Expert Support",     icon:Headphones  },
 ];
 const TERMINAL_LINES = [
@@ -42,7 +42,7 @@ const BADGES = [
   { icon:Shield,     text:"ISO Compliant",  sub:"Security First",  side:"left",  top:"30%" },
   { icon:Zap,        text:"42ms avg",       sub:"API Response",    side:"left",  top:"56%" },
   { icon:TrendingUp, text:"99.9% Uptime",   sub:"SLA Guaranteed",  side:"right", top:"28%" },
-  { icon:Code2,      text:"50+ Projects",   sub:"Delivered",       side:"right", top:"54%" },
+  { icon:Code2,      text:"2+ Projects",    sub:"Delivered",       side:"right", top:"54%" },
 ];
 
 // ─── Smooth magnetic wrapper ──────────────────────────────────────────────────
@@ -563,12 +563,12 @@ export default function HeroSection() {
 
         {/* Eyebrow pill */}
         <div className="h-eye inline-flex items-center gap-2.5 px-5 py-2.5 rounded-full mb-12"
-          style={{ background:"rgba(37,99,235,0.1)", border:"1px solid rgba(37,99,235,0.28)", backdropFilter:"blur(12px)" }}>
+          style={{ background: isLight ? "rgba(37,99,235,0.1)" : "rgba(37,99,235,0.1)", border: isLight ? "1px solid rgba(37,99,235,0.4)" : "1px solid rgba(37,99,235,0.28)", backdropFilter:"blur(12px)" }}>
           <span className="relative flex w-1.5 h-1.5">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full opacity-70" style={{ background:"#60A5FA" }} />
-            <span className="relative inline-flex rounded-full w-1.5 h-1.5" style={{ background:"#60A5FA" }} />
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full opacity-70" style={{ background: isLight ? "#2563EB" : "#60A5FA" }} />
+            <span className="relative inline-flex rounded-full w-1.5 h-1.5" style={{ background: isLight ? "#2563EB" : "#60A5FA" }} />
           </span>
-          <span style={{ fontFamily:"monospace", fontSize:10, textTransform:"uppercase", letterSpacing:"0.26em", color:"#93C5FD" }}>
+          <span style={{ fontFamily:"monospace", fontSize:10, textTransform:"uppercase", letterSpacing:"0.26em", color: isLight ? "#1D4ED8" : "#93C5FD" }}>
             Enterprise Technology Services
           </span>
         </div>

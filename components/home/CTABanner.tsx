@@ -11,9 +11,9 @@ import { useTheme } from "@/context/ThemeContext";
 gsap.registerPlugin(ScrollTrigger);
 
 const TRUST = [
-  "50+ Projects Delivered",
+  "2+ Projects Delivered",
   "98% Client Retention",
-  "8+ Years in Market",
+  "2+ Years in Market",
   "24/7 Expert Support",
   "No Lock-in Contracts",
 ];

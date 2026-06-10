@@ -28,7 +28,7 @@ const LINES: { word: string; color: string; hoverColor: string }[][] = [
 const STATS = [
   { value: "2022", label: "Year Founded",     sub: "Lagos, Nigeria"      },
   { value: "50+",  label: "Clients Served",   sub: "Across 3 continents" },
-  { value: "120+", label: "Projects Shipped", sub: "Delivered on time"   },
+  { value: "2+",   label: "Projects Shipped", sub: "Delivered on time"   },
   { value: "99%",  label: "Uptime SLA",       sub: "Always-on support"   },
 ];
 
