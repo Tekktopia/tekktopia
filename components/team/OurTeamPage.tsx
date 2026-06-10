@@ -18,6 +18,7 @@ const TEAM = [
     dept: "Leadership",
     accent: "#F97316",
     photo: "/team/daniel.jpg",
+    focus: "center top",
     bio: "Leads Tekktopia's vision, strategy, and overall direction, driving growth and long-term client partnerships.",
     linkedin: "#",
     twitter: "#",
@@ -279,7 +280,7 @@ export default function OurTeamPage() {
             {/* Stat pills */}
             <div className="flex items-center justify-center gap-4 mt-8 flex-wrap">
               {[
-                { label: "6 Core Members", color: "#F97316" },
+                { label: "4 Core Members", color: "#F97316" },
                 { label: "3 Continents", color: "#3B82F6" },
                 { label: "50+ Years Combined", color: "#10B981" },
                 { label: "Pan-African Mission", color: "#8B5CF6" },
@@ -343,7 +344,7 @@ export default function OurTeamPage() {
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {TEAM.map(
                 (
-                  { name, role, dept, accent, photo, bio, linkedin, twitter },
+                  { name, role, dept, accent, photo, focus, bio, linkedin, twitter },
                   i,
                 ) => (
                   <div
@@ -372,7 +373,8 @@ export default function OurTeamPage() {
                       <img
                         src={photo}
                         alt={name}
-                        className="absolute inset-0 w-full h-full object-cover object-center"
+                        className="absolute inset-0 w-full h-full object-cover"
+                        style={{ objectPosition: focus ?? "center" }}
                         loading="lazy"
                       />
                       {/* Scrim */}
