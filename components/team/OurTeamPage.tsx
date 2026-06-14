@@ -48,7 +48,7 @@ const TEAM = [
     role: "Head, Legal & Compliance",
     dept: "Legal",
     accent: "#8B5CF6",
-    photo: "/team/placeholder.svg",
+    photo: "/team/Lawyer.jpg",
     bio: "Oversees Tekktopia's legal, regulatory, and compliance matters, safeguarding the business and its clients.",
     linkedin: "#",
     twitter: "#",
