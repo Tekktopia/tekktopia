@@ -4,6 +4,7 @@ import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import Link from "next/link";
+import { useTheme } from "@/context/ThemeContext";
 
 export interface LegalSection {
   heading: string;
@@ -26,6 +27,8 @@ export default function LegalPage({
   sections,
 }: Props) {
   const pageRef = useRef<HTMLElement>(null);
+  const { theme } = useTheme();
+  const isLight = theme === "light";
 
   useGSAP(
     () => {
@@ -45,7 +48,7 @@ export default function LegalPage({
   );
 
   return (
-    <main ref={pageRef} style={{ background: "#04080F", minHeight: "100vh" }}>
+    <main ref={pageRef} style={{ background: isLight ? "#F8FAFC" : "#04080F", minHeight: "100vh" }}>
       {/* ── Decorative bg ── */}
       <div
         aria-hidden
@@ -68,9 +71,9 @@ export default function LegalPage({
         <div
           className="absolute inset-0"
           style={{
-            backgroundImage:
-              "linear-gradient(rgba(255,255,255,0.012) 1px,transparent 1px)," +
-              "linear-gradient(90deg,rgba(255,255,255,0.012) 1px,transparent 1px)",
+            backgroundImage: isLight
+              ? "linear-gradient(rgba(15,23,42,0.06) 1px,transparent 1px),linear-gradient(90deg,rgba(15,23,42,0.06) 1px,transparent 1px)"
+              : "linear-gradient(rgba(255,255,255,0.012) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.012) 1px,transparent 1px)",
             backgroundSize: "64px 64px",
           }}
         />
@@ -85,8 +88,9 @@ export default function LegalPage({
           aria-hidden
           className="absolute top-0 left-0 right-0 h-px"
           style={{
-            background:
-              "linear-gradient(to right,transparent,rgba(255,255,255,0.07),transparent)",
+            background: isLight
+              ? "linear-gradient(to right,transparent,rgba(15,23,42,0.10),transparent)"
+              : "linear-gradient(to right,transparent,rgba(255,255,255,0.07),transparent)",
           }}
         />
 
@@ -108,7 +112,7 @@ export default function LegalPage({
                 fontSize: 10,
                 textTransform: "uppercase",
                 letterSpacing: "0.28em",
-                color: "rgba(255,255,255,0.45)",
+                color: isLight ? "rgba(15,23,42,0.45)" : "rgba(255,255,255,0.45)",
               }}
             >
               {eyebrow}
@@ -142,7 +146,7 @@ export default function LegalPage({
                 >
                   <span
                     className="lp-word inline-block"
-                    style={{ color: isLast ? "#F97316" : "#ffffff" }}
+                    style={{ color: isLast ? "#F97316" : isLight ? "#0F172A" : "#ffffff" }}
                   >
                     {word}
                   </span>
@@ -157,7 +161,7 @@ export default function LegalPage({
             style={{
               fontFamily: "monospace",
               fontSize: 11,
-              color: "rgba(255,255,255,0.32)",
+              color: isLight ? "rgba(15,23,42,0.38)" : "rgba(255,255,255,0.32)",
               letterSpacing: "0.1em",
               textTransform: "uppercase",
             }}
@@ -175,15 +179,15 @@ export default function LegalPage({
             style={{
               padding: "28px 32px",
               borderRadius: 16,
-              background: "rgba(37,99,235,0.06)",
-              border: "1px solid rgba(37,99,235,0.15)",
+              background: isLight ? "rgba(37,99,235,0.05)" : "rgba(37,99,235,0.06)",
+              border: isLight ? "1px solid rgba(37,99,235,0.18)" : "1px solid rgba(37,99,235,0.15)",
               marginBottom: 48,
             }}
           >
             <p
               style={{
                 fontSize: 15,
-                color: "rgba(255,255,255,0.68)",
+                color: isLight ? "rgba(15,23,42,0.72)" : "rgba(255,255,255,0.68)",
                 lineHeight: 1.85,
                 fontWeight: 300,
               }}
@@ -197,8 +201,9 @@ export default function LegalPage({
             aria-hidden
             style={{
               height: 1,
-              background:
-                "linear-gradient(to right,transparent,rgba(255,255,255,0.07),transparent)",
+              background: isLight
+                ? "linear-gradient(to right,transparent,rgba(15,23,42,0.10),transparent)"
+                : "linear-gradient(to right,transparent,rgba(255,255,255,0.07),transparent)",
               marginBottom: 48,
             }}
           />
@@ -223,7 +228,7 @@ export default function LegalPage({
                     className="font-display font-bold"
                     style={{
                       fontSize: "clamp(16px,2vw,20px)",
-                      color: "#ffffff",
+                      color: isLight ? "#0F172A" : "#ffffff",
                       letterSpacing: "-0.02em",
                     }}
                   >
@@ -233,11 +238,11 @@ export default function LegalPage({
                 <div
                   style={{
                     fontSize: 14.5,
-                    color: "rgba(255,255,255,0.56)",
+                    color: isLight ? "rgba(15,23,42,0.60)" : "rgba(255,255,255,0.56)",
                     lineHeight: 1.88,
                     fontWeight: 300,
                     paddingLeft: 26,
-                    borderLeft: "1px solid rgba(255,255,255,0.06)",
+                    borderLeft: isLight ? "1px solid rgba(15,23,42,0.10)" : "1px solid rgba(255,255,255,0.06)",
                   }}
                 >
                   {sec.body}
@@ -251,13 +256,13 @@ export default function LegalPage({
             style={{
               marginTop: 56,
               paddingTop: 28,
-              borderTop: "1px solid rgba(255,255,255,0.06)",
+              borderTop: isLight ? "1px solid rgba(15,23,42,0.10)" : "1px solid rgba(255,255,255,0.06)",
             }}
           >
             <p
               style={{
                 fontSize: 13,
-                color: "rgba(255,255,255,0.32)",
+                color: isLight ? "rgba(15,23,42,0.38)" : "rgba(255,255,255,0.32)",
                 lineHeight: 1.8,
                 fontFamily: "monospace",
               }}
