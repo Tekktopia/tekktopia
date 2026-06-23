@@ -516,6 +516,9 @@ export default function Footer() {
             <li>
               <ComingSoonItem label="Topia Desk" isLight={isLight} />
             </li>
+            <li>
+              <ComingSoonItem label="Apex POB" isLight={isLight} />
+            </li>
           </ul>
         </div>
 
