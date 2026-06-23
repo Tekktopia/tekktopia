@@ -10,17 +10,17 @@ import { useTheme } from "@/context/ThemeContext";
 gsap.registerPlugin(ScrollTrigger);
 
 export const TEAM = [
-  {
-    name: "Daniel",
-    role: "Managing Director/CEO",
-    dept: "Leadership",
-    accent: "#F97316",
-    photo: "/team/daniel.jpg",
-    focus: "center top",
-    bio: "Leads Tekktopia's vision, strategy, and overall direction, driving growth and long-term client partnerships.",
-    linkedin: "#",
-    twitter: "#",
-  },
+  // {
+  //   name: "Daniel",
+  //   role: "Managing Director/CEO",
+  //   dept: "Leadership",
+  //   accent: "#F97316",
+  //   photo: "/team/daniel.jpg",
+  //   focus: "center top",
+  //   bio: "Leads Tekktopia's vision, strategy, and overall direction, driving growth and long-term client partnerships.",
+  //   linkedin: "#",
+  //   twitter: "#",
+  // },
   {
     name: "Ire",
     role: "Chief Technology Officer",
