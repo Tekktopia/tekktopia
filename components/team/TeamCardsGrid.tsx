@@ -11,7 +11,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 export const TEAM = [
   {
-    name: "Daniel",
+    name: "Akinola Daniel Oshinubi",
     role: "Managing Director/CEO",
     dept: "Leadership",
     accent: "#F97316",
@@ -23,7 +23,7 @@ export const TEAM = [
     portfolio: "https://danieloshinubi.online",
   },
   {
-    name: "Ire",
+    name: "Ireoluwa Adeoluwa",
     role: "Chief Technology Officer",
     dept: "Engineering",
     accent: "#3B82F6",
@@ -34,7 +34,7 @@ export const TEAM = [
     twitter: "#",
   },
   {
-    name: "Tife",
+    name: "Boluwatife",
     role: "Head, Sales & Business Development",
     dept: "Growth",
     accent: "#10B981",
