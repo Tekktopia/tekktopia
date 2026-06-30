@@ -4,23 +4,24 @@ import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
-import { ExternalLink, AtSign } from "lucide-react";
+import { ExternalLink, AtSign, Globe } from "lucide-react";
 import { useTheme } from "@/context/ThemeContext";
 
 gsap.registerPlugin(ScrollTrigger);
 
 export const TEAM = [
-  // {
-  //   name: "Daniel",
-  //   role: "Managing Director/CEO",
-  //   dept: "Leadership",
-  //   accent: "#F97316",
-  //   photo: "/team/daniel.jpg",
-  //   focus: "center top",
-  //   bio: "Leads Tekktopia's vision, strategy, and overall direction, driving growth and long-term client partnerships.",
-  //   linkedin: "#",
-  //   twitter: "#",
-  // },
+  {
+    name: "Daniel",
+    role: "Managing Director/CEO",
+    dept: "Leadership",
+    accent: "#F97316",
+    photo: "/team/daniel.jpg",
+    focus: "center top",
+    bio: "Leads Tekktopia's vision, strategy, and overall direction, driving growth and long-term client partnerships.",
+    linkedin: "#",
+    twitter: "#",
+    portfolio: "https://danieloshinubi.online",
+  },
   {
     name: "Ire",
     role: "Chief Technology Officer",
@@ -101,7 +102,7 @@ export default function TeamCardsGrid() {
 
   return (
     <div ref={gridRef} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-      {TEAM.map(({ name, role, dept, accent, photo, focus, bio, linkedin, twitter }, i) => (
+      {TEAM.map(({ name, role, dept, accent, photo, focus, bio, linkedin, twitter, portfolio }, i) => (
         <div
           key={name}
           ref={(el) => { cardRefs.current[i] = el; }}
@@ -201,10 +202,13 @@ export default function TeamCardsGrid() {
               {[
                 { href: linkedin, label: "LinkedIn", Icon: ExternalLink },
                 { href: twitter, label: "Twitter / X", Icon: AtSign },
+                ...(portfolio ? [{ href: portfolio, label: "Portfolio", Icon: Globe }] : []),
               ].map(({ href, label, Icon }) => (
                 <a
                   key={label}
                   href={href}
+                  target={label === "Portfolio" ? "_blank" : undefined}
+                  rel={label === "Portfolio" ? "noopener noreferrer" : undefined}
                   aria-label={label}
                   className="flex items-center justify-center rounded-lg transition-all duration-200"
                   style={{
