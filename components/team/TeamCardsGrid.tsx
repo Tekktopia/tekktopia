@@ -10,18 +10,18 @@ import { useTheme } from "@/context/ThemeContext";
 gsap.registerPlugin(ScrollTrigger);
 
 export const TEAM = [
-  {
-    name: "Akinola Daniel Oshinubi",
-    role: "Managing Director/CEO",
-    dept: "Leadership",
-    accent: "#F97316",
-    photo: "/team/daniel.jpg",
-    focus: "center top",
-    bio: "Leads Tekktopia's vision, strategy, and overall direction, driving growth and long-term client partnerships.",
-    linkedin: "#",
-    twitter: "#",
-    portfolio: "https://danieloshinubi.online",
-  },
+  // {
+  //   name: "Akinola Daniel Oshinubi",
+  //   role: "Managing Director/CEO",
+  //   dept: "Leadership",
+  //   accent: "#F97316",
+  //   photo: "/team/daniel.jpg",
+  //   focus: "center top",
+  //   bio: "Leads Tekktopia's vision, strategy, and overall direction, driving growth and long-term client partnerships.",
+  //   linkedin: "#",
+  //   twitter: "#",
+  //   portfolio: "https://danieloshinubi.online",
+  // },
   {
     name: "Ireoluwa Adeoluwa",
     role: "Chief Technology Officer",
