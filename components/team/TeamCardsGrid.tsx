@@ -202,8 +202,7 @@ export default function TeamCardsGrid() {
                 { href: linkedin, label: "LinkedIn", Icon: ExternalLink },
                 { href: twitter, label: "Twitter / X", Icon: AtSign },
               ].map(({ href, label, Icon }) => (
-                
-                  <a
+                <a
                   key={label}
                   href={href}
                   aria-label={label}
