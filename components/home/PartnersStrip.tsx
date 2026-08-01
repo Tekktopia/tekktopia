@@ -19,6 +19,15 @@ const PARTNERS = [
     logoFilter: "none",
   },
   {
+    name: "Top-Zest Professionals",
+    abbr: "TZ",
+    accent: "#52AEF2",
+    desc: "Accounting & Advisory",
+    logo: "/partner-topzest.png",   // indigo logo on white badge
+    logoBg: "rgba(255,255,255,0.92)",
+    logoFilter: "none",
+  },
+  {
     name: "Linerose Financials",
     abbr: "LF",
     accent: "#10B981",
