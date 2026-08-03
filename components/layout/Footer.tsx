@@ -350,7 +350,8 @@ export default function Footer() {
                 style={{ width: 14, height: 14, flexShrink: 0 }}
                 strokeWidth={1.8}
               />
-              +234 815 433 2992
+              {/* +234 815 433 2992 */}
+              +234 902 254 2963
             </a>
             <a
               href="tel:+2348094140706"
@@ -372,7 +373,7 @@ export default function Footer() {
                 style={{ width: 14, height: 14, flexShrink: 0 }}
                 strokeWidth={1.8}
               />
-              +234 809 414 0706
+              {/* +234 809 414 0706 */}
             </a>
           </div>
 
