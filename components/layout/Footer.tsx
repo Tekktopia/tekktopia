@@ -369,10 +369,10 @@ export default function Footer() {
                 (e.currentTarget.style.color = "rgba(255,255,255,0.45)")
               }
             >
-              <Phone
+              {/* <Phone
                 style={{ width: 14, height: 14, flexShrink: 0 }}
                 strokeWidth={1.8}
-              />
+              /> */}
               {/* +234 809 414 0706 */}
             </a>
           </div>
