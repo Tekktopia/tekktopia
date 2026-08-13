@@ -515,10 +515,10 @@ export default function Footer() {
               </a>
             </li>
             <li>
-              <ComingSoonItem label="Topia Desk" isLight={isLight} />
+              <a href="www.topiadesk.com">TopiaDesk</a>
             </li>
             <li>
-              <ComingSoonItem label="Apex POB" isLight={isLight} />
+              <label="Apex POB" isLight={isLight} />
             </li>
           </ul>
         </div>
